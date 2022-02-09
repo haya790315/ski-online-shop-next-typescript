@@ -1,0 +1,11 @@
+
+
+.line{
+  position: absolute;
+  padding:0.2px;
+  right: 0;
+  top: 0;
+  height:3.5rem;
+  background-color:#ffff;
+  border-radius:5px;
+}

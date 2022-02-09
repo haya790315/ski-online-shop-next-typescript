@@ -1,10 +1,16 @@
 import type { NextPage } from "next";
+import Navbar from "../components/Navbar";
+import SideNavbar from "../components/SideNavbar"
+
+
 
 const Home: NextPage = () => {
-  return <div className="text-2xl text-green-300 sm:underline font-serif md:text-blue-400 no-underline">
-    hello world
-  
-  </div>;
+  return (
+    <>
+      <Navbar />
+      <SideNavbar/>
+    </>
+  );
 };
 
 export default Home;
