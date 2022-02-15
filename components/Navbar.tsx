@@ -7,6 +7,8 @@ import ContactIcon from "../public/static/ContactIcon.svg";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
+  
+  
   return (
     <div className="relative h-32 w-full top-0 left-0 bg-gray-900 flex flex-row justify-around items-center">
       <div className="h-14 w-52 bg-white relative ">
@@ -22,24 +24,24 @@ const Navbar = () => {
       </div>
       <SearchBar />
       <ul className="text-white flex flex-row flex-grow-0 justify-center items-center text-center">
-        <div className="px-8 relative cursor-pointer">
+        <div className="px-8 relative cursor-pointer group">
           <div>
-            <AccountIcon className="ml-2" />
+            <AccountIcon className="ml-2 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
           </div>
-          <li className="text-sm font-semibold text-md">ログイン</li>
+          <li className="text-sm font-semibold text-md group-hover:translate-y-1 transition-transform duration-300 ease-in-out">ログイン</li>
           <div className={styles.line}></div>
 
         </div>
-        <div className="px-8 relative cursor-pointer">
+        <div className="px-8 relative cursor-pointer group">
           <div>
-            <CheckoutIcon className="ml-1" />
+            <CheckoutIcon className="ml-1 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
           </div>
-          <li className="text-md font-semibold">レジ</li>
+          <li className="text-md font-semibold group-hover:translate-y-1 transition-transform duration-300 ease-in-out">レジ</li>
           <div className={styles.line}></div>
         </div>
-        <div className=" px-8 relative cursor-pointer">
-          <ContactIcon />
-          <li className="text-md font-semibold text-justify">SNS</li>
+        <div className=" px-8 relative cursor-pointer group">
+          <ContactIcon className="group-hover:translate-y-1 transition-transform duration-300 ease-in-out"/>
+          <li className="text-md font-semibold text-justify group-hover:translate-y-1 transition-transform duration-300 ease-in-out">SNS</li>
         </div>
       </ul>
     </div>
