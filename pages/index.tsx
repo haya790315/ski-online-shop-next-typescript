@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Navbar from "../components/Navbar";
-import SideNavbar from "../components/SideNavbar"
+import SideNavbar from "../components/SideNavbar/SideNavbar"
 import Slider from "../components/Slider";
 
 

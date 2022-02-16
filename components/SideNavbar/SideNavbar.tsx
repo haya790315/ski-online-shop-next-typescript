@@ -1,37 +1,19 @@
 import React from "react";
 import Styles from "./SideNavbar.module.css";
-import { IoMdArrowDropdown } from "react-icons/Io";
-import ShopIcon from "../public/static/ShopIcon.svg";
-import YenIcon from "../public/static/YenIcon.svg";
+import ShopIcon from "../../public/static/ShopIcon.svg";
+import YenIcon from "../../public/static/YenIcon.svg";
+import Categories from "./Categories";
+import { sideMenuData } from "./sideMenuData";
 
 const SideNavbar = () => {
   return (
     <div className="w-full h-16 bg-gray-700 relative flex justify-between text-l">
       <ul className="flex flex-row text-white justify-left py-4 ml-8 items-center">
-        <li className="flex cursor-pointer">
-          <span className={Styles.underlineAnimation}>上着</span>{" "}
-          <span className=" text-2xl">
-            <IoMdArrowDropdown />
-          </span>
-        </li>
-        <li className="flex cursor-pointer">
-          <span className={Styles.underlineAnimation}>パンツ</span>{" "}
-          <span className=" text-2xl">
-            <IoMdArrowDropdown />
-          </span>
-        </li>
-        <li className="flex cursor-pointer">
-          <span className={Styles.underlineAnimation}>アクセサリ</span>
-          <span className=" text-2xl">
-            <IoMdArrowDropdown />
-          </span>
-        </li>
-        <li className="flex cursor-pointer">
-          <span className={Styles.underlineAnimation}>シューズ</span>{" "}
-          <span className=" text-2xl">
-            <IoMdArrowDropdown />
-          </span>
-        </li>
+        {Object.keys(sideMenuData).map((itemKey, index) => {
+          return (
+            <Categories itemName={sideMenuData[itemKey].name} key={index} />
+          );
+        })}
       </ul>
       <div className="flex flex-row cursor-default text-white absolute right-12 p-2 group hover:text-orange-300 ">
         <div className="p-2 flex  items-center">
