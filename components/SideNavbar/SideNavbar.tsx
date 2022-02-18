@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./SideNavbar.module.css";
-import ShopIcon from "../../public/static/ShopIcon.svg";
-import YenIcon from "../../public/static/YenIcon.svg";
+import ShopIcon from "../../public/image/static/ShopIcon.svg";
+import YenIcon from "../../public/image/static/YenIcon.svg";
 import Categories from "./Categories";
 import { sideMenuData } from "./sideMenuData";
 

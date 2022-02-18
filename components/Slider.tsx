@@ -6,29 +6,29 @@ export default function Slider() {
   const imgData = [
     {
       id: 1,
-      imgUrl: "/slide/slide1.jpg",
+      imgUrl: "/image/slide/slide1.jpg",
       post1: "浮遊感と爽快感",
     },
     {
       id: 2,
-      imgUrl: "/slide/slide2.jpg",
+      imgUrl: "/image/slide/slide2.jpg",
       post2: "初級者から上級者までが楽しめる",
     },
     {
       id: 3,
-      imgUrl: "/slide/slide3.jpg",
+      imgUrl: "/image/slide/slide3.jpg",
       post1: "いつからも",
       post2: "遅くはない",
     },
     {
       id: 4,
-      imgUrl: "/slide/slide4.jpg",
+      imgUrl: "/image/slide/slide4.jpg",
       post3:"今すぐ、チャンスを掴めよう"
 
     },
     {
       id: 5,
-      imgUrl: "/slide/slide5.jpg",
+      imgUrl: "/image/slide/slide5.jpg",
     },
   ];
 
@@ -80,7 +80,7 @@ export default function Slider() {
                   <span>{imgData[slide].post1}</span>
                   <h1>{imgData[slide].post2}</h1>
                   <h2>{imgData[slide].post3}</h2>
-                  {slide===4?<button>コレクションを見る</button>:""}
+                  {slide===imgData.length-1 && <button className={Styles.button}>コレクションを見る</button>}
                 </div>
                 <Image
                   className={className(index)}

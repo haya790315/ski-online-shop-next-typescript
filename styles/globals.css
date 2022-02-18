@@ -9,6 +9,7 @@
 
 .layout{
   display:flex;
+  position:relative;
   flex-direction:column;
   height:auto;
   width:100%;

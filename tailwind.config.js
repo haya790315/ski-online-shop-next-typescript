@@ -5,6 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+  },variants:{
+    extend:{
+      grayscale:["hover"],
+
+    }
+
   },
   plugins: [],
 }
