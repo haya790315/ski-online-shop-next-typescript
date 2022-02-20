@@ -61,7 +61,7 @@ export default function Slider() {
       return Styles.slide_active;
     }
     if (index === slide - 1 || (index === imgData.length - 1 && slide === 0)) {
-      return Styles.slide_disActive;
+      return Styles.slide_inactive;
     }
     return Styles.slide;
   };
@@ -110,7 +110,7 @@ export default function Slider() {
                 className={
                   index === slide && shown
                     ? Styles.dot_active
-                    : Styles.dot_origin
+                    : Styles.dot_inactive
                 }
               ></div>
             </div>

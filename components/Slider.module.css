@@ -24,7 +24,7 @@
 
 
 
-.slide_disActive {
+.slide_inactive {
   composes:slide;
   z-index: -998;
   transform: translateX(-100%);
@@ -46,7 +46,7 @@
   cursor: pointer;
 }
 
-.dot_origin {
+.dot_inactive {
   composes: dots;
   width: 0%;
   background: black;
