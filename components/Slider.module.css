@@ -53,9 +53,9 @@
 }
 
 .dot_active {
-  composes: dot_origin;
+  composes: dot_inactive;
   width: 100%;
-  tranform-origin: left;
+  transform-origin: left;
   transition: all 4s linear;
 }
 

@@ -2,20 +2,10 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { ListData } from "./CategoriesData";
 import BrandLinks from "./BrandLinks";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
 
 const CategoriesCard = () => {
-  useEffect(() => {
-    AOS.init({
-      offset: 250,
-      delay: 0,
-      duration: 1000,
-      easing: "ease-in-out",
-      once: false,
-      mirror: true,
-    });
-  }, []);
+
 
   return (
     <div
@@ -25,7 +15,7 @@ const CategoriesCard = () => {
     >
       <BrandLinks />
 
-      <div className="grid grid-cols-1 gap-1 relative h-full w-full md:grid-cols-6 md:gap-4">
+      <div  className="grid grid-cols-1 gap-1 relative h-full w-full md:grid-cols-6 md:gap-4">
         {ListData.categories.map((category, index) => {
           return (
             <div
