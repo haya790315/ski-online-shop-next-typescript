@@ -23,11 +23,11 @@ const CategoriesCard = () => {
               key={index}
               className={
                 index < 2
-                  ? "h-36 w-auto relative md:h-80 md:col-span-3"
-                  : "h-36 w-auto relative md:h-80 md:col-span-2"
+                  ? "h-36 w-auto  md:h-80 md:col-span-3"
+                  : "h-36 w-auto  md:h-80 md:col-span-2"
               }
             >
-              <div className="flex justify-center cursor-pointer md:hover:opacity-75 ">
+              <div className="flex justify-center cursor-pointer md:hover:opacity-75 relative w-full h-full">
                 <Image
                   data-aos="zoom-in"
                   key={index}

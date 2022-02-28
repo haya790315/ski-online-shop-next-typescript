@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Styles from "./Slider.module.css";
 import Image from "next/image";
 
-export default function Slider() {
+const Slider = () => {
   const imgData = [
     {
       id: 1,
@@ -23,8 +23,7 @@ export default function Slider() {
     {
       id: 4,
       imgUrl: "/image/slide/slide4.jpg",
-      post3:"今すぐ、チャンスを掴めよう"
-
+      post3: "今すぐ、チャンスを掴めよう",
     },
     {
       id: 5,
@@ -71,7 +70,7 @@ export default function Slider() {
         ? ""
         : imgData.map((item, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="absolute h-full w-full">
                 <div
                   className={
                     index === slide && shown ? Styles.description : "hidden"
@@ -80,24 +79,30 @@ export default function Slider() {
                   <span>{imgData[slide].post1}</span>
                   <h1>{imgData[slide].post2}</h1>
                   <h2>{imgData[slide].post3}</h2>
-                  {slide===imgData.length-1 && <button className={Styles.button}>コレクションを見る</button>}
+                  {slide === imgData.length - 1 && (
+                    <button className={Styles.button}>
+                      コレクションを見る
+                    </button>
+                  )}
                 </div>
-                <Image
-                  className={className(index)}
-                  layout="fill"
-                  src={item.imgUrl}
-                  quality={100}
-                  priority={true}
-                  objectFit="fill"
-                  objectPosition="center center"
-                  alt=""
-                  key={item.id}
-                />
+                <div className="relative h-full">
+                  <Image
+                    className={className(index)}
+                    layout="fill"
+                    src={item.imgUrl}
+                    quality={100}
+                    priority={true}
+                    objectFit="fill"
+                    objectPosition="center center"
+                    alt="slide.jpg"
+                    key={item.id}
+                  />
+                </div>
               </div>
             );
           })}
       <div className={Styles.dotsContainer}>
-        {imgData.map((obj, index) => {
+        {imgData.map((__, index) => {
           return (
             <div
               className={Styles.dots}
@@ -119,4 +124,6 @@ export default function Slider() {
       </div>
     </div>
   );
-}
+};
+
+export default Slider;

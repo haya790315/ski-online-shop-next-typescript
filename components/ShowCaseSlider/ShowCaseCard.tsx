@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
 import styles from "./ShowCaseCard.module.css";
 import Link from "next/link";
-
-
-
 
 interface IShowCaseCardProps {
   item: {
@@ -21,16 +18,28 @@ interface IShowCaseCardProps {
 
 const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
   const { brand, name, model, imageURL, price } = item;
+  const [imageSize, setImageSize] = useState(260);
+
+  useEffect(() => {
+    const reSizeHandler = (event:UIEvent) => {
+      event.preventDefault();
+      const width = window.innerWidth;
+      const widthCal = (width / 1280) * 260;
+      setImageSize(widthCal);
+    };
+    window.addEventListener("resize", reSizeHandler, false);
+    return () => window.removeEventListener("resize", reSizeHandler);
+  }, []);
 
   return (
     <div className={styles.container}>
       <Link href="#">
-        <a style={{cursor: "unset"}}>
+        <a style={{ cursor: "unset" }}>
           <Image
             src={imageURL}
             alt={name + brand + model}
-            height={260}
-            width={260}
+            height={imageSize}
+            width={imageSize}
             objectFit="contain"
             priority
             objectPosition="center center"
@@ -39,7 +48,7 @@ const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
         </a>
       </Link>
       <div className="flex flex-col ">
-        <hr className="my-6 w-10/12"/>
+        <hr className="my-6 w-10/12" />
         <div className="text-left">
           <strong>{brand}</strong>
           <span className="ml-2">{name}</span>
