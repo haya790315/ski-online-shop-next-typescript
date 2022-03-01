@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Styles from "./SideNavbar.module.css";
+import Styles from "./index.module.css";
 import ShopIcon from "../../public/image/static/ShopIcon.svg";
 import YenIcon from "../../public/image/static/YenIcon.svg";
 import Categories from "./Categories";
@@ -8,7 +8,7 @@ import CartDropMenu from "./CartDropMenu";
 
 const SideNavbar = () => {
   const sideNavbarRef = useRef<HTMLDivElement>(null);
-  const [cartDropMenuOpen, setCartDropMenuOpen] = useState(true);
+  const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {

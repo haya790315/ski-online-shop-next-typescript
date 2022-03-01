@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import type { NextPage } from "next";
-import Navbar from "../components/Navbar/Navbar";
-import SideNavbar from "../components/SideNavbar/SideNavbar";
 import Slider from "../components/Slider";
 import CategoriesCard from "../components/CategoriesCard/CategoriesCard";
 import ShowCaseGroup from "../components/ShowCaseSlider/ShowCaseGroup";
@@ -22,8 +20,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Navbar />
-      <SideNavbar />
       <Slider />
       <CategoriesCard />
       <ShowCaseGroup />
