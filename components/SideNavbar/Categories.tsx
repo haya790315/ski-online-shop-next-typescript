@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./Categories.module.css";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/Io";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 interface IProps {
   itemName: string;

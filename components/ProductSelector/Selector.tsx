@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { GiSquare, GiCheckMark } from "react-icons/gi";
-import { SelectedTagContext } from "../../store/selector-context";
-import { ACTION_TYPES } from "../../store/selector-context";
+import { SelectedTagContext,ACTION_TYPES } from "../../store/selector-context";
 
 interface ISelectorProps {
   value: string;

@@ -21,7 +21,7 @@ const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
   const [imageSize, setImageSize] = useState(260);
 
   useEffect(() => {
-    const reSizeHandler = (event:UIEvent) => {
+    const reSizeHandler = (event: UIEvent) => {
       event.preventDefault();
       const width = window.innerWidth;
       const widthCal = (width / 1280) * 260;
@@ -32,37 +32,41 @@ const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <Link href="#">
-        <a style={{ cursor: "unset" }}>
-          <Image
-            src={imageURL}
-            alt={name + brand + model}
-            height={imageSize}
-            width={imageSize}
-            objectFit="contain"
-            priority
-            objectPosition="center center"
-            quality={100}
-          />
-        </a>
-      </Link>
-      <div className="flex flex-col ">
-        <hr className="my-6 w-10/12" />
-        <div className="text-left">
-          <strong>{brand}</strong>
-          <span className="ml-2">{name}</span>
-          <br />
-          <small>{model}</small>
+    <Link href="#">
+      <a style={{ cursor: "unset" }}>
+        <div className={styles.container}>
+          <div className={styles.container_img}>
+            <Image
+              src={imageURL}
+              alt={name + brand + model}
+              height={imageSize}
+              width={imageSize}
+              objectFit="contain"
+              priority
+              objectPosition="center center"
+              quality={100}
+            />
+          </div>
+          <div className={styles.container_description_animation}>
+            <div className="flex flex-col ">
+              <hr className="my-6 w-10/12" />
+              <div className="text-left">
+                <strong>{brand}</strong>
+                <span className="ml-2 text-sm">{name}</span>
+                <br />
+                <small>{model}</small>
+              </div>
+              <div className="flex justify-start  items-center  mt-2">
+                <span className="">
+                  <YenIcon className="fill-current" />
+                </span>
+                {price} {"(税込)"}
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex justify-start  items-center  mt-2">
-          <span className="">
-            <YenIcon className="fill-current" />
-          </span>
-          {price} {"(税込)"}
-        </div>
-      </div>
-    </div>
+      </a>
+    </Link>
   );
 };
 

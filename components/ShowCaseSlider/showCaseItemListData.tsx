@@ -206,7 +206,7 @@ export const showCaseItemList:IShowCaseItemList = {
     {
       id: 1,
       brand: "Burton ",
-      name: "スノーボード ",
+      name: "スノーボード",
       model: "Family Tree 3D Big-Mountain",
       price: "62643",
       imageURL:

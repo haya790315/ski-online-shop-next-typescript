@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 import { SelectedTagContext } from "../../store/selector-context";
 import { ACTION_TYPES } from "../../store/selector-context";
 
-const SelectedTag = () => {
+const Tag = () => {
   const { selectedTag, dispatch } = useContext(SelectedTagContext);
 
   const deleteTagHandler = (value: string) => {
@@ -16,8 +16,8 @@ const SelectedTag = () => {
   };
 
   return (
-    <section className=" w-full relative h-auto flex flex-row justify-start items-center flex-wrap">
-      {selectedTag.length > 0 &&
+    <section className=" w-full relative h-auto  flex flex-row justify-start items-center flex-wrap">
+      {selectedTag.length > 0 ?
         selectedTag.map((tag, i) => {
           return (
             <div
@@ -31,9 +31,10 @@ const SelectedTag = () => {
               />
             </div>
           );
-        })}
+        }):<div className="h-20 w-full">
+          </div>}
     </section>
   );
 };
 
-export default SelectedTag;
+export default Tag;

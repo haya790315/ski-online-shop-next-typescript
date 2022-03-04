@@ -69,7 +69,7 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
     >
       <div className="h-8"></div>
 
-      <div className="mt-2 h-full  text-black bg-white  overflow-y-auto  overscroll-none scroll-smooth shadow-lg border-solid border-2  scrollbar px-2">
+      <div className="mt-2 pl-3 h-full  text-black bg-white  overflow-y-auto  overscroll-none scroll-smooth shadow-lg border-solid border-2  scrollbar ">
         {cartMenu.map((item, i) => {
           return (
             <div
@@ -101,8 +101,8 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
         <span>小計 : </span>
         <span><YenIcon className="fill-current inline-block mb-1"/>{totalPrice}</span>
       </div>
-      <button className="block bg-blue-500 w-10/12 h-12 mx-4 mb-2 -mt-2 text-stone-100 text-xl hover:bg-blue-700">
-        カート
+      <button className="block h-11 w-full mb-2 -mt-2 button_orange focus:bg-blue-700">
+        バスケットを見る
       </button>
       </div>
     </div>
