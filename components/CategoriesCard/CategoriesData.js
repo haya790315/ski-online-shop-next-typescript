@@ -1,41 +1,4 @@
 export const ListData = {
-  brand: [
-    {
-      id: 1,
-      name: "BlackDiamond",
-      logoImgURL: "/image/BrandLogo/BlackDiamondLogo.jpg",
-    },
-    {
-      id: 2,
-      name: "Bolle",
-      logoImgURL: "/image/BrandLogo/BolleLogo.jpg",
-    },
-    {
-      id: 3,
-      name: "Burton",
-      logoImgURL: "/image/BrandLogo/BurtonLogo.jpg",
-    },
-    {
-      id: 4,
-      name: "Oklay",
-      logoImgURL: "/image/BrandLogo/OklayLogo.jpg",
-    },
-    {
-      id: 5,
-      name: "Quiksilver",
-      logoImgURL: "/image/BrandLogo/QuiksilverLogo.jpg",
-    },
-    {
-      id: 6,
-      name: "Rossignal",
-      logoImgURL: "/image/BrandLogo/RossignalLogo.jpg",
-    },
-    {
-      id: 7,
-      name: "Spyder",
-      logoImgURL: "/image/BrandLogo/SpyderLogo.jpg",
-    },
-  ],
   categories: [
     {
       name:"snowboard",

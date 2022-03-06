@@ -1,23 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-const Featured = () => {
-  const imageUrl = {
-    picture: [
-      "https://www.snowinn.com/f/13776/137766696/rossignol-%E3%83%98%E3%83%AB%E3%83%A1%E3%83%83%E3%83%88-alta-impacts.jpg",
-      "https://www.snowinn.com/f/13776/137766696_2/rossignol-%E3%83%98%E3%83%AB%E3%83%A1%E3%83%83%E3%83%88-alta-impacts.jpg",
-      "https://www.snowinn.com/f/13776/137766696_3/rossignol-%E3%83%98%E3%83%AB%E3%83%A1%E3%83%83%E3%83%88-alta-impacts.jpg",
-      "https://www.snowinn.com/f/13776/137766696_4/rossignol-%E3%83%98%E3%83%AB%E3%83%A1%E3%83%83%E3%83%88-alta-impacts.jpg",
-    ],
-    // picture: [
-    //   "https://www.snowinn.com/f/13827/138272406/burton-%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%A5%B3%E6%80%A7-lexa-x-est-.jpg",
-    //   "https://www.snowinn.com/f/13827/138272406_2/burton-%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%A5%B3%E6%80%A7-lexa-x-est-.jpg",
-    //   "https://www.snowinn.com/f/13827/138272406_3/burton-%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%A5%B3%E6%80%A7-lexa-x-est-.jpg",
-    //   "https://www.snowinn.com/f/13827/138272406_4/burton-%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%A5%B3%E6%80%A7-lexa-x-est-.jpg",
-    //   "https://www.snowinn.com/f/13827/138272406_5/burton-%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%A5%B3%E6%80%A7-lexa-x-est-.jpg",
-    //   "https://www.snowinn.com/f/13827/138272406_6/burton-%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%A5%B3%E6%80%A7-lexa-x-est-.jpg",
-    // ],
-  };
+interface IFeatureProps {
+  picture:string[]
+}
+
+
+const Feature = ({picture}:IFeatureProps) => {
+  
 
   const [pictureIndex, setPictureIndex] = useState<number>(0);
 
@@ -35,19 +25,18 @@ const Featured = () => {
 
   const containerElementStyle = (): React.CSSProperties => ({
     position: "relative",
-    marginLeft: "0.8rem",
-    
+    marginLeft: "0.1rem",
+    marginRight: "0.3rem",
   });
 
   const magnifyElementStyle = (pictureIndex: number): React.CSSProperties => ({
     display: "none",
     position: "relative",
     zIndex:"20",
-    backgroundImage: `url(${imageUrl.picture[pictureIndex]})`,
+    backgroundImage: `url(${picture[pictureIndex]})`,
     backgroundColor:"white",
     backgroundRepeat: "no-repeat",
     backgroundSize: "350%",
-    marginLeft: "0.5rem",
     width: "500px",
     height: "500px",
     objectFit: "cover",
@@ -144,7 +133,7 @@ const Featured = () => {
     <>
       <div className="flex flex-row  items-start relative">
         <div className="flex flex-col ">
-          {imageUrl.picture.map((item, i) => {
+          {picture.map((item, i) => {
             return (
               <div
                 key={i}
@@ -169,7 +158,7 @@ const Featured = () => {
           ref={(elm) => (containerRef.current = elm)}
           style={containerElementStyle()}
         >
-          {imageUrl.picture.map((item, i) => {
+          {picture.map((item, i) => {
             return (
               <div
                 key={i}
@@ -205,4 +194,4 @@ const Featured = () => {
   );
 };
 
-export default Featured;
+export default Feature;

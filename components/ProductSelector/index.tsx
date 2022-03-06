@@ -3,6 +3,7 @@ import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { BsFilterLeft } from "react-icons/bs";
 import Selector from "./Selector";
 import { SelectedTagContext, ACTION_TYPES } from "../../store/selector-context";
+import brand from "../../Data/brandList.json"
 
 const initialSelectorNumbers = 3;
 
@@ -31,18 +32,7 @@ const SelectorComponent = () => {
     });
   };
 
-  const newA = [
-    "Burton",
-    "Nidecker",
-    "Rossignol",
-    "Flow",
-    "Ride",
-    "Nitro",
-    "Arbor",
-    "Bolle",
-    "Oakley",
-    "Black Diamond",
-  ];
+  const brandList = brand.map((item)=>item.brandName);
 
   return (
     <section className="relative w-60 bg-gray-200 flex flex-col content-around px-4 h-full">
@@ -61,11 +51,11 @@ const SelectorComponent = () => {
         {openMore && (
           <>
             <ul className="flex flex-col justify-center mb-2">
-              {newA.slice(0, selectorNumbers).map((item, i) => {
+              {brandList.slice(0, selectorNumbers).map((item, i) => {
                 return <Selector key={i} value={item} />;
               })}
             </ul>
-            {selectorNumbers < newA.length ? (
+            {selectorNumbers < brandList.length ? (
               <small
                 className="text-green-700 cursor-pointer font-bold"
                 onClick={extendMenuHandler}

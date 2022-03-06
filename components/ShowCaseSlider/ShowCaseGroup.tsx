@@ -12,6 +12,7 @@ const ShowCaseGroup = () => {
               <ShowCase
                 itemList={showCaseItemList[listKey]}
                 listTitle={listTitle[index]}
+                
               />
             )}
           </div>

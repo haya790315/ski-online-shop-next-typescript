@@ -39,7 +39,7 @@ const selectorReducer: React.Reducer<string[], IAction> = (
 };
 
 const SelectedTagProvider: React.FC = ({ children }) => {
-  const initialState: string[] = ["Burton","Nitro"];
+  const initialState: string[]|[]= [];
 
   const [selectedTag, dispatch] = useReducer(selectorReducer, initialState);
 

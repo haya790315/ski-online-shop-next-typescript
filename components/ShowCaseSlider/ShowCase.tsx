@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import ShowCaseCard from "./ShowCaseCard";
+import ShowCard from "../ShowCard/ShowCard";
 
 interface IShowCaseProps {
   itemList: {
@@ -75,9 +75,9 @@ const ShowCase = ({ itemList,listTitle }: IShowCaseProps) => {
               isDrag && setIsDrag(false);
             }}
           >
-            <div className="flex flex-row items-center w-max">
+            <div className="flex flex-row items-center w-max h-max">
               {itemList.map((item, index) => {
-                return <ShowCaseCard item={item} key={index} />;
+                return <ShowCard item={item} hoverEffect="none" key={index} />;
               })}
             </div>
           </div>

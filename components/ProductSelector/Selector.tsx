@@ -23,7 +23,6 @@ const Selector = ({ value }: ISelectorProps) => {
         type: ACTION_TYPES.ADD_SELECTED_LIST,
         payload: [...selectedTag, value],
       });
-      console.log(selectedTag);
     }
   };
 

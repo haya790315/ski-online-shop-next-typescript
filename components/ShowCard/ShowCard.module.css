@@ -4,6 +4,7 @@
   justify-items: center;
   align-items: center;
   width: 100%;
+  height: max-content;
   scroll-snap-align: start;
   cursor: pointer;
   transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0.2s ease;

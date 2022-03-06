@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
-import styles from "./ShowCaseCard.module.css";
+import styles from "./ShowCard.module.css";
 import Link from "next/link";
 
-interface IShowCaseCardProps {
+interface IShowCardProps {
   item: {
-    id: number;
+    id: number | string;
     brand: string;
     name: string;
     model: string;
     price: string;
     imageURL: string;
   };
-  key: number;
+  hoverEffect:"none"|"auto";
+  key: number | string;
 }
 
-const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
+const ShowCard = ({ item,hoverEffect }: IShowCardProps) => {
   const { brand, name, model, imageURL, price } = item;
   const [imageSize, setImageSize] = useState(260);
 
@@ -32,9 +33,14 @@ const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
   }, []);
 
   return (
-    <Link href="#">
+    <Link
+      href={{
+        pathname: "/product/[id]",
+        query: { id: item.id },
+      }}
+    >
       <a style={{ cursor: "unset" }}>
-        <div className={styles.container}>
+        <div className={styles.container} style={{pointerEvents: hoverEffect}}>
           <div className={styles.container_img}>
             <Image
               src={imageURL}
@@ -70,4 +76,4 @@ const ShowCaseCard = ({ item }: IShowCaseCardProps) => {
   );
 };
 
-export default ShowCaseCard;
+export default ShowCard;

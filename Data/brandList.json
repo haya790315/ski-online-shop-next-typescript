@@ -1,0 +1,47 @@
+[
+  {
+    "id": "029304",
+    "brandName": "Burton",
+    "brandLogo": "/image/BrandLogo/BurtonLogo.jpg"
+  },
+  {
+    "id": "012904",
+    "brandName": "Nidecker",
+    "brandLogo": "/image/BrandLogo/NideckerLogo.jpg"
+  },
+  {
+    "id": "042904",
+    "brandName": "Rossignol",
+    "brandLogo": "/image/BrandLogo/RossignolLogo.jpg"
+  },
+  {
+    "id": "045904",
+    "brandName": "Dc Shoes",
+    "brandLogo": "/image/BrandLogo/Dc ShoesLogo.jpg"
+  },
+  {
+    "id": "044904",
+    "brandName": "Ride",
+    "brandLogo": "/image/BrandLogo/RideLogo.jpg"
+  },
+  {
+    "id": "067904",
+    "brandName": "Nitro",
+    "brandLogo": "/image/BrandLogo/NitroLogo.jpg"
+  },
+  {
+    "id": "046134",
+    "brandName": "Bolle",
+    "brandLogo": "/image/BrandLogo/BolleLogo.jpg"
+  },
+  {
+    "id": "041904",
+    "brandName": "Oakley",
+    "brandLogo": "/image/BrandLogo/OakleyLogo.jpg"
+  },
+  {
+    "id": "122904",
+    "brandName": "Black Diamond",
+    "brandLogo": "/image/BrandLogo/BlackDiamondLogo.jpg"
+  }
+]
