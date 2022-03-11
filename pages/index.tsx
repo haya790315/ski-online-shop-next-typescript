@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import type { NextPage } from "next";
-import Slider from "../components/Slider";
-import CategoriesCard from "../components/CategoriesCard/CategoriesCard";
-import ShowCaseGroup from "../components/ShowCaseSlider/ShowCaseGroup";
+import Slider from "../components/Slider/Slider";
+import CategoriesCard from "../components/CategoriesCard";
+import ShowCaseGroup from "../components/ShowCaseSlider";
 import AOS from "aos";
 import "aos/dist/aos.css";
 

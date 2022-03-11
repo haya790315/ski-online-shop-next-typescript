@@ -2,13 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface IFeatureProps {
-  picture:string[]
+  picture: string[];
 }
 
-
-const Feature = ({picture}:IFeatureProps) => {
-  
-
+const Feature = ({ picture }: IFeatureProps) => {
   const [pictureIndex, setPictureIndex] = useState<number>(0);
 
   const mainImgRefs = useRef<{ [key: string]: HTMLElement | null }>({});
@@ -32,9 +29,9 @@ const Feature = ({picture}:IFeatureProps) => {
   const magnifyElementStyle = (pictureIndex: number): React.CSSProperties => ({
     display: "none",
     position: "relative",
-    zIndex:"20",
+    zIndex: "20",
     backgroundImage: `url(${picture[pictureIndex]})`,
-    backgroundColor:"white",
+    backgroundColor: "white",
     backgroundRepeat: "no-repeat",
     backgroundSize: "350%",
     width: "500px",
@@ -59,16 +56,14 @@ const Feature = ({picture}:IFeatureProps) => {
   });
 
   useEffect(() => {
-    mainImgRefs.current["0"]!.classList.remove("hidden");
-    mainImgRefs.current["0"]!.classList.add("block");
+    mainImgRefs.current["0"]?.classList.remove("hidden");
+    mainImgRefs.current["0"]?.classList.add("block");
   }, []);
 
   useEffect(() => {
-    if (!blockRef || !containerRef || !magnifiedRef) return;
-
-    const blockElement = blockRef.current!;
-    const containerElement = containerRef.current!;
-    const magnifiedElement = magnifiedRef.current!;
+    const blockElement = blockRef?.current!;
+    const containerElement = containerRef?.current!;
+    const magnifiedElement = magnifiedRef?.current!;
 
     const controlBlockHandler = (event: MouseEvent) => {
       if (window.innerWidth < 1024) return;
@@ -96,7 +91,7 @@ const Feature = ({picture}:IFeatureProps) => {
     };
 
     const magnifiedElementHandler = (event: MouseEvent) => {
-      if(window.innerWidth<768) return
+      if (window.innerWidth < 768) return;
       magnifiedElement.style.backgroundPosition = `-${
         (event.offsetX - block_width / 2) * 3
       }px -${(event.offsetY - block_height / 2) * 3}px`;
@@ -112,7 +107,7 @@ const Feature = ({picture}:IFeatureProps) => {
       magnifiedElementHandler(event);
     });
 
-    containerElement.addEventListener("mouseleave", (event) => {
+    containerElement.addEventListener("mouseleave", () => {
       blockElement.style.display = "none";
       magnifiedElement.style.display = "none";
     });
@@ -120,8 +115,8 @@ const Feature = ({picture}:IFeatureProps) => {
 
   const onMouseShowPictureHandler = (index: number) => {
     for (const key in mainImgRefs.current) {
-      mainImgRefs.current[key]!.classList.remove("block");
-      mainImgRefs.current[key]!.classList.add("hidden");
+      mainImgRefs.current[key]?.classList.remove("block");
+      mainImgRefs.current[key]?.classList.add("hidden");
     }
     mainImgRefs.current[index]?.classList.remove("hidden");
     mainImgRefs.current[index]?.classList.add("block");
@@ -142,13 +137,12 @@ const Feature = ({picture}:IFeatureProps) => {
               >
                 <Image
                   src={item}
-                  alt="p1"
+                  alt={`picture${+""+i}`}
                   height={50}
                   width={50}
                   objectFit="cover"
                   objectPosition="center center"
                   quality={70}
-                  loading="lazy"
                 />
               </div>
             );
@@ -195,3 +189,6 @@ const Feature = ({picture}:IFeatureProps) => {
 };
 
 export default Feature;
+
+
+

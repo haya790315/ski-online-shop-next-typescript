@@ -1,12 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { ListData } from "./CategoriesData";
 import BrandLinks from "./BrandLinks";
 
-
 const CategoriesCard = () => {
-
-
   return (
     <div
       className="relative w-full h-auto"
@@ -14,8 +11,7 @@ const CategoriesCard = () => {
       data-aos-offset="50"
     >
       <BrandLinks />
-
-      <div  className="grid grid-cols-1 gap-1 relative h-full w-full md:grid-cols-6 md:gap-4">
+      <div className="grid grid-cols-1 gap-1 relative h-full w-full md:grid-cols-6 md:gap-4">
         {ListData.categories.map((category, index) => {
           return (
             <div
@@ -35,7 +31,6 @@ const CategoriesCard = () => {
                   src={category.imgURL}
                   alt={category.title}
                   objectFit="cover"
-                  priority
                   objectPosition="center center"
                   quality={100}
                   className="filter blur-sm hover:filter-none	md:filter-none"

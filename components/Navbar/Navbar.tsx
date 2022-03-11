@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import AccountIcon from "../../public/image/static/AccountIcon.svg";
 import CheckoutIcon from "../../public/image/static/CheckoutIcon.svg";
 import ContactIcon from "../../public/image/static/ContactIcon.svg";
-import styles from "./Navbar.module.css";
+import styles from "../../styles/Navbar.module.css";
 
 const Navbar = () => {
   

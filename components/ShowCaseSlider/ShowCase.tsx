@@ -1,19 +1,14 @@
 import React, { useRef, useState } from "react";
 import ShowCard from "../ShowCard/ShowCard";
+import {TItem} from "./showCaseItemListData"
+
 
 interface IShowCaseProps {
-  itemList: {
-    id: number;
-    brand: string;
-    name: string;
-    model: string;
-    price: string;
-    imageURL: string;
-  }[];
-  listTitle: string
+  itemList: TItem[];
+  listTitle: string;
 }
 
-const ShowCase = ({ itemList,listTitle }: IShowCaseProps) => {
+const ShowCase = ({ itemList, listTitle }: IShowCaseProps) => {
   const showCaseElementRef = useRef<HTMLDivElement>(null);
 
   const [slideX, setSlideX] = useState({ scrollX: 0, startX: 0 });

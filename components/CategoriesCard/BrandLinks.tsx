@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { ListData } from "./CategoriesData";
 import brand from "../../Data/brandList.json"
 
 const BrandLinks = () => {
@@ -16,9 +15,7 @@ const BrandLinks = () => {
               src={brandData.brandLogo}
               alt={brandData.brandName}
               objectFit="contain"
-              priority
               objectPosition="center left"
-              quality={100}
             />
           </div>
         );

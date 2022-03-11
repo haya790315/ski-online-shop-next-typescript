@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Styles from "./Categories.module.css";
+import styles from "../../styles/Categories.module.css";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 interface IProps {
@@ -9,22 +9,19 @@ interface IProps {
 const Categories = ({ itemName }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleSwitch = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <>
-      <li className="flex cursor-pointer">
-        <span
-          className={Styles.underlineAnimation}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          {itemName}
-        </span>{" "}
+    
+      <li className="flex cursor-pointer" onClick={handleSwitch}>
+        <span className={styles.underlineAnimation}>{itemName}</span>{" "}
         <span className=" text-2xl">
           {isOpen ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
         </span>
       </li>
-    </>
+   
   );
 };
 

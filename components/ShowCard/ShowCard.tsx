@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
-import styles from "./ShowCard.module.css";
+import styles from "../../styles/ShowCard.module.css";
 import Link from "next/link";
 
 interface IShowCardProps {
@@ -13,11 +13,11 @@ interface IShowCardProps {
     price: string;
     imageURL: string;
   };
-  hoverEffect:"none"|"auto";
+  hoverEffect: "none" | "auto";
   key: number | string;
 }
 
-const ShowCard = ({ item,hoverEffect }: IShowCardProps) => {
+const ShowCard = ({ item, hoverEffect }: IShowCardProps) => {
   const { brand, name, model, imageURL, price } = item;
   const [imageSize, setImageSize] = useState(260);
 
@@ -40,7 +40,10 @@ const ShowCard = ({ item,hoverEffect }: IShowCardProps) => {
       }}
     >
       <a style={{ cursor: "unset" }}>
-        <div className={styles.container} style={{pointerEvents: hoverEffect}}>
+        <div
+          className={styles.container}
+          style={{ pointerEvents: hoverEffect }}
+        >
           <div className={styles.container_img}>
             <Image
               src={imageURL}

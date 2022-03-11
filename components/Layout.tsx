@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import SideNavbar from "../components/SideNavbar";
+import Navbar from "./Navbar";
+import SideNavbar from "./SideNavbar";
 
 const Layout: React.FC = ({ children }) => {
   return (

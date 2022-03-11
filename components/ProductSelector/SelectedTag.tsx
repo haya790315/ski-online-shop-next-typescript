@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 import { SelectedTagContext } from "../../store/selector-context";
 import { ACTION_TYPES } from "../../store/selector-context";
 
-const Tag = () => {
+const SelectedTag = () => {
   const { selectedTag, dispatch } = useContext(SelectedTagContext);
 
   const deleteTagHandler = (value: string) => {
@@ -37,4 +37,4 @@ const Tag = () => {
   );
 };
 
-export default Tag;
+export default SelectedTag;

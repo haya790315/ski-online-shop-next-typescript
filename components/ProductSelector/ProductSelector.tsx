@@ -7,7 +7,7 @@ import brand from "../../Data/brandList.json"
 
 const initialSelectorNumbers = 3;
 
-const SelectorComponent = () => {
+const ProductSelector = () => {
   const [openMore, setOpenMore] = useState(false);
   const [selectorNumbers, setSelectorNumbers] = useState(
     initialSelectorNumbers
@@ -77,4 +77,4 @@ const SelectorComponent = () => {
   );
 };
 
-export default SelectorComponent;
+export default ProductSelector;

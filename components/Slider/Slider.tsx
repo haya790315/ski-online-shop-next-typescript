@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Styles from "./Slider.module.css";
+import styles from "../../styles/Slider.module.css";
 import Image from "next/image";
 
 const Slider = () => {
-  const imgData = [
+  const sliderStatic = [
     {
       id: 1,
       imgUrl: "/image/slide/slide1.jpg",
@@ -37,10 +37,10 @@ const Slider = () => {
 
   useEffect(() => {
     const slideTimeout = setTimeout(() => {
-      setSlideIndex((prev) => (prev !== imgData.length ? prev + 1 : 1));
+      setSlideIndex((prev) => (prev !== sliderStatic.length ? prev + 1 : 1));
     }, 4000);
     return () => clearTimeout(slideTimeout);
-  }, [slideIndex, imgData.length]);
+  }, [slideIndex, sliderStatic.length]);
 
   useEffect(() => {
     const slidePostTimeout = setTimeout(() => {
@@ -53,34 +53,34 @@ const Slider = () => {
     setSlideIndex(index + 1);
   };
 
-  let slide = slideIndex <= imgData.length ? slideIndex - 1 : 0;
+  let slide = slideIndex <= sliderStatic.length ? slideIndex - 1 : 0;
 
   const className = (index: number) => {
     if (slide === index) {
-      return Styles.slide_active;
+      return styles.slide_active;
     }
-    if (index === slide - 1 || (index === imgData.length - 1 && slide === 0)) {
-      return Styles.slide_inactive;
+    if (index === slide - 1 || (index === sliderStatic.length - 1 && slide === 0)) {
+      return styles.slide_inactive;
     }
-    return Styles.slide;
+    return styles.slide;
   };
   return (
-    <div className={Styles.sliderContainer}>
+    <div className={styles.sliderContainer}>
       {!shown
         ? ""
-        : imgData.map((item, index) => {
+        : sliderStatic.map((item, index) => {
             return (
               <div key={index} className="absolute h-full w-full">
                 <div
                   className={
-                    index === slide && shown ? Styles.description : "hidden"
+                    index === slide && shown ? styles.description : "hidden"
                   }
                 >
-                  <span>{imgData[slide].post1}</span>
-                  <h1>{imgData[slide].post2}</h1>
-                  <h2>{imgData[slide].post3}</h2>
-                  {slide === imgData.length - 1 && (
-                    <button className={Styles.button}>
+                  <span>{sliderStatic[slide].post1}</span>
+                  <h1>{sliderStatic[slide].post2}</h1>
+                  <h2>{sliderStatic[slide].post3}</h2>
+                  {slide === sliderStatic.length - 1 && (
+                    <button className={styles.button}>
                       コレクションを見る
                     </button>
                   )}
@@ -101,11 +101,11 @@ const Slider = () => {
               </div>
             );
           })}
-      <div className={Styles.dotsContainer}>
-        {imgData.map((__, index) => {
+      <div className={styles.dotsContainer}>
+        {sliderStatic.map((__, index) => {
           return (
             <div
-              className={Styles.dots}
+              className={styles.dots}
               key={index}
               onClick={() => {
                 moveDot(index);
@@ -114,8 +114,8 @@ const Slider = () => {
               <div
                 className={
                   index === slide && shown
-                    ? Styles.dot_active
-                    : Styles.dot_inactive
+                    ? styles.dot_active
+                    : styles.dot_inactive
                 }
               ></div>
             </div>

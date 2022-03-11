@@ -1,13 +1,15 @@
+export type TItem = {
+  id: string;
+  brand: string;
+  name: string;
+  model: string;
+  price: string;
+  imageURL: string;
+  picture: string[];
+};
+
 interface IShowCaseItemList {
-  [key: string]: {
-    id: string;
-    brand: string;
-    name: string;
-    model: string;
-    price: string;
-    imageURL: string;
-    picture: string[];
-  }[];
+  [key: string]: TItem[];
 }
 
 export const listTitle = ["人気商品", "特売商品", "ランキング商品", "限定商品"];
@@ -136,7 +138,7 @@ export const showCaseItemList: IShowCaseItemList = {
       ],
     },
   ],
-  onSaleItemList:  [
+  onSaleItemList: [
     {
       id: "58383954",
       brand: "Rossignol",
@@ -259,7 +261,7 @@ export const showCaseItemList: IShowCaseItemList = {
       ],
     },
   ],
-  rankingItemList:  [
+  rankingItemList: [
     {
       id: "58383954",
       brand: "Rossignol",
@@ -382,7 +384,7 @@ export const showCaseItemList: IShowCaseItemList = {
       ],
     },
   ],
-  limitedItemList:  [
+  limitedItemList: [
     {
       id: "58383954",
       brand: "Rossignol",

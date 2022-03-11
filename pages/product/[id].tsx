@@ -1,5 +1,5 @@
 import React from "react";
-import Head from 'next/head'
+import Head from "next/head";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "../../components/Feature/Feature";
 import Image from "next/image";
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (staticProps) => {
   const { params } = staticProps;
 
-  const product = list.find((item) => item.id === params!.id);
+  const product = list.find((item) => item.id === params?.id);
   return {
     props: {
       product,
@@ -45,15 +45,14 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 };
 
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
-  
-  const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`
+  const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`;
 
   return (
-    
     <>
-    <Head>
-        <title>{product.brand} {product.model}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <Head>
+        <title>
+          {product.brand} {product.model}
+        </title>
       </Head>
       <div className="relative h-auto flex flex-col items-center mt-20 px-4  lg:pl-8 lg:flex-row">
         <div>
