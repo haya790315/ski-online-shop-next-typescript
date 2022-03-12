@@ -137,7 +137,7 @@ const Feature = ({ picture }: IFeatureProps) => {
               >
                 <Image
                   src={item}
-                  alt={`picture${+""+i}`}
+                  alt={`picture${+"" + i}`}
                   height={50}
                   width={50}
                   objectFit="cover"
@@ -152,7 +152,7 @@ const Feature = ({ picture }: IFeatureProps) => {
           ref={(elm) => (containerRef.current = elm)}
           style={containerElementStyle()}
         >
-          {picture.map((item, i) => {
+          {picture.map((url, i) => {
             return (
               <div
                 key={i}
@@ -160,14 +160,16 @@ const Feature = ({ picture }: IFeatureProps) => {
                 ref={(elm) => (mainImgRefs.current[i] = elm)}
               >
                 <Image
-                  src={item}
+                  src={url}
                   alt="no"
                   height={550}
                   width={550}
                   objectFit="cover"
-                  priority
                   objectPosition="center center"
                   quality={100}
+                  priority
+                  placeholder="blur"
+                  blurDataURL={url}
                 />
               </div>
             );
@@ -189,6 +191,3 @@ const Feature = ({ picture }: IFeatureProps) => {
 };
 
 export default Feature;
-
-
-

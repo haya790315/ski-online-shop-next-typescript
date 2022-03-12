@@ -81,7 +81,7 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
 
   return (
     <div
-      className="flex absolute flex-col right-0 top-8 h-80 "
+      className="flex absolute flex-col right-0 top-4 h-80 "
       onMouseEnter={cartDropMenuHandler.mouseEnter}
       onMouseLeave={cartDropMenuHandler.mouseLeave}
     >
@@ -90,35 +90,35 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
       <div className="mt-2 pl-3 h-full  text-black bg-white  overflow-y-auto  overscroll-none scroll-smooth shadow-lg border-solid border-2  scrollbar ">
         {cartMenu.map((item, i) => {
           return (
-          <Link href="/product/[id]" as={`/product/${item.id}`} key={i}>
-          <a href="">
-            <div
-              className=" relative  flex  w-full justify-evenly items-center py-4 px-4 border-b-2 border-solid border-b-slate-200 cursor-pointer"
-              key={i}
-              >
-              <div className="h-24 w-24 relative flex-shrink-0">
-                <Image
-                  src={item.imageURL}
-                  alt="name"
-                  layout="fill"
-                  objectFit="contain"
-                  objectPosition="center center"
-                  quality={100}
-                />
-              </div>
-              <div className=" ml-4">
-                <strong>{item.brand}</strong>
-                <h4 className="text-sm overflow-hidden text-ellipsis">
-                  {item.model}
-                </h4>
-                <span>
-                  <YenIcon className="fill-current inline-block mb-1" />
-                  {item.price}
-                </span>
-              </div>
-            </div>
-                  </a>
-                </Link>
+            <Link href="/product/[id]" as={`/product/${item.id}`} key={i}>
+              <a href="">
+                <div
+                  className=" relative  flex  w-full justify-evenly items-center py-4 px-4 border-b-2 border-solid border-b-slate-200 cursor-pointer"
+                  key={i}
+                >
+                  <div className="h-24 w-24 relative flex-shrink-0">
+                    <Image
+                      src={item.imageURL}
+                      alt="name"
+                      layout="fill"
+                      objectFit="contain"
+                      objectPosition="center center"
+                      quality={100}
+                    />
+                  </div>
+                  <div className=" ml-4">
+                    <strong>{item.brand}</strong>
+                    <h4 className="text-sm overflow-hidden text-ellipsis">
+                      {item.model}
+                    </h4>
+                    <span>
+                      <YenIcon className="fill-current inline-block mb-1" />
+                      {item.price}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </Link>
           );
         })}
         <div className="p-4 text-left text-slate-700 font-semibold">
@@ -128,9 +128,13 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
             {totalPrice}
           </span>
         </div>
-        <button className="block h-11 w-full mb-2 -mt-2 button_orange focus:bg-blue-700">
-          バスケットを見る
-        </button>
+        <Link href="/cart">
+          <a >
+            <button className="block h-11 w-full mb-2 -mt-2 button_orange focus:bg-blue-700">
+              バスケットを見る
+            </button>
+          </a>
+        </Link>
       </div>
     </div>
   );

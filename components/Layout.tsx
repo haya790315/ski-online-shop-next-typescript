@@ -5,7 +5,7 @@ import SideNavbar from "./SideNavbar";
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col relative">
         <Navbar />
         <SideNavbar />
       </div>

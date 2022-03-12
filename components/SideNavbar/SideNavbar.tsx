@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "../../styles/SideNavbar.module.css";
+import { useRouter } from "next/router";
 import ShopIcon from "../../public/image/static/ShopIcon.svg";
-import YenIcon from "../../public/image/static/YenIcon.svg";
 import Categories from "./Categories";
 import { sideMenuData } from "./sideMenuData";
 import CartDropMenu from "./CartDropMenu";
@@ -9,16 +9,13 @@ import CartDropMenu from "./CartDropMenu";
 const SideNavbar = () => {
   const sideNavbarRef = useRef<HTMLDivElement | null>(null);
   const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
-      if (window.outerWidth < 768) return;
-
+      if (screen.width < 768) return;
       e.preventDefault();
-      const sideNavbarOffsetTop = sideNavbarRef.current!.offsetTop;
       const scrollY = window.scrollY;
-
-      if (scrollY > sideNavbarOffsetTop) {
+      if (scrollY > 135) {
         sideNavbarRef.current?.classList.remove("relative");
         sideNavbarRef.current?.classList.add("fixed");
       } else {
@@ -44,6 +41,28 @@ const SideNavbar = () => {
     },
   };
 
+  const cartIconMenu = (
+    <>
+      <div
+        className="relative mr-20 mt-4 "
+        onMouseLeave={cartDropMenuHandler.mouseLeave}
+        onMouseEnter={cartDropMenuHandler.mouseEnter}
+      >
+        <span className="px-4">
+          <ShopIcon className=" absolute top-1 h-8 w-8 fill-current text-inherit" />
+        </span>
+        <div className={styles.bagAnimation}>
+          <span className="top-2.5 left-3 absolute text-l font-extrabold text-white">
+            5
+          </span>
+        </div>
+        {cartDropMenuOpen && (
+          <CartDropMenu cartDropMenuHandler={cartDropMenuHandler} />
+        )}
+      </div>
+    </>
+  );
+
   return (
     <div
       className="w-full h-16 bg-gray-700 flex z-50  justify-between text-l relative"
@@ -55,29 +74,19 @@ const SideNavbar = () => {
         })}
       </ul>
 
-      <div className="flex flex-row cursor-default relative text-white  right-16 p-2 group hover:text-orange-300 ">
-        <div className="p-2 flex  items-center">
-          <span>
-            <YenIcon className="fill-current mt-1" />
-          </span>
-          <span className="text-l  px-1 text-inherit ">4000</span>
-        </div>
-        <div
-          className="relative  hover:opacity-90 cursor-pointer "
-          onMouseLeave={cartDropMenuHandler.mouseLeave}
-          onMouseEnter={cartDropMenuHandler.mouseEnter}
-        >
-          <span className="px-4 ">
-            <ShopIcon className=" absolute top-1 h-8 w-8 fill-current text-inherit" />
-          </span>
-          <div className={styles.bagAnimation}>
-            <span className="top-2.5 left-3 absolute text-l text-orange-300 group-hover:text-white">
-              0
-            </span>
-          </div>
-        </div>
-        {cartDropMenuOpen && (
-          <CartDropMenu cartDropMenuHandler={cartDropMenuHandler} />
+      <div className="flex flex-row cursor-default relative text-white    group hover:text-orange-300 ">
+        {router.pathname === "/cart" ? (
+          <>
+            <div className=" flex flex-row justify-between items-center">
+              <span className="text-l  px-1 text-2xl ">小計</span>
+              <span className="text-l  px-1 text-3xl ">￥4000</span>
+              <button className="block  h-16 ml-4 w-48 bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
+                注文手続きへ
+              </button>
+            </div>
+          </>
+        ) : (
+          cartIconMenu
         )}
       </div>
     </div>

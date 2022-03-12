@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Slider.module.css";
+import Link from "next/link"
 import Image from "next/image";
 
 const Slider = () => {
@@ -59,7 +60,10 @@ const Slider = () => {
     if (slide === index) {
       return styles.slide_active;
     }
-    if (index === slide - 1 || (index === sliderStatic.length - 1 && slide === 0)) {
+    if (
+      index === slide - 1 ||
+      (index === sliderStatic.length - 1 && slide === 0)
+    ) {
       return styles.slide_inactive;
     }
     return styles.slide;
@@ -80,9 +84,13 @@ const Slider = () => {
                   <h1>{sliderStatic[slide].post2}</h1>
                   <h2>{sliderStatic[slide].post3}</h2>
                   {slide === sliderStatic.length - 1 && (
-                    <button className={styles.button}>
-                      コレクションを見る
-                    </button>
+                    <Link href="/product">
+                      <a >
+                        <button className={styles.button}>
+                          コレクションを見る
+                        </button>
+                      </a>
+                    </Link>
                   )}
                 </div>
                 <div className="relative h-full">
@@ -91,7 +99,7 @@ const Slider = () => {
                     layout="fill"
                     src={item.imgUrl}
                     quality={100}
-                    priority={true}
+                    priority
                     objectFit="fill"
                     objectPosition="center center"
                     alt="slide.jpg"
