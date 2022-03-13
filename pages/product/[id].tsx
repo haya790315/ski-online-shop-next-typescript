@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Head from "next/head";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "../../components/Feature/Feature";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
 import list from "../../Data/itemList.json";
+import { useCartContext } from "../../store/cart-context";
 
 interface IProductProps {
   product: {
@@ -46,6 +47,30 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
   const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`;
+  const { setCartOrder, cartOrder } = useCartContext();
+
+  const sizeSelectRef = useRef<HTMLSelectElement>(null);
+  const quantitySelectRef = useRef<HTMLInputElement>(null);
+
+  const putInCartHandler = () => {
+    const size = sizeSelectRef.current?.value as string;
+    const quantity = quantitySelectRef.current?.value as string;
+    const optionArray = [size, quantity];
+    const newOrder = { id: product.id, option: optionArray };
+    const idsArray = cartOrder.map(item=>item.id);
+    if (cartOrder.length > 0 && idsArray.includes(product.id)) {
+      const newCartOrder = cartOrder.map((item) => {
+        if (item.id === product.id) {
+          return { ...item, option: optionArray };
+        } else {
+          return item;
+        }
+      });
+      setCartOrder([...newCartOrder]);
+    } else {
+      setCartOrder([...cartOrder,newOrder]);
+    }
+  };
 
   return (
     <>
@@ -86,6 +111,8 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
                 id="size"
                 name="item-size"
                 className="h-10 my-2 select_arrow_none  border-2 border-solid rounded text-center  text-sky-500 font-semibold focus:border_blue"
+                ref={sizeSelectRef}
+                defaultValue="M"
               >
                 <option value="M">M</option>
                 <option value="L">L</option>
@@ -95,6 +122,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
             <p className="flex flex-col items-start font-semibold lg:w-1/4 relative">
               <label htmlFor="quantity">数量</label>
               <input
+                ref={quantitySelectRef}
                 type="number"
                 id="quantity"
                 name="item-quantity"
@@ -102,12 +130,16 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
                 max="10"
                 step="1"
                 required
+                defaultValue="1"
                 className="h-10 w-full my-2 text-center font-semibold  input_button_lg border-2 border-solid rounded-sm  focus:border_blue"
               />
             </p>
           </div>
           <span className="text-green-500 font-medium my-2">在庫あり</span>
-          <button className="h-11 w-full mb-4 button_orange focus:outline-none ">
+          <button
+            className="h-11 w-full mb-4 button_orange focus:outline-none "
+            onClick={() => putInCartHandler()}
+          >
             カートに入れる
           </button>
           <p>

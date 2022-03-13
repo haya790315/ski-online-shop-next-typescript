@@ -1,7 +1,5 @@
 import React, { createContext, useReducer } from "react";
 
-export const SelectedTagContext = createContext({} as IContext);
-
 export enum ACTION_TYPES {
   ADD_SELECTED_LIST = "ADD_SELECTED_LIST",
   DELETE_SELECTED_LIST = "DELETE_SELECTED_LIST",
@@ -38,8 +36,10 @@ const selectorReducer: React.Reducer<string[], IAction> = (
   }
 };
 
+export const SelectedTagContext = createContext({} as IContext);
+
 const SelectedTagProvider: React.FC = ({ children }) => {
-  const initialState: string[]|[]= [];
+  const initialState: string[] | [] = [];
 
   const [selectedTag, dispatch] = useReducer(selectorReducer, initialState);
 

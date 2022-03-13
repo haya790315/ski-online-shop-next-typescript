@@ -3,6 +3,7 @@ import styles from "../../styles/SideNavbar.module.css";
 import { useRouter } from "next/router";
 import ShopIcon from "../../public/image/static/ShopIcon.svg";
 import Categories from "./Categories";
+import {useCartContext} from "../../store/cart-context"
 import { sideMenuData } from "./sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
@@ -10,6 +11,11 @@ const SideNavbar = () => {
   const sideNavbarRef = useRef<HTMLDivElement | null>(null);
   const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
   const router = useRouter();
+
+  const {cart,cartOrder} = useCartContext();
+  
+  console.log({cart,cartOrder})
+
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
       if (screen.width < 768) return;
@@ -53,7 +59,7 @@ const SideNavbar = () => {
         </span>
         <div className={styles.bagAnimation}>
           <span className="top-2.5 left-3 absolute text-l font-extrabold text-white">
-            5
+            {cart.length}
           </span>
         </div>
         {cartDropMenuOpen && (

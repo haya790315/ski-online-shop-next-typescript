@@ -21,7 +21,7 @@ const Categories = ({ itemName }: IProps) => {
           {isOpen ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
         </span>
       </li>
-   
+  
   );
 };
 
