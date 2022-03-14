@@ -60,6 +60,7 @@ const CustomerSelect = ({
             ...prev,
             size: target.innerHTML,
           }));
+        
         }
         break;
       case "数量":
@@ -74,7 +75,8 @@ const CustomerSelect = ({
         throw new Error("unknown label");
     }
   };
-
+  
+  
   return (
     <>
       <ul
@@ -87,7 +89,7 @@ const CustomerSelect = ({
           <li
             style={liStyle(i + 1)}
             key={i}
-            onClick={(e) => changOptionHandler(e)}
+            onClick={changOptionHandler.bind(this)}
             className="hover:text-gray-400"
           >
             {value}

@@ -14,7 +14,7 @@ const Navbar = () => {
         <a>
           <div className="h-14 w-52 bg-white relative ">
             <Image
-              src="/image/Supreme.jpg"
+              src="/image/BrandLogo/NideckerLogo.jpg"
               alt="logo"
               layout="fill"
               objectFit="cover"

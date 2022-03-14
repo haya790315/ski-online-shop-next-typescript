@@ -76,7 +76,7 @@ const SideNavbar = () => {
     >
       <ul className="flex flex-row text-white justify-left py-4 ml-8 items-center">
         {sideMenuData.map((category, index) => {
-          return <Categories itemName={category.type} key={index} />;
+          return <Categories type={category.type} key={index} />;
         })}
       </ul>
 

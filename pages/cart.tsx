@@ -17,10 +17,14 @@ export interface IOption {
 const Cart: NextPage = () => {
   const { cart, setCartOrder, cartOrder } = useCartContext();
   const [id, setId] = useState<string>("");
-  const [option, setOption] = useState<IOption>({} as IOption);
+  const [option, setOption] = useState<IOption>({
+    size: "",
+    quantity: "",
+  } as IOption);
 
-  const putInCartHandler = useCallback(() => {
-    const optionArray = [option.size, option.quantity];
+  const changeCartOrderHandler = useCallback(() => {
+    const optionArray = Object.values(option);
+
     const newOrder = { id, option: optionArray };
     const idsArray = cartOrder.map((item) => item.id);
     if (cartOrder.length > 0 && idsArray.includes(id)) {
@@ -37,6 +41,23 @@ const Cart: NextPage = () => {
     }
   }, [option, id]);
 
+  const totalPriceCalculator = useCallback(() => {
+    if (cartOrder.length < 1) return;
+
+    const orderPriceArray = cart.flatMap((item) => {
+      return cartOrder.map((order) => {
+        if (order.id === item.id) {
+          return Number(item.price) * Number(order.option[1]);
+        } else return 0;
+      });
+    });
+    const totalPrice = orderPriceArray.reduce(
+      (prev, current) => prev + current,
+      0
+    );
+    return totalPrice;
+  }, [cartOrder, cart]);
+
   const deleteCartHandler = (id: string) => {
     const newOrderList = cartOrder.filter((order) => order.id !== id);
     setCartOrder([...newOrderList]);
@@ -44,9 +65,9 @@ const Cart: NextPage = () => {
 
   useEffect(() => {
     if (Object.keys(option).length > 0) {
-      putInCartHandler();
+      changeCartOrderHandler();
     }
-  }, [putInCartHandler, option]);
+  }, [changeCartOrderHandler, option]);
 
   return (
     <div className="bg-stone-900 h-max w-full relative text-white text-center ">
@@ -61,7 +82,7 @@ const Cart: NextPage = () => {
                   key={i}
                   className="relative flex flex-row justify-between p-6  border-b border-solid border-slate-700"
                 >
-                  <Link href={`/product/${item.id}`}>
+                  <Link href="/product/[id]" as={`/product/${item.id}`}>
                     <a>
                       <Image
                         src={item.imageURL}
@@ -77,13 +98,13 @@ const Cart: NextPage = () => {
                   </Link>
 
                   <div className="flex flex-col flex-grow pl-16 items-start text-left text-xl">
-                    <Link href={`/product/${item.id}`}>
+                    <Link href="/product/[id]" as={`/product/${item.id}`}>
                       <a>
                         {" "}
                         <h1>{item.brand + " " + item.model}</h1>
                       </a>
                     </Link>
-                    <div className="text-lg text-slate-300 pt-5">
+                    <div className="text-lg pt-5">
                       <span className="text-2xl py-5">¥{item.price}</span>
                       <span className="block text-zinc-400">
                         サイズ:
@@ -128,7 +149,7 @@ const Cart: NextPage = () => {
             <h2 className="text-3xl pb-20">概要</h2>
             <div className="flex flex-row justify-between item-center py-2 border-b border-solid border-slate-700">
               <span>小計</span>
-              <span>￥140502</span>
+              <span>￥{totalPriceCalculator() || 0}</span>
             </div>
             <div className="flex flex-row justify-between item-center py-2 border-b border-solid border-slate-700">
               <span>内消費税</span>

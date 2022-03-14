@@ -57,7 +57,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     const quantity = quantitySelectRef.current?.value as string;
     const optionArray = [size, quantity];
     const newOrder = { id: product.id, option: optionArray };
-    const idsArray = cartOrder.map(item=>item.id);
+    const idsArray = cartOrder.map((item) => item.id);
     if (cartOrder.length > 0 && idsArray.includes(product.id)) {
       const newCartOrder = cartOrder.map((item) => {
         if (item.id === product.id) {
@@ -68,7 +68,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
       });
       setCartOrder([...newCartOrder]);
     } else {
-      setCartOrder([...cartOrder,newOrder]);
+      setCartOrder([...cartOrder, newOrder]);
     }
   };
 
@@ -138,7 +138,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
           <span className="text-green-500 font-medium my-2">在庫あり</span>
           <button
             className="h-11 w-full mb-4 button_orange focus:outline-none "
-            onClick={() => putInCartHandler()}
+            onClick={putInCartHandler}
           >
             カートに入れる
           </button>

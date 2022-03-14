@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
 import styles from "../../styles/ShowCard.module.css";
@@ -17,9 +17,9 @@ interface IShowCardProps {
   key: number | string;
 }
 
-const ShowCard = ({ item, hoverEffect }: IShowCardProps) => {
-  const { brand, name, model, imageURL, price } = item;
+const ShowCard = ({ item:{id,brand, name, model, imageURL, price }, hoverEffect }: IShowCardProps) => {
   const [imageSize, setImageSize] = useState(260);
+  const containerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const reSizeHandler = (event: UIEvent) => {
@@ -29,18 +29,21 @@ const ShowCard = ({ item, hoverEffect }: IShowCardProps) => {
       setImageSize(widthCal);
     };
     window.addEventListener("resize", reSizeHandler, false);
-    return () => window.removeEventListener("resize", reSizeHandler);
+    return () => {
+      window.removeEventListener("resize", reSizeHandler);
+    };
   }, []);
 
   return (
     <Link
       href={{
         pathname: "/product/[id]",
-        query: { id: item.id },
+        query: { id },
       }}
     >
       <a style={{ cursor: "unset" }}>
         <div
+          ref={(elm) => (containerRef.current = elm)}
           className={styles.container}
           style={{ pointerEvents: hoverEffect }}
         >

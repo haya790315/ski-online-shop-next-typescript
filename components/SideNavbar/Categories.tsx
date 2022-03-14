@@ -3,10 +3,10 @@ import styles from "../../styles/Categories.module.css";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 interface IProps {
-  itemName: string;
+  type: string;
 }
 
-const Categories = ({ itemName }: IProps) => {
+const Categories = ({ type }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSwitch = () => {
@@ -16,7 +16,7 @@ const Categories = ({ itemName }: IProps) => {
   return (
     
       <li className="flex cursor-pointer" onClick={handleSwitch}>
-        <span className={styles.underlineAnimation}>{itemName}</span>{" "}
+        <span className={styles.underlineAnimation}>{type}</span>{" "}
         <span className=" text-2xl">
           {isOpen ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
         </span>
