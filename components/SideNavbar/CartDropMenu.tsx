@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useCallback} from "react";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
 import Link from "next/link";
@@ -11,9 +11,28 @@ interface ICartDropProps {
   };
 }
 
-const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
+
+
+
+const CartDropMenu = ({ cartDropMenuHandler}: ICartDropProps) => {
   const { cart, cartOrder } = useCartContext();
-  let totalPrice = 0;
+
+  const totalPriceCalculator = useCallback((): number => {
+    if (cart.length < 1) return 0;
+    const orderPriceArray = cart.flatMap((item) => {
+      return cartOrder.map((order) => {
+        if (order.id === item.id) {
+          return Number(item.price) * Number(order.option[1]);
+        } else return 0;
+      });
+    });
+    const totalPrice = orderPriceArray.reduce(
+      (prev, current) => prev + current,
+      0
+    );
+    return totalPrice;
+  }, [cartOrder, cart]);
+  
 
   return (
     <div
@@ -26,7 +45,7 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
         <div className="flex flex-col justify-between mt-2 px-2 h-full text-black bg-white overflow-y-auto  overscroll-none scroll-smooth shadow-lg border-solid border-2  scrollbar ">
           {cart.map((item, i) => {
             const order = cartOrder.find(order=>order.id===item.id)
-            totalPrice += Number(item.price)*Number(order?.option[1])
+            
             return (
               <Link href="/product/[id]" as={`/product/${item.id}`} key={i}>
                 <a href="">
@@ -64,7 +83,7 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
             <span>小計 : </span>
             <span>
               <YenIcon className="fill-current inline-block mb-1" />
-              {totalPrice}
+              {totalPriceCalculator()}
             </span>
           </div>
           <Link href="/cart">
@@ -77,7 +96,7 @@ const CartDropMenu = ({ cartDropMenuHandler }: ICartDropProps) => {
         </div>
       )}
       {cart.length === 0 && (
-        <div className="flex items-center justify-center mt-2 px-2 h-full w-max font-semibold text-zinc-400 bg-white drop-shadow-md border-solid border-2">
+        <div className="flex place-items-center mt-2 px-2 h-full w-max font-semibold text-zinc-400 bg-white drop-shadow-md border-solid border-2">
           何も入ってありません
         </div>
       )}

@@ -3,7 +3,7 @@ import styles from "../../styles/SideNavbar.module.css";
 import { useRouter } from "next/router";
 import ShopIcon from "../../public/image/static/ShopIcon.svg";
 import Categories from "./Categories";
-import {useCartContext} from "../../store/cart-context"
+import { useCartContext } from "../../store/cart-context";
 import { sideMenuData } from "./sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
@@ -12,13 +12,13 @@ const SideNavbar = () => {
   const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
   const router = useRouter();
 
-  const {cart,cartOrder} = useCartContext();
-  
-  console.log({cart,cartOrder})
+  const { cart, cartOrder } = useCartContext();
+
+  console.log({ cart, cartOrder });
 
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
-      if (screen.width < 768) return;
+      if (window.matchMedia( "(max-width: 768px)" ).matches) return;
       e.preventDefault();
       const scrollY = window.scrollY;
       if (scrollY > 135) {
@@ -38,11 +38,11 @@ const SideNavbar = () => {
 
   const cartDropMenuHandler = {
     mouseEnter: () => {
-      if (window.outerWidth < 768) return;
+      if (window.matchMedia( "(max-width: 768px)" ).matches) return;
       setCartDropMenuOpen(true);
     },
     mouseLeave: () => {
-      if (window.outerWidth < 768) return;
+      if (window.matchMedia( "(max-width: 768px)" ).matches) return;
       setCartDropMenuOpen(false);
     },
   };
@@ -80,17 +80,11 @@ const SideNavbar = () => {
         })}
       </ul>
 
-      <div className="flex flex-row cursor-default relative text-white    group hover:text-orange-300 ">
+      <div className="flex flex-row cursor-default relative text-white hover:text-orange-300 ">
         {router.pathname === "/cart" ? (
-          <>
-            <div className=" flex flex-row justify-between items-center">
-              <span className="text-l  px-1 text-2xl ">小計</span>
-              <span className="text-l  px-1 text-3xl ">￥4000</span>
-              <button className="block  h-16 ml-4 w-48 bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
-                注文手続きへ
-              </button>
-            </div>
-          </>
+          <button className="block  h-16 ml-4 w-48 bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
+            注文手続きへ
+          </button>
         ) : (
           cartIconMenu
         )}

@@ -28,8 +28,6 @@ const CustomerSelect = ({
     position: "absolute",
     opacity: `${openMenu ? "1" : "0"}`,
     zIndex: `${openMenu ? "5" : "-1"}`,
-    justifyContent: "center",
-    alignItems: "center",
     width: "100%",
     height: "100%",
     outline: "1px solid rgba(51,65,85)",

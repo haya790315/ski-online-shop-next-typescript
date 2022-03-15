@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import ShowCard from "../ShowCard/ShowCard";
 import { SelectedTagContext } from "../../store/selector-context";
-import list from "../../Data/itemList.json"
+// import list from "../../Data/itemList.json"
 
 
-const ProductList = () => {
+const ProductList = ({list}) => {
   const { selectedTag } = useContext(SelectedTagContext);
 
   const filteredItem = list

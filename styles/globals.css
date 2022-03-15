@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
-
+@tailwind utilities;
+@tailwind screens;
 @layer components {
   .button_orange {
     @apply text-center bg-orange-500  text-lg text-white font-semibold tracking-widest rounded;
@@ -11,9 +12,10 @@
   }
 }
 
-@tailwind utilities;
-
 @layer utilities {
+  .display-none {
+    display: none;
+  }
   .gold-shadow {
     box-shadow: 0px 0px 5px 2px #ffa821;
   }

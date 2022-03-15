@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
 interface IFeatureProps {
   picture: string[];
 }
@@ -20,10 +19,11 @@ const Feature = ({ picture }: IFeatureProps) => {
   const containerElement_width = 550;
   const containerElement_height = 550;
 
-  const containerElementStyle = (): React.CSSProperties => ({
+  const mainImgElementStyle = (): React.CSSProperties => ({
     position: "relative",
     marginLeft: "0.1rem",
     marginRight: "0.3rem",
+
   });
 
   const magnifyElementStyle = (pictureIndex: number): React.CSSProperties => ({
@@ -132,7 +132,7 @@ const Feature = ({ picture }: IFeatureProps) => {
             return (
               <div
                 key={i}
-                className="border-solid border-x border-y border-neutral-300 mb-4 p-1 cursor-pointer hover:gold-shadow "
+                className="border-solid border-x border-y border-neutral-300 mb-4 p-1 cursor-pointer hover:gold-shadow"
                 onMouseEnter={() => onMouseShowPictureHandler(i)}
               >
                 <Image
@@ -150,13 +150,13 @@ const Feature = ({ picture }: IFeatureProps) => {
         </div>
         <div
           ref={(elm) => (containerRef.current = elm)}
-          style={containerElementStyle()}
+          style={mainImgElementStyle()}
         >
           {picture.map((url, i) => {
             return (
               <div
                 key={i}
-                className=" hidden"
+                className="hidden"
                 ref={(elm) => (mainImgRefs.current[i] = elm)}
               >
                 <Image

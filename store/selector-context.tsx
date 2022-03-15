@@ -40,8 +40,8 @@ export const SelectedTagContext = createContext({} as IContext);
 
 const SelectedTagProvider: React.FC = ({ children }) => {
   const initialState: string[] | [] = [];
-
   const [selectedTag, dispatch] = useReducer(selectorReducer, initialState);
+  console.log(selectedTag)
 
   return (
     <SelectedTagContext.Provider value={{ selectedTag, dispatch }}>

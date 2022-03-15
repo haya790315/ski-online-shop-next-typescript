@@ -5,6 +5,7 @@ import Selector from "./Selector";
 import { SelectedTagContext, ACTION_TYPES } from "../../store/selector-context";
 import brand from "../../Data/brandList.json"
 
+//set the number to extend at beginning
 const initialSelectorNumbers = 3;
 
 const ProductSelector = () => {
@@ -50,7 +51,7 @@ const ProductSelector = () => {
         </div>
         {openMore && (
           <>
-            <ul className="flex flex-col justify-center mb-2">
+            <ul className="flex flex-col mb-2">
               {brandList.slice(0, selectorNumbers).map((item, i) => {
                 return <Selector key={i} value={item} />;
               })}

@@ -25,7 +25,7 @@ export const ListData = {
         "https://cache.tradeinn.com/images/banners-categorias/11584-peke.jpg",
     },
     {
-      name:"boot",
+      name:"snowboard_boots",
       title: "ブーツ",
       imgURL:
         "https://cache.tradeinn.com/images/banners-categorias/11586-peke.jpg",

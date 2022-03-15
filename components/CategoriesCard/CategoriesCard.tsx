@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ListData } from "./CategoriesData";
 import BrandLinks from "./BrandLinks";
 
@@ -23,22 +24,32 @@ const CategoriesCard = () => {
                   : "h-36 w-auto  md:h-80 md:col-span-2"
               }
             >
-              <div className="flex justify-center cursor-pointer md:hover:opacity-75 relative w-full h-full">
-                <Image
-                  data-aos="zoom-in"
-                  key={index}
-                  layout="fill"
-                  src={category.imgURL}
-                  alt={category.title}
-                  objectFit="cover"
-                  objectPosition="center center"
-                  quality={100}
-                  className="filter blur-sm hover:filter-none	md:filter-none"
-                ></Image>
-                <span className="absolute bottom-2/4 text-xl md:bottom-8 md:text-3xl font-medium text-white ">
-                  {category.title}
-                </span>
-              </div>
+              <Link
+                href={{
+                  pathname: `/shopping/${category.name}`,
+                  query: { type: category.name },
+                }}
+                key={index}
+              >
+                <a>
+                  <div className="flex justify-center cursor-pointer md:hover:opacity-75 relative w-full h-full">
+                    <Image
+                      data-aos="zoom-in"
+                      key={index}
+                      layout="fill"
+                      src={category.imgURL}
+                      alt={category.title}
+                      objectFit="cover"
+                      objectPosition="center center"
+                      quality={100}
+                      className="filter blur-sm hover:filter-none	md:filter-none"
+                    ></Image>
+                    <span className="absolute bottom-2/4 text-xl md:bottom-8 md:text-3xl font-medium text-white ">
+                      {category.title}
+                    </span>
+                  </div>
+                </a>
+              </Link>
             </div>
           );
         })}

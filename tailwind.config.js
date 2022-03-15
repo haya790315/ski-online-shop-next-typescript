@@ -6,7 +6,6 @@ module.exports = {
   theme: {},
   variants: {
     extend: {
-      grayscale: ["hover"],
       outline: ["responsive", "focus", "hover", "active"],
     },
   },

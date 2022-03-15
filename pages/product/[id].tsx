@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef} from "react";
 import Head from "next/head";
+import Router from 'next/router'
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "../../components/Feature/Feature";
 import Image from "next/image";
@@ -70,6 +71,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     } else {
       setCartOrder([...cartOrder, newOrder]);
     }
+    Router.push("/cart")
   };
 
   return (

@@ -60,15 +60,15 @@ const ShowCard = ({ item:{id,brand, name, model, imageURL, price }, hoverEffect 
             />
           </div>
           <div className={styles.container_description_animation}>
-            <div className="flex flex-col ">
+            <div className="flex flex-col md:text-lg">
               <hr className="my-6 w-10/12" />
               <div className="text-left">
                 <strong>{brand}</strong>
-                <span className="ml-2 text-sm">{name}</span>
+                <span className="lg:inline-block ml-2 text-sm display-none">{name}</span>
                 <br />
-                <small>{model}</small>
+                <small >{model}</small>
               </div>
-              <div className="flex justify-start  items-center  mt-2">
+              <div className="flex place-items-center  mt-2 text-sm md:text-lg">
                 <span className="">
                   <YenIcon className="fill-current" />
                 </span>
