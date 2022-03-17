@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-
+import type {TOption,TGender} from "../type/type"
 export enum ACTION_TYPES {
   ADD_SELECTED_LIST = "ADD_SELECTED_LIST",
   DELETE_SELECTED_LIST = "DELETE_SELECTED_LIST",
@@ -8,20 +8,20 @@ export enum ACTION_TYPES {
 type IAction =
   | {
       type: ACTION_TYPES.ADD_SELECTED_LIST;
-      payload: string[];
+      payload: ISelectedTag;
     }
   | {
       type: ACTION_TYPES.DELETE_SELECTED_LIST;
-      payload: string[];
+      payload: ISelectedTag;
     };
 
 interface IContext {
-  selectedTag: string[];
+  selectedTag: ISelectedTag;
   dispatch: React.Dispatch<IAction>;
 }
 
-const selectorReducer: React.Reducer<string[], IAction> = (
-  _selectedTag: string[],
+const selectorReducer: React.Reducer<ISelectedTag, IAction> = (
+  _selectedTag: ISelectedTag,
   action: IAction
 ) => {
   switch (action.type) {
@@ -36,12 +36,24 @@ const selectorReducer: React.Reducer<string[], IAction> = (
   }
 };
 
+export interface ISelectedTag {
+  [key:string]:Array<TOption|TGender>;
+}
+
 export const SelectedTagContext = createContext({} as IContext);
 
 const SelectedTagProvider: React.FC = ({ children }) => {
-  const initialState: string[] | [] = [];
-  const [selectedTag, dispatch] = useReducer(selectorReducer, initialState);
-  console.log(selectedTag)
+  const initial= {
+    1: [], //brand string[]
+    2: [], //gender "M"|"F"|"Both"[]
+    3: [], //snowboard size [number,number][]
+    4: [],//helmet size [number,number][]
+    5: [],//snowboard boots size number[]
+    6:[], //binding size S/M/L/XL[]
+  } as ISelectedTag
+
+  
+  const [selectedTag, dispatch] = useReducer(selectorReducer, initial);
 
   return (
     <SelectedTagContext.Provider value={{ selectedTag, dispatch }}>

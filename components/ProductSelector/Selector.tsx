@@ -1,33 +1,57 @@
 import React, { useContext } from "react";
 import { GiSquare, GiCheckMark } from "react-icons/gi";
-import { SelectedTagContext,ACTION_TYPES } from "../../store/selector-context";
+import { SelectedTagContext, ACTION_TYPES } from "../../store/selector-context";
+import type { TOption } from "../../type/type";
 
 interface ISelectorProps {
-  value: string;
+  value: TOption;
+  label: string;
+  id: number;
 }
 
-const Selector = ({ value }: ISelectorProps) => {
+const Selector = ({ value, label, id }: ISelectorProps) => {
   const { selectedTag, dispatch } = useContext(SelectedTagContext);
-
   const checkHandler = () => {
-    if (selectedTag.includes(value)) {
-      const newSelectedTag = selectedTag.filter((item) => item !== value);
+    const thisTypeTag = selectedTag[id];
+
+    if (thisTypeTag?.some((t) => t.toString() === value.toString())) {
+      const newSelectedTag = thisTypeTag.filter(
+        (item) => item.toString() !== value.toString()
+      );
 
       dispatch({
         type: ACTION_TYPES.DELETE_SELECTED_LIST,
-        payload: [...newSelectedTag],
+        payload: {
+          ...selectedTag,
+          [id]: newSelectedTag,
+        },
       });
     }
-    if (!selectedTag.includes(value)) {
+    if (!thisTypeTag?.some((t) => t.toString() === value.toString())) {
       dispatch({
         type: ACTION_TYPES.ADD_SELECTED_LIST,
-        payload: [...selectedTag, value],
+        payload: {
+          ...selectedTag,
+          [id]: [...thisTypeTag, value],
+        },
       });
     }
   };
 
-  const checkList = (value: string) => {
-    return selectedTag.includes(value);
+  const checkList = (value: TOption) => {
+    return Object.values(selectedTag)
+      .flat()
+      .some((t) => t.toString() === value.toString());
+  };
+
+  const returnedHtml = () => {
+    if (label === "helmet") {
+      return `${value} cm`;
+    } else if (label === "snowboard" && typeof value === "object") {
+      return `${value[0]} - ${value[1]} cm`;
+    }else if (label === "snowboard_boots"){
+      return `JP${value}`
+    }else return value;
   };
 
   return (
@@ -37,7 +61,7 @@ const Selector = ({ value }: ISelectorProps) => {
       ) : (
         <GiSquare className="inline-block mr-2 text-blue-300 text-l" />
       )}{" "}
-      {value}
+      {returnedHtml()}
     </li>
   );
 };

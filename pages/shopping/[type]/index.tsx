@@ -69,7 +69,7 @@ const Shopping: NextPage <IShoppingProps>= ({ product }) => {
           <SelectedTag />
           <div className="flex flex-row">
             <ProductSelector />
-            <ProductList list={product} />
+            <ProductList list={product}/>
           </div>
         </SelectedTagProvider>
       </section>

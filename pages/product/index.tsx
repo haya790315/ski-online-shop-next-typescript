@@ -1,22 +1,21 @@
 import React from "react";
 import type { NextPage } from "next";
-import {ProductSelector,SelectedTag} from "../../components/ProductSelector";
+import { ProductSelector, SelectedTag } from "../../components/ProductSelector";
 import SelectedTagProvider from "../../store/selector-context";
 import ProductList from "../../components/ProductLayout/ProductList";
-import list from "../../Data/itemList.json"
+import { IProductData } from "../../type/type";
 
 const Product: NextPage = () => {
-  
-  
+  const list = require("../../Data/itemList.json") as IProductData[];
+
   return (
     <>
-    
       <section className="px-6">
         <SelectedTagProvider>
           <SelectedTag />
           <div className="flex flex-row">
-            <ProductSelector />
-            <ProductList list={list}/>
+            <ProductSelector collection={[1, 2, 3, 4, 5, 6]} />
+            <ProductList list={list} />
           </div>
         </SelectedTagProvider>
       </section>

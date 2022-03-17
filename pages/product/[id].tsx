@@ -1,23 +1,16 @@
-import React, { useRef} from "react";
+import React, { useRef } from "react";
 import Head from "next/head";
-import Router from 'next/router'
+import Router from "next/router";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "../../components/Feature/Feature";
 import Image from "next/image";
 import YenIcon from "../../public/image/static/YenIcon.svg";
 import list from "../../Data/itemList.json";
+import type { IProductData } from "../../type/type";
 import { useCartContext } from "../../store/cart-context";
 
 interface IProductProps {
-  product: {
-    id: string;
-    brand: string;
-    name: string;
-    model: string;
-    price: string;
-    imageURL: string;
-    picture: string[];
-  };
+  product: IProductData;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -71,7 +64,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     } else {
       setCartOrder([...cartOrder, newOrder]);
     }
-    Router.push("/cart")
+    Router.push("/cart");
   };
 
   return (
@@ -106,20 +99,27 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
               <YenIcon className="w-10 h-10 fill-current " /> {product.price}
             </p>
           </div>
-          <div className="flex flex-col w-full lg:flex-row lg:justify-between ">
+          <div className="flex flex-col w-full lg:flex-row lg:justify-between">
             <p className="flex flex-col font-semibold lg:w-3/5">
-              <label htmlFor="size">サイズ</label>
-              <select
-                id="size"
-                name="item-size"
-                className="h-10 my-2 select_arrow_none  border-2 border-solid rounded text-center  text-sky-500 font-semibold focus:border_blue"
-                ref={sizeSelectRef}
-                defaultValue="M"
-              >
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
+              {product.option && (
+                <>
+                  {" "}
+                  <label htmlFor="size">サイズ</label>
+                  <select
+                    id="size"
+                    name="item-size"
+                    className="h-10 my-2 select_arrow_none  border-2 border-solid rounded text-center  text-sky-500 font-semibold focus:border_blue"
+                    ref={sizeSelectRef}
+                    defaultValue={product.option![0] as string | number }
+                  >
+                    {product.option?.map((opt, i) => (
+                      <option key={i} value={opt as string | number}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              )}
             </p>
             <p className="flex flex-col items-start font-semibold lg:w-1/4 relative">
               <label htmlFor="quantity">数量</label>
