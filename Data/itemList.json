@@ -77,7 +77,7 @@
     "name": "ヘルメット",
     "model": "Mod 1 Junior",
     "price": "8093",
-    "option": ["52-54","58-60","61-63"],
+    "option": [[52,54],[58,60],[61,63]],
     "gender": "両用",
     "imageURL": "https://www.snowinn.com/f/13733/137339766/oakley-%E3%83%98%E3%83%AB%E3%83%A1%E3%83%83%E3%83%88-mod-1-junior.jpg",
     "picture": [
@@ -95,7 +95,7 @@
     "name": "ヘルメット",
     "model": "Ryft MIPS",
     "price": "23683",
-    "option": ["46-48","49-51","55-57", "58-60"],
+    "option": [[46,48],[49,51],[55,57], [58,60]],
     "gender": "男性",
     "imageURL": "https://www.snowinn.com/f/13843/138437188/bolle-%E3%83%98%E3%83%AB%E3%83%A1%E3%83%83%E3%83%88-ryft-mips.jpg",
     "picture": [

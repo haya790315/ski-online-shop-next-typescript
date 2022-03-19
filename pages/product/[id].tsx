@@ -8,6 +8,7 @@ import YenIcon from "../../public/image/static/YenIcon.svg";
 import list from "../../Data/itemList.json";
 import type { IProductData } from "../../type/type";
 import { useCartContext } from "../../store/cart-context";
+import type {TOption} from "../../type/type";
 
 interface IProductProps {
   product: IProductData;
@@ -67,6 +68,14 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     Router.push("/cart");
   };
 
+  const returnedOptionHtml = (opt: TOption) => {
+    if (typeof opt === "number") {
+      return opt + "cm";
+    } else if (typeof opt === "object") {
+      return `${opt[0]}-${opt[1]}cm`;
+    } else return opt;
+  };
+
   return (
     <>
       <Head>
@@ -110,11 +119,11 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
                     name="item-size"
                     className="h-10 my-2 select_arrow_none  border-2 border-solid rounded text-center  text-sky-500 font-semibold focus:border_blue"
                     ref={sizeSelectRef}
-                    defaultValue={product.option![0] as string | number }
+                    defaultValue={product.option![0].toString()}
                   >
                     {product.option?.map((opt, i) => (
-                      <option key={i} value={opt as string | number}>
-                        {opt}
+                      <option key={i} value={opt.toString()}>
+                        {returnedOptionHtml(opt)}
                       </option>
                     ))}
                   </select>

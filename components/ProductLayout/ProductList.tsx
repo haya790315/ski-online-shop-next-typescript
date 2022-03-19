@@ -1,13 +1,16 @@
-import React, { useContext, useEffect,useMemo } from "react";
+import React, {useEffect, useMemo } from "react";
 import ShowCard from "../ShowCard/ShowCard";
-import { SelectedTagContext, ACTION_TYPES } from "../../store/selector-context";
+import {
+  useSelectedTagContext,
+  ACTION_TYPES,
+} from "../../store/selector-context";
 import { IProductData } from "../../type/type";
 interface IProductListProps {
   list: IProductData[];
 }
 
 const ProductList = ({ list }: IProductListProps) => {
-  const { selectedTag, dispatch } = useContext(SelectedTagContext);
+  const { selectedTag, dispatch } = useSelectedTagContext();
 
   const selectedTagValue = Object.values(selectedTag).flat();
   const selectMemo = useMemo(() => {
@@ -19,13 +22,14 @@ const ProductList = ({ list }: IProductListProps) => {
       sessionStorage.setItem("tag", JSON.stringify([]));
     } else {
       dispatch({
-        type: ACTION_TYPES.ADD_SELECTED_LIST,
+        type: ACTION_TYPES.RESTORE_SELECTED_LIST,
         payload: {
-          ...selectedTag,
-          ...JSON.parse(sessionStorage.getItem("tag") as string),
+          value: JSON.parse(sessionStorage.getItem("tag") as string),
         },
       });
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -56,7 +60,7 @@ const ProductList = ({ list }: IProductListProps) => {
       } else if (
         item.value === "helmet" &&
         item.option?.some((e) =>
-          selectedTag[4].some((t) => item.option?.includes(t))
+          selectedTag[4].some((t) => e.toString() === t.toString())
         )
       ) {
         acc.push(item);
@@ -79,11 +83,16 @@ const ProductList = ({ list }: IProductListProps) => {
     return filterByGender;
   };
 
-  const filteredItem =filterItem().length>0?filterItem().map((pro, i) => {
-    return <ShowCard key={i} item={pro} hoverEffect="auto" />;
-  }):(<div className="inline-grid place-items-start w-max font-semibold text-zinc-400">
-    結果が見つかりません
-  </div> );
+  const filteredItem =
+    filterItem().length > 0 ? (
+      filterItem().map((pro, i) => {
+        return <ShowCard key={i} item={pro} hoverEffect="auto" />;
+      })
+    ) : (
+      <div className="inline-grid place-items-start w-max font-semibold text-zinc-400">
+        結果が見つかりません
+      </div>
+    );
 
   const allItem = list.map((pro, i) => {
     return <ShowCard key={i} item={pro} hoverEffect="auto" />;

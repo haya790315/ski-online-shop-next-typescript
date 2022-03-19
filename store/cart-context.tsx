@@ -26,7 +26,7 @@ const CartContext = createContext<IContext>({} as IContext);
 
 export const CartContextProvider: React.FC = ({ children }) => {
   const [cartOrder, setCartOrder] = useState<TCartOrder[]>([] as TCartOrder[]);
-  const [cart, setCart] = useState<IItemList[]>([]);
+  const [cart, setCart] = useState<IItemList[]>([] as IItemList[]);
 
   useEffect(() => {
     if (cartOrder.length > 0) {
@@ -44,5 +44,8 @@ export const CartContextProvider: React.FC = ({ children }) => {
 };
 
 export const useCartContext = () => {
+  if (CartContext === undefined) {
+    throw new Error("This is not in the provider");
+  }
   return useContext(CartContext);
 };

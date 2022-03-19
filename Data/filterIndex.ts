@@ -1,14 +1,13 @@
-import type {TOption} from "../type/type"
-export type TId = 1|2|3|4|5|6
-
-export interface IFilterIndex  {
+import type { TOption } from "../type/type";
+export type TId = 1 | 2 | 3 | 4 | 5 | 6;
+export interface IFilterIndex {
   id: TId;
   value: string;
   label: string;
   option: Array<TOption>;
-};
+}
 
-export const filterIndex:IFilterIndex[]  = [
+export const filterIndex: IFilterIndex[] = [
   {
     id: 1,
     value: "brand",
@@ -50,7 +49,15 @@ export const filterIndex:IFilterIndex[]  = [
     id: 4,
     value: "helmet",
     label: "ヘルメット",
-    option: ["46-48", "49-51", "52-54", "55-57", "58-60", "61-63"],
+    option: [
+      [46, 48],
+      [49, 51],
+      [52, 54],
+      [55, 57],
+      [58, 60],
+      [61, 63],
+    ],
+    // option: ["46-48", "49-51", "52-54", "55-57", "58-60", "61-63"],
   },
   {
     id: 5,
@@ -62,6 +69,6 @@ export const filterIndex:IFilterIndex[]  = [
     id: 6,
     value: "binding",
     label: "バインディング",
-    option: ["S", "M", "L", "XL"],
+    option: ["S", "M", "L", "XL","2XL"],
   },
 ];

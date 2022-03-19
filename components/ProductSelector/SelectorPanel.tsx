@@ -1,6 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import { SelectedTagContext, ACTION_TYPES } from "../../store/selector-context";
+import {
+  ACTION_TYPES,
+  useSelectedTagContext,
+} from "../../store/selector-context";
 import Selector from "./Selector";
 import type { IFilterIndex } from "../../Data/filterIndex";
 
@@ -8,14 +11,14 @@ interface ISelectedPanelProps {
   optionList: IFilterIndex;
 }
 
-const SelectorPanel = ({ optionList }:ISelectedPanelProps) => {
+const SelectorPanel = ({ optionList }: ISelectedPanelProps) => {
   const [openMore, setOpenMore] = useState(true);
   const initialSelectorNumbers = 3;
 
   const [selectorNumbers, setSelectorNumbers] = useState(
     initialSelectorNumbers
   );
-  const { dispatch, selectedTag } = useContext(SelectedTagContext);
+  const { dispatch } = useSelectedTagContext();
 
   const opeMenuHandler = () => {
     setOpenMore(!openMore);
@@ -30,10 +33,9 @@ const SelectorPanel = ({ optionList }:ISelectedPanelProps) => {
 
   const clearTagHandler = (id: number) => {
     dispatch({
-      type: ACTION_TYPES.DELETE_SELECTED_LIST,
+      type: ACTION_TYPES.CLEAR_SELECTED_LIST,
       payload: {
-        ...selectedTag,
-        [id]: [],
+        id,
       },
     });
   };

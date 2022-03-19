@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { IoIosClose } from "react-icons/io";
 import { SelectedTagContext } from "../../store/selector-context";
-import { ACTION_TYPES, ISelectedTag } from "../../store/selector-context";
+import { ACTION_TYPES } from "../../store/selector-context";
 import type { TOption } from "../../type/type";
 
 const SelectedTag = () => {
@@ -10,18 +10,12 @@ const SelectedTag = () => {
   const tag = Object.values(selectedTag).flat();
 
   const deleteTagHandler = (value: TOption) => {
-    const filteredTag: ISelectedTag = selectedTag;
-    Object.keys(filteredTag).map((key) => {
-      filteredTag[key] = filteredTag[key].filter(
-        (tagValue) => tagValue != value
-      );
+    Object.keys(selectedTag).map((key) => {
+      dispatch({
+        type: ACTION_TYPES.DELETE_SELECTED_LIST,
+        payload: { id: +key, value },
+      });
     });
-
-    dispatch({
-      type: ACTION_TYPES.DELETE_SELECTED_LIST,
-      payload: { ...filteredTag },
-    });
-    console.log(filteredTag);
   };
 
   const returnedTagHtml = (tagValue: TOption) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import type { NextPage } from "next";
 import { ProductSelector, SelectedTag } from "../../components/ProductSelector";
-import SelectedTagProvider from "../../store/selector-context";
+import {SelectedTagProvider} from "../../store/selector-context";
 import ProductList from "../../components/ProductLayout/ProductList";
 import { IProductData } from "../../type/type";
 
