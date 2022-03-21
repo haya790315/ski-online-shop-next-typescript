@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
+
+
+
+
 @layer components {
   .button_orange {
     @apply text-center bg-orange-500  text-lg text-white font-semibold tracking-widest rounded;

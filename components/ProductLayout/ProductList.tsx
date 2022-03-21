@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import ShowCard from "../ShowCard/ShowCard";
 import {
   useSelectedTagContext,
@@ -28,7 +28,7 @@ const ProductList = ({ list }: IProductListProps) => {
         },
       });
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -72,14 +72,13 @@ const ProductList = ({ list }: IProductListProps) => {
 
     const filterByBrand =
       selectedTag[1].length > 0
-        ? filterByType.filter((item) => selectedTag[1].includes(item!.brand))
+        ? filterByType.filter((item) => selectedTag[1].includes(item.brand))
         : filterByType;
 
     const filterByGender =
       selectedTag[2].length > 0
-        ? filterByBrand.filter((item) => selectedTag[2].includes(item!.gender))
+        ? filterByBrand.filter((item) => selectedTag[2].includes(item.gender))
         : filterByBrand;
-
     return filterByGender;
   };
 

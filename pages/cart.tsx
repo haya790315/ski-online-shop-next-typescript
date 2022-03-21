@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,54 +7,46 @@ import { IoIosClose } from "react-icons/io";
 import { useCartContext } from "../store/cart-context";
 import { calculateTax, currencyFormat } from "../util/util";
 
-const size = ["S", "M", "L", "XL"];
-const quantity = ["1", "2", "3", "4", "5"];
-
 export interface IOption {
-  size: string;
-  quantity: string;
+  id: string;
+  size?: string;
+  quantity?: string;
 }
 
 const Cart: NextPage = () => {
   const { cart, setCartOrder, cartOrder } = useCartContext();
-  const [id, setId] = useState<string>("");
-  const [option, setOption] = useState<IOption>({
-    size: "",
-    quantity: "",
-  } as IOption);
+
+  const [newOrder, setNewOrder] = useState<IOption>({} as IOption);
 
   const changeCartOrderHandler = useCallback(() => {
-    const optionArray = Object.values(option);
+    const optionArray = [newOrder.size, newOrder.quantity];
 
-    const newOrder = { id, option: optionArray };
-    const idsArray = cartOrder.map((item) => item.id);
-    if (cartOrder.length > 0 && idsArray.includes(id)) {
-      const newCartOrder = cartOrder.map((item) => {
-        if (item.id === id) {
-          return { ...item, option: optionArray };
-        } else {
-          return item;
-        }
-      });
-      setCartOrder([...newCartOrder]);
-    } else {
-      setCartOrder([...cartOrder, newOrder]);
-    }
-  }, [option, id]);
+    const newOrderTransToCartOrder = { id: newOrder.id, option: optionArray };
+    const newCartOrder = cartOrder.map((item) => {
+      if (item.id === newOrderTransToCartOrder.id) {
+        return { ...newOrderTransToCartOrder };
+      } else {
+        return item;
+      }
+    });
+    setCartOrder([...newCartOrder]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newOrder]);
+
+  useEffect(() => {
+    changeCartOrderHandler();
+  }, [changeCartOrderHandler]);
 
   const totalPriceCalculator = useCallback((): number => {
     if (cart.length < 1) return 0;
     const orderPriceArray = cart.flatMap((item) => {
       return cartOrder.map((order) => {
-        if (order.id === item.id) {
+        if (order.id === item.id ) {
           return Number(item.price) * Number(order.option[1]);
         } else return 0;
       });
     });
-    const totalPrice = orderPriceArray.reduce(
-      (prev, current) => prev + current,
-      0
-    );
+    const totalPrice = orderPriceArray.reduce((acc, cur) => acc + cur, 0);
     return totalPrice;
   }, [cartOrder, cart]);
 
@@ -62,12 +54,6 @@ const Cart: NextPage = () => {
     const newOrderList = cartOrder.filter((order) => order.id !== id);
     setCartOrder([...newOrderList]);
   };
-
-  useEffect(() => {
-    if (Object.keys(option).length > 0) {
-      changeCartOrderHandler();
-    }
-  }, [changeCartOrderHandler, option]);
 
   return (
     <div className="bg-stone-900 h-max w-full relative text-white text-center ">
@@ -77,6 +63,7 @@ const Cart: NextPage = () => {
           {cart.length > 0 &&
             cart.map((item, i) => {
               const order = cartOrder.find((order) => order.id === item.id);
+              if (!order) return;
               return (
                 <div
                   key={i}
@@ -106,35 +93,49 @@ const Cart: NextPage = () => {
                     </Link>
                     <div className="text-lg pt-5">
                       <span className="text-2xl py-5">¥{item.price}</span>
-                      <span className="block text-zinc-400">
+
+                      <span
+                        className={`block ${
+                          order.option[0] ? "text-zinc-400" : "text-red-700"
+                        }  `}
+                      >
                         サイズ:
-                        <strong className="ml-2">{order?.option[0]}</strong>
+                        <strong className="ml-2">
+                          {item.value !== "googles"
+                            ? order.option[0]
+                            : "ワンサイズ"}
+                        </strong>
                       </span>
-                      <span className="block text-zinc-400">
+
+                      <span
+                        className={`block ${
+                          order.option[1] ? "text-zinc-400" : "text-red-500"
+                        }  `}
+                      >
                         数量:
-                        <strong className="ml-2">{order?.option[1]}</strong>
+                        <strong className="ml-2">{order.option[1]}</strong>
                       </span>
                     </div>
                   </div>
 
                   <div className="absolute flex  h-16 bottom-0 right-0 w-1/2">
                     <CustomerSelect
-                      option={size}
-                      setOption={setOption}
-                      setId={setId}
+                      option={item.option}
+                      setNewOrder={setNewOrder}
+                      order={order}
+                      name="size"
                       label="サイズ"
-                      id={item.id}
                     />
                     <CustomerSelect
-                      option={quantity}
-                      setOption={setOption}
-                      setId={setId}
+                      option={[1, 2, 3, 4, 5]}
+                      setNewOrder={setNewOrder}
+                      name="quantity"
                       label="数量"
-                      id={item.id}
+                      order={order}
                     />
                     <div
                       className="flex shrink items-center justify-center text-4xl h-full w-20 outline-1 outline  outline-slate-700 hover:text-gray-400"
-                      onClick={() => deleteCartHandler(item.id)}
+                      onClick={() => deleteCartHandler(order.id)}
                     >
                       <IoIosClose />
                     </div>

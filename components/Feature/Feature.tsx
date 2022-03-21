@@ -23,7 +23,6 @@ const Feature = ({ picture }: IFeatureProps) => {
     position: "relative",
     marginLeft: "0.1rem",
     marginRight: "0.3rem",
-
   });
 
   const magnifyElementStyle = (pictureIndex: number): React.CSSProperties => ({

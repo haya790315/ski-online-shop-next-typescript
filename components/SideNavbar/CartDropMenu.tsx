@@ -22,7 +22,7 @@ const CartDropMenu = ({ cartDropMenuHandler}: ICartDropProps) => {
     const orderPriceArray = cart.flatMap((item) => {
       return cartOrder.map((order) => {
         if (order.id === item.id) {
-          return Number(item.price) * Number(order.option[1]);
+          return (+item.price) * (+order.option[1]);
         } else return 0;
       });
     });

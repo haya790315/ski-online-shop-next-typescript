@@ -1,38 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import type { TOption } from "../type/type";
+import { TCartOrder } from "../store/cart-context";
+import { IOption } from "../pages/cart";
 
 interface ISelectorProps {
-  option: string[];
+  option: string[] | number[] | TOption[] | undefined;
   label: string;
-  setOption: React.Dispatch<
-    React.SetStateAction<{
-      size: string;
-      quantity: string;
-    }>
-  >;
-  setId: React.Dispatch<React.SetStateAction<string>>;
-  id: string;
+  setNewOrder: React.Dispatch<React.SetStateAction<IOption>>;
+  name: "size" | "quantity";
+  order: TCartOrder;
 }
 
 const CustomerSelect = ({
   option,
   label,
-  setOption,
-  setId,
-  id,
+  name,
+  order,
+  setNewOrder,
 }: ISelectorProps) => {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openList, setOpenList] = useState(false);
   const [innerText, setInnerText] = useState<string>();
+
 
   const liStyle = (order: number): React.CSSProperties => ({
     position: "absolute",
-    opacity: `${openMenu ? "1" : "0"}`,
-    zIndex: `${openMenu ? "5" : "-1"}`,
+    opacity: `${openList ? "1" : "0"}`,
+    zIndex: `${openList ? "5" : "-1"}`,
     width: "100%",
     height: "100%",
     outline: "1px solid rgba(51,65,85)",
     transform: `${
-      openMenu ? `translateY(${order * 65}px)` : "translateY(65px)"
+      openList ? `translateY(${order * 65}px)` : "translateY(65px)"
     }`,
     backgroundColor: "rgb(28,25,23,1)",
     textAlign: "center",
@@ -43,58 +42,43 @@ const CustomerSelect = ({
   });
 
   const openMenuHandler = () => {
-    setOpenMenu(!openMenu);
+    setOpenList(!openList);
   };
 
   const changOptionHandler = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;
     setInnerText(target.innerHTML);
-    setId(id);
 
-    switch (label) {
-      case "サイズ":
-        {
-          setOption((prev) => ({
-            ...prev,
-            size: target.innerHTML,
-          }));
-        
-        }
-        break;
-      case "数量":
-        {
-          setOption((prev) => ({
-            ...prev,
-            quantity: target.innerHTML,
-          }));
-        }
-        break;
-      default:
-        throw new Error("unknown label");
-    }
+    setNewOrder({
+      id: order.id,
+      size: order.option[0],
+      quantity: order.option[1],
+      [name]: target.innerHTML,
+    });
   };
-  
-  
+
   return (
     <>
-      <ul
-        className="relative flex flex-row justify-evenly items-center flex-1 outline-1 outline  h-full  outline-slate-700 "
-        onClick={openMenuHandler}
-      >
-        <span>{label}</span>
-        {innerText}
-        {option.map((value, i) => (
-          <li
-            style={liStyle(i + 1)}
-            key={i}
-            onClick={changOptionHandler.bind(this)}
-            className="hover:text-gray-400"
-          >
-            {value}
-          </li>
-        ))}
-        <IoMdArrowDropdown />
-      </ul>
+      {option && (
+        <ul
+          className="relative flex flex-row justify-evenly items-center flex-1 outline-1 outline  h-full  outline-slate-700 "
+          onClick={openMenuHandler}
+        >
+          <span>{label}</span>
+          {innerText}
+          {option.map((value, i) => (
+            <li
+              style={liStyle(i + 1)}
+              key={i}
+              onClick={changOptionHandler.bind(this)}
+              className="hover:text-gray-400"
+            >
+              {value}
+            </li>
+          ))}
+          <IoMdArrowDropdown />
+        </ul>
+      )}
     </>
   );
 };

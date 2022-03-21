@@ -8,20 +8,20 @@ import { sideMenuData } from "./sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
 const SideNavbar = () => {
-  const sideNavbarRef = useRef<HTMLDivElement | null>(null);
+  const sideNavbarRef = useRef<HTMLDivElement>(null);
   const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
   const router = useRouter();
 
   const { cart, cartOrder } = useCartContext();
 
-  console.log({ cart, cartOrder });
+  console.log({cart,cartOrder});
 
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
       if (window.matchMedia( "(max-width: 768px)" ).matches) return;
       e.preventDefault();
       const scrollY = window.scrollY;
-      if (scrollY > 135) {
+      if (scrollY > 135 ) {
         sideNavbarRef.current?.classList.remove("relative");
         sideNavbarRef.current?.classList.add("fixed");
       } else {

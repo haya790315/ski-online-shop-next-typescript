@@ -33,6 +33,8 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
   const { params } = staticProps;
 
   const product = list.find((item) => item.id === params?.id);
+  const res = fetch
+
   return {
     props: {
       product,
