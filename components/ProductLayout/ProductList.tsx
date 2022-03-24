@@ -40,17 +40,17 @@ const ProductList = ({ list }: IProductListProps) => {
     const filterByType = list.reduce((acc, item, i, list) => {
       if (
         item.value === "binding" &&
-        item.option?.some((e) => selectedTag[6].includes(e))
+        item.option.some((e) => selectedTag[6].includes(e))
       ) {
         acc.push(item);
       } else if (
         item.value === "snowboard_boots" &&
-        item.option?.some((e) => selectedTag[5].includes(e))
+        item.option.some((e) => selectedTag[5].includes(e))
       ) {
         acc.push(item);
       } else if (
         item.value === "snowboard" &&
-        item.option?.some((e) =>
+        item.option.some((e) =>
           selectedTag[3].some(
             (t) => typeof t === "object" && t[0] <= e && e <= t[1]
           )
@@ -59,7 +59,7 @@ const ProductList = ({ list }: IProductListProps) => {
         acc.push(item);
       } else if (
         item.value === "helmet" &&
-        item.option?.some((e) =>
+        item.option.some((e) =>
           selectedTag[4].some((t) => e.toString() === t.toString())
         )
       ) {

@@ -1,12 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import {IProductData} from "../type/type"
-
+import {TOption} from "../type/type"
 
 const itemList = require("../Data/itemList.json") as IProductData[];
 
 export type TCartOrder = {
   id: string;
-  option: (string|undefined)[];
+  option: (TOption|undefined)[];
 };
 
 interface IContext {

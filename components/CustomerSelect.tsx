@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import {formateTexts} from "../util/util"
+import type { TCartOrder } from "../store/cart-context";
+import type { IOption } from "../pages/cart";
 import type { TOption } from "../type/type";
-import { TCartOrder } from "../store/cart-context";
-import { IOption } from "../pages/cart";
 
 interface ISelectorProps {
-  option: string[] | number[] | TOption[] | undefined;
+  option: TOption[];
   label: string;
   setNewOrder: React.Dispatch<React.SetStateAction<IOption>>;
   name: "size" | "quantity";
@@ -20,8 +21,7 @@ const CustomerSelect = ({
   setNewOrder,
 }: ISelectorProps) => {
   const [openList, setOpenList] = useState(false);
-  const [innerText, setInnerText] = useState<string>();
-
+  const [innerText, setInnerText] = useState<TOption>();
 
   const liStyle = (order: number): React.CSSProperties => ({
     position: "absolute",
@@ -44,22 +44,24 @@ const CustomerSelect = ({
   const openMenuHandler = () => {
     setOpenList(!openList);
   };
+  
 
-  const changOptionHandler = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as HTMLElement;
-    setInnerText(target.innerHTML);
+  const changOptionHandler = (value: TOption) => {
+    const text = formateTexts(value);
+
+    setInnerText(text);
 
     setNewOrder({
       id: order.id,
       size: order.option[0],
       quantity: order.option[1],
-      [name]: target.innerHTML,
+      [name]: value,
     });
   };
 
   return (
     <>
-      {option && (
+      {option.length>0 && (
         <ul
           className="relative flex flex-row justify-evenly items-center flex-1 outline-1 outline  h-full  outline-slate-700 "
           onClick={openMenuHandler}
@@ -70,10 +72,10 @@ const CustomerSelect = ({
             <li
               style={liStyle(i + 1)}
               key={i}
-              onClick={changOptionHandler.bind(this)}
+              onClick={() => changOptionHandler(value)}
               className="hover:text-gray-400"
             >
-              {value}
+              {formateTexts(value)}
             </li>
           ))}
           <IoMdArrowDropdown />

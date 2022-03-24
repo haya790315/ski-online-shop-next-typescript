@@ -8,7 +8,7 @@ import YenIcon from "../../public/image/static/YenIcon.svg";
 import list from "../../Data/itemList.json";
 import type { IProductData } from "../../type/type";
 import { useCartContext } from "../../store/cart-context";
-import type {TOption} from "../../type/type";
+import { formateTexts } from "../../util/util";
 
 interface IProductProps {
   product: IProductData;
@@ -33,7 +33,6 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
   const { params } = staticProps;
 
   const product = list.find((item) => item.id === params?.id);
-  const res = fetch
 
   return {
     props: {
@@ -43,22 +42,25 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 };
 
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
-  const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`;
   const { setCartOrder, cartOrder } = useCartContext();
 
-  const sizeSelectRef = useRef<HTMLSelectElement>(null);
   const quantitySelectRef = useRef<HTMLInputElement>(null);
+  const sizeSelectRef = useRef<HTMLSelectElement>(null);
+
+  const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`;
+  const { inspect } = require("util");
 
   const putInCartHandler = () => {
-    const size = sizeSelectRef.current?.value as string;
-    const quantity = quantitySelectRef.current?.value as string;
+    const size =sizeSelectRef.current?.value && JSON.parse(sizeSelectRef.current.value);
+    const quantity = +quantitySelectRef.current!.value;
     const optionArray = [size, quantity];
+
     const newOrder = { id: product.id, option: optionArray };
     const idsArray = cartOrder.map((item) => item.id);
     if (cartOrder.length > 0 && idsArray.includes(product.id)) {
       const newCartOrder = cartOrder.map((item) => {
         if (item.id === product.id) {
-          return { ...item, option: optionArray };
+          return newOrder;
         } else {
           return item;
         }
@@ -67,17 +69,9 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     } else {
       setCartOrder([...cartOrder, newOrder]);
     }
+
     Router.push("/cart");
   };
-
-  const returnedOptionHtml = (opt: TOption) => {
-    if (typeof opt === "number") {
-      return opt + "cm";
-    } else if (typeof opt === "object") {
-      return `${opt[0]}-${opt[1]}cm`;
-    } else return opt;
-  };
-
   return (
     <>
       <Head>
@@ -111,27 +105,25 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
             </p>
           </div>
           <div className="flex flex-col w-full lg:flex-row lg:justify-between">
-            <p className="flex flex-col font-semibold lg:w-3/5">
-              {product.option && (
+            <div className="flex flex-col font-semibold lg:w-3/5">
+              {product.option.length ?(
                 <>
                   {" "}
                   <label htmlFor="size">サイズ</label>
                   <select
                     id="size"
+                    ref={sizeSelectRef}
                     name="item-size"
                     className="h-10 my-2 select_arrow_none  border-2 border-solid rounded text-center  text-sky-500 font-semibold focus:border_blue"
-                    ref={sizeSelectRef}
-                    defaultValue={product.option![0].toString()}
+                    defaultValue={JSON.stringify(product.option[0])}
                   >
-                    {product.option?.map((opt, i) => (
-                      <option key={i} value={opt.toString()}>
-                        {returnedOptionHtml(opt)}
-                      </option>
+                    {product.option.map((opt, i) => (
+                      <option key={i} value={JSON.stringify(opt)}>{formateTexts(opt, "cm")}</option>
                     ))}
                   </select>
                 </>
-              )}
-            </p>
+              ): <p className="text-zinc-500  border-b-2 text-center absolute text-2xl">ワンサイズ</p>}
+            </div>
             <p className="flex flex-col items-start font-semibold lg:w-1/4 relative">
               <label htmlFor="quantity">数量</label>
               <input
@@ -140,7 +132,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
                 id="quantity"
                 name="item-quantity"
                 min="1"
-                max="10"
+                max="5"
                 step="1"
                 required
                 defaultValue="1"

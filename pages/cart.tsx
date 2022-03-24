@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,11 +6,13 @@ import CustomerSelect from "../components/CustomerSelect";
 import { IoIosClose } from "react-icons/io";
 import { useCartContext } from "../store/cart-context";
 import { calculateTax, currencyFormat } from "../util/util";
+import { formateTexts } from "../util/util";
+import type { TOption } from "../type/type";
 
 export interface IOption {
   id: string;
-  size?: string;
-  quantity?: string;
+  size?: TOption;
+  quantity?: TOption;
 }
 
 const Cart: NextPage = () => {
@@ -41,7 +43,7 @@ const Cart: NextPage = () => {
     if (cart.length < 1) return 0;
     const orderPriceArray = cart.flatMap((item) => {
       return cartOrder.map((order) => {
-        if (order.id === item.id ) {
+        if (order.id === item.id) {
           return Number(item.price) * Number(order.option[1]);
         } else return 0;
       });
@@ -101,8 +103,8 @@ const Cart: NextPage = () => {
                       >
                         サイズ:
                         <strong className="ml-2">
-                          {item.value !== "googles"
-                            ? order.option[0]
+                          {item.option.length
+                            ? formateTexts(order.option[0]!, "cm")
                             : "ワンサイズ"}
                         </strong>
                       </span>
