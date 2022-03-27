@@ -1,11 +1,11 @@
-import React, { useState} from "react";
+import React, { useState,useRef} from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import {
   ACTION_TYPES,
   useSelectedTagContext,
-} from "../../store/selector-context";
+} from "store/selector-context";
 import Selector from "./Selector";
-import type { IFilterIndex } from "../../Data/filterIndex";
+import type { IFilterIndex } from "Data/filterIndex";
 
 interface ISelectedPanelProps {
   optionList: IFilterIndex;
@@ -13,17 +13,17 @@ interface ISelectedPanelProps {
 
 const SelectorPanel = ({ optionList }: ISelectedPanelProps) => {
   const [openMore, setOpenMore] = useState(true);
-  const initialSelectorNumbers = 3;
+  const initialSelectorNumber = useRef(3);
 
   const [selectorNumbers, setSelectorNumbers] = useState(
-    initialSelectorNumbers
+    initialSelectorNumber.current
   );
   const { dispatch } = useSelectedTagContext();
 
   const opeMenuHandler = () => {
     setOpenMore(!openMore);
     if (openMore) {
-      setSelectorNumbers(initialSelectorNumbers);
+      setSelectorNumbers(initialSelectorNumber.current);
     }
   };
 

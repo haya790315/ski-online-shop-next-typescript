@@ -1,8 +1,8 @@
-import "../styles/globals.css";
+import "styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
+import Layout from "components/Layout";
 import Head from "next/head";
-import { CartContextProvider } from "../store/cart-context";
+import { CartContextProvider } from "store/cart-context";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -6,8 +6,8 @@
 
 .bagAnimation:after{
   content:"";
-  height:18px;
-  width:22px;
+  height:22px;
+  width:28px;
   background-color: orange;
   position:absolute;
   top:50%;

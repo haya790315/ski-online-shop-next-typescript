@@ -8,7 +8,7 @@ export enum ACTION_TYPES {
 }
 type TPayload = { id: number; value: TOption };
 
-type TRestorePayload =  {  value: ISelectedTag };
+type TRestorePayload =  { value: ISelectedTag };
 
 type IAction =
   | {
@@ -21,14 +21,14 @@ type IAction =
     }
   | {
       type: ACTION_TYPES.CLEAR_SELECTED_LIST;
-      payload: Pick<TPayload,"id">;
+      payload: Pick<TPayload,`id`>;
     }
   | {
       type: ACTION_TYPES.RESTORE_SELECTED_LIST;
       payload: TRestorePayload;
     };
 export interface ISelectedTag {
-  [key: string]: Array<TOption>;
+  [key: number]: Array<TOption>;
 }
 interface IContext {
   selectedTag: ISelectedTag;
@@ -62,14 +62,14 @@ const selectorReducer: React.Reducer<ISelectedTag, IAction> = (
       [payload.id]: [],
     };
   } else {
-    throw new Error("missing id or value");
+    return selectedTag;
   }
 };
 
 export const SelectedTagContext = createContext({} as IContext);
 
 const SelectedTagProvider: React.FC = ({ children }) => {
-  let initial = {
+  const initial = {
     1: [], //brand string[]
     2: [], //gender "M"|"F"|"Both"[]
     3: [], //snowboard size [number,number][]

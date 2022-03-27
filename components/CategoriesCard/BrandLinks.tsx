@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import brand from "../../Data/brandList.json"
+import brand from "Data/brandList.json"
 
 const BrandLinks = () => {
   return (

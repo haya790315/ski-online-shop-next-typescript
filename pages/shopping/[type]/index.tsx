@@ -5,7 +5,7 @@ import {
   ProductSelector,
   SelectedTag,
 } from "../../../components/ProductSelector";
-import SelectedTagProvider from "../../../store/selector-context";
+// import SelectedTagProvider from "../../../store/selector-context";
 import ProductList from "../../../components/ProductLayout/ProductList";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -64,7 +64,7 @@ interface IShoppingProps {
 const Shopping: NextPage <IShoppingProps>= ({ product }) => {
   return (
     <>
-      <section className="px-6">
+      {/* <section className="px-6">
         <SelectedTagProvider>
           <SelectedTag />
           <div className="flex flex-row">
@@ -72,7 +72,7 @@ const Shopping: NextPage <IShoppingProps>= ({ product }) => {
             <ProductList list={product}/>
           </div>
         </SelectedTagProvider>
-      </section>
+      </section> */}
     </>
   );
 };

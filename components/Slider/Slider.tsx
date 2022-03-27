@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/Slider.module.css";
+import styles from "styles/Slider.module.css";
 import Link from "next/link"
 import Image from "next/image";
 
@@ -54,7 +54,7 @@ const Slider = () => {
     setSlideIndex(index + 1);
   };
 
-  let slide = slideIndex <= sliderStatic.length ? slideIndex - 1 : 0;
+  const slide = slideIndex <= sliderStatic.length ? slideIndex - 1 : 0;
 
   const className = (index: number) => {
     if (slide === index) {

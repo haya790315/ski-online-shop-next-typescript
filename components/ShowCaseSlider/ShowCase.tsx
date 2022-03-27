@@ -21,20 +21,19 @@ const ShowCase = ({ itemList, listTitle }: IShowCaseProps) => {
       return;
     }
     const showCaseElement = showCaseElementRef.current;
-    let x = event.pageX - showCaseElement!.offsetLeft;
+    const x = event.pageX - showCaseElement!.offsetLeft;
     const { scrollX, startX } = slideX;
     const scroll = startX - x;
     showCaseElement!.scrollLeft = scrollX + scroll;
   };
-
   const onDragStartHandler = (
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ): void => {
     event.preventDefault();
     setIsDrag(true);
     const showCaseElement = showCaseElementRef.current;
-    let startX = event.pageX - showCaseElement!.offsetLeft;
-    let scrollX = showCaseElement!.scrollLeft;
+    const startX = event.pageX - showCaseElement!.offsetLeft;
+    const scrollX = showCaseElement!.scrollLeft;
     setSlideX({ scrollX, startX });
   };
 
@@ -66,7 +65,7 @@ const ShowCase = ({ itemList, listTitle }: IShowCaseProps) => {
             onMouseUp={(e) => {
               onDragEndHandler(e);
             }}
-            onMouseLeave={(e) => {
+            onMouseLeave={() => {
               isDrag && setIsDrag(false);
             }}
           >

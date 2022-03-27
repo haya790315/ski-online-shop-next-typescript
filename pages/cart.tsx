@@ -2,27 +2,27 @@ import React, { useEffect, useState, useCallback } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import CustomerSelect from "../components/CustomerSelect";
+import CustomerSelect from "components/CustomerSelect";
 import { IoIosClose } from "react-icons/io";
-import { useCartContext } from "../store/cart-context";
-import { calculateTax, currencyFormat } from "../util/util";
-import { formateTexts } from "../util/util";
-import type { TOption } from "../type/type";
-
+import { useCartContext } from "store/cart-context";
+import { calculateTax, currencyFormat } from "lib/util/util";
+import { formatTexts } from "lib/util/util";
+import type { TOption } from "type/type";
+import {calculateTotal} from "lib/util/util"
 export interface IOption {
   id: string;
   size?: TOption;
-  quantity?: TOption;
+  quantity: TOption;
 }
 
 const Cart: NextPage = () => {
   const { cart, setCartOrder, cartOrder } = useCartContext();
-
-  const [newOrder, setNewOrder] = useState<IOption>({} as IOption);
+  
+  const [newOrder, setNewOrder] = useState<IOption>({size:"", quantity:3} as IOption);
 
   const changeCartOrderHandler = useCallback(() => {
     const optionArray = [newOrder.size, newOrder.quantity];
-
+    
     const newOrderTransToCartOrder = { id: newOrder.id, option: optionArray };
     const newCartOrder = cartOrder.map((item) => {
       if (item.id === newOrderTransToCartOrder.id) {
@@ -39,18 +39,10 @@ const Cart: NextPage = () => {
     changeCartOrderHandler();
   }, [changeCartOrderHandler]);
 
-  const totalPriceCalculator = useCallback((): number => {
-    if (cart.length < 1) return 0;
-    const orderPriceArray = cart.flatMap((item) => {
-      return cartOrder.map((order) => {
-        if (order.id === item.id) {
-          return Number(item.price) * Number(order.option[1]);
-        } else return 0;
-      });
-    });
-    const totalPrice = orderPriceArray.reduce((acc, cur) => acc + cur, 0);
-    return totalPrice;
-  }, [cartOrder, cart]);
+  const autoPriceCalculator = useCallback((): number => {
+    if (!cart.length) return 0;
+    return calculateTotal(cart,cartOrder)
+  }, [cart,cartOrder]);
 
   const deleteCartHandler = (id: string) => {
     const newOrderList = cartOrder.filter((order) => order.id !== id);
@@ -66,35 +58,37 @@ const Cart: NextPage = () => {
             cart.map((item, i) => {
               const order = cartOrder.find((order) => order.id === item.id);
               if (!order) return;
+              
               return (
                 <div
                   key={i}
-                  className="relative flex flex-row  items-start p-8  border-b border-solid border-slate-700"
+                  className="relative flex flex-row pl-10 py-6 border-b border-solid border-slate-700"
                 >
-                  <Link href="/product/[id]" as={`/product/${item.id}`}>
+                  <Link href="/product/[id]" as={`/product/${item.id}`} >
                     <a>
                       <Image
                         src={item.imageURL}
                         alt={""}
-                        height={200}
-                        width={200}
-                        objectFit="contain"
+                        height={180}
+                        width={180}
+                        objectFit="cover"
                         priority
                         objectPosition="center center"
                         quality={100}
-                      />
+                        
+                        />
                     </a>
                   </Link>
 
-                  <div className="flex flex-col flex-1 ml-16 items-start text-left text-xl">
+                  <div className="flex flex-col pl-12 text-left text-lg">
                     <Link href="/product/[id]" as={`/product/${item.id}`}>
                       <a>
                         {" "}
                         <h1>{item.brand + " " + item.model}</h1>
                       </a>
                     </Link>
-                    <div className="text-lg pt-5">
-                      <span className="text-2xl py-5">¥{item.price}</span>
+                      <span className="text-lg">¥{item.price}</span>
+                    <div className="text-base py-3">
 
                       <span
                         className={`block ${
@@ -104,7 +98,7 @@ const Cart: NextPage = () => {
                         サイズ:
                         <strong className="ml-2">
                           {item.option.length
-                            ? formateTexts(order.option[0]!, "cm")
+                            ? formatTexts(order.option[0]!, "cm")
                             : "ワンサイズ"}
                         </strong>
                       </span>
@@ -120,7 +114,7 @@ const Cart: NextPage = () => {
                     </div>
                   </div>
 
-                  <div className="absolute flex  h-16 bottom-0 right-0 w-1/2">
+                  <div className="absolute flex h-12 bottom-0 right-0 w-1/2">
                     <CustomerSelect
                       option={item.option}
                       setNewOrder={setNewOrder}
@@ -155,11 +149,11 @@ const Cart: NextPage = () => {
             <h2 className="text-3xl pb-20">概要</h2>
             <div className="flex flex-row justify-between item-center py-2 border-b border-solid border-slate-700">
               <span>小計</span>
-              <span>{currencyFormat(totalPriceCalculator())}</span>
+              <span>{currencyFormat(autoPriceCalculator())}</span>
             </div>
             <div className="flex flex-row justify-between item-center py-2 border-b border-solid border-slate-700">
               <span>内消費税</span>
-              <span>￥{calculateTax(totalPriceCalculator())}</span>
+              <span>￥{calculateTax(autoPriceCalculator())}</span>
             </div>
             <div className="flex flex-row justify-between item-center py-2 border-b border-solid border-slate-700">
               <span>配送金額</span>
@@ -169,7 +163,7 @@ const Cart: NextPage = () => {
             <div className="flex flex-row justify-between item-center pt-20  border-solid border-slate-700">
               <span className="text-3xl">合計</span>
               <span className="text-stone-200 text-4xl">
-                {currencyFormat(totalPriceCalculator())}
+                {currencyFormat(autoPriceCalculator())}
               </span>
             </div>
           </div>

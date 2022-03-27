@@ -14,10 +14,10 @@ const Feature = ({ picture }: IFeatureProps) => {
 
   const magnifiedRef = useRef<HTMLDivElement | null>(null);
 
-  const block_width = 125;
-  const block_height = 125;
-  const containerElement_width = 550;
-  const containerElement_height = 550;
+  const block_width = useRef(125).current;
+  const block_height = useRef(125).current;
+  const mainImg_width = useRef(500).current;
+  const mainImg_height = useRef(500).current;
 
   const mainImgElementStyle = (): React.CSSProperties => ({
     position: "relative",
@@ -60,9 +60,9 @@ const Feature = ({ picture }: IFeatureProps) => {
   }, []);
 
   useEffect(() => {
-    const blockElement = blockRef?.current!;
-    const containerElement = containerRef?.current!;
-    const magnifiedElement = magnifiedRef?.current!;
+    const blockElement = blockRef.current!;
+    const containerElement = containerRef.current!;
+    const magnifiedElement = magnifiedRef.current!;
 
     const controlBlockHandler = (event: MouseEvent) => {
       if (window.innerWidth < 1024) return;
@@ -75,13 +75,13 @@ const Feature = ({ picture }: IFeatureProps) => {
 
       if (event.offsetY < block_width / 2) {
         y = block_width / 2;
-      } else if (event.offsetY > containerElement_width - block_width / 2) {
-        y = containerElement_width - block_width / 2;
+      } else if (event.offsetY > mainImg_width - block_width / 2) {
+        y = mainImg_width - block_width / 2;
       }
       if (event.offsetX < block_height / 2) {
         x = block_height / 2;
-      } else if (event.offsetX > containerElement_height - block_height / 2) {
-        x = containerElement_height - block_height / 2;
+      } else if (event.offsetX > mainImg_height - block_height / 2) {
+        x = mainImg_height - block_height / 2;
       }
 
       blockElement.style.left = `${x - block_width / 2}px`;
@@ -131,7 +131,7 @@ const Feature = ({ picture }: IFeatureProps) => {
             return (
               <div
                 key={i}
-                className="border-solid border-x border-y border-neutral-300 mb-4 p-1 cursor-pointer hover:gold-shadow"
+                className="flex-none mb-4 p-1 border-solid border-x border-y border-neutral-300 cursor-pointer hover:gold-shadow"
                 onMouseEnter={() => onMouseShowPictureHandler(i)}
               >
                 <Image
@@ -161,8 +161,8 @@ const Feature = ({ picture }: IFeatureProps) => {
                 <Image
                   src={url}
                   alt="no"
-                  height={550}
-                  width={550}
+                  height={500}
+                  width={500}
                   objectFit="cover"
                   objectPosition="center center"
                   quality={100}

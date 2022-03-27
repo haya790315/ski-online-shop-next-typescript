@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import YenIcon from "../../public/image/static/YenIcon.svg";
-import styles from "../../styles/ShowCard.module.css";
+import YenIcon from "public/image/static/YenIcon.svg";
+import styles from "styles/ShowCard.module.css";
 import Link from "next/link";
 
 interface IShowCardProps {
@@ -53,6 +53,8 @@ const ShowCard = ({ item:{id,brand, name, model, imageURL, price }, hoverEffect 
               alt={name + brand + model}
               height={imageSize}
               width={imageSize}
+              placeholder="blur"
+              blurDataURL={imageURL}
               objectFit="contain"
               priority
               objectPosition="center center"

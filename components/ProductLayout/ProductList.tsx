@@ -3,8 +3,8 @@ import ShowCard from "../ShowCard/ShowCard";
 import {
   useSelectedTagContext,
   ACTION_TYPES,
-} from "../../store/selector-context";
-import { IProductData } from "../../type/type";
+} from "store/selector-context";
+import { IProductData } from "type/type";
 interface IProductListProps {
   list: IProductData[];
 }

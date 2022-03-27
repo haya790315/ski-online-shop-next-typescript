@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../styles/Categories.module.css";
+import styles from "styles/Categories.module.css";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 interface IProps {

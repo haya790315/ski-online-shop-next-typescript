@@ -1,8 +1,8 @@
 import React from "react";
 import { BsFilterLeft } from "react-icons/bs";
 import SelectorPanel from "./SelectorPanel";
-import { filterIndex } from "../../Data/filterIndex";
-import { TId } from "../../Data/filterIndex";
+import { filterIndex } from "Data/filterIndex";
+import { TId } from "Data/filterIndex";
 //set the number to extend at beginning
 interface IProductSelector {
   collection: TId[];

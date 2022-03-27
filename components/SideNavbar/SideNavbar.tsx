@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../../styles/SideNavbar.module.css";
+import styles from "styles/SideNavbar.module.css";
 import { useRouter } from "next/router";
-import ShopIcon from "../../public/image/static/ShopIcon.svg";
+import ShopIcon from "public/image/static/ShopIcon.svg";
 import Categories from "./Categories";
-import { useCartContext } from "../../store/cart-context";
+import { useCartContext } from "store/cart-context";
 import { sideMenuData } from "./sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
@@ -22,11 +22,11 @@ const SideNavbar = () => {
       e.preventDefault();
       const scrollY = window.scrollY;
       if (scrollY > 135 ) {
-        sideNavbarRef.current?.classList.remove("relative");
-        sideNavbarRef.current?.classList.add("fixed");
+        sideNavbarRef.current!.classList.remove("relative");
+        sideNavbarRef.current!.classList.add("fixed");
       } else {
-        sideNavbarRef.current?.classList.add("relative");
-        sideNavbarRef.current?.classList.remove("fixed");
+        sideNavbarRef.current!.classList.add("relative");
+        sideNavbarRef.current!.classList.remove("fixed");
       }
     };
     window.addEventListener("scroll", handleScrollEvent);
@@ -50,7 +50,7 @@ const SideNavbar = () => {
   const cartIconMenu = (
     <>
       <div
-        className="relative mr-20 mt-4 "
+        className="relative mr-20 mt-4 hover:text-orange-300 "
         onMouseLeave={cartDropMenuHandler.mouseLeave}
         onMouseEnter={cartDropMenuHandler.mouseEnter}
       >
@@ -80,7 +80,7 @@ const SideNavbar = () => {
         })}
       </ul>
 
-      <div className="flex flex-row cursor-default relative text-white hover:text-orange-300 ">
+      <div className="flex flex-row cursor-default relative text-white ">
         {router.pathname === "/cart" ? (
           <button className="block  h-16 ml-4 w-48 bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
             注文手続きへ

@@ -1,8 +1,10 @@
 import React,{useCallback} from "react";
 import Image from "next/image";
-import YenIcon from "../../public/image/static/YenIcon.svg";
+import YenIcon from "public/image/static/YenIcon.svg";
 import Link from "next/link";
-import { useCartContext } from "../../store/cart-context";
+import { useCartContext } from "store/cart-context";
+import {calculateTotal} from "lib/util/util"
+
 
 interface ICartDropProps {
   cartDropMenuHandler: {
@@ -17,20 +19,9 @@ interface ICartDropProps {
 const CartDropMenu = ({ cartDropMenuHandler}: ICartDropProps) => {
   const { cart, cartOrder } = useCartContext();
 
-  const totalPriceCalculator = useCallback((): number => {
-    if (cart.length < 1) return 0;
-    const orderPriceArray = cart.flatMap((item) => {
-      return cartOrder.map((order) => {
-        if (order.id === item.id) {
-          return (+item.price) * (+order.option[1]);
-        } else return 0;
-      });
-    });
-    const totalPrice = orderPriceArray.reduce(
-      (prev, current) => prev + current,
-      0
-    );
-    return totalPrice;
+  const autoPriceCalculator = useCallback((): number => {
+    if (!cart.length ) return 0;
+    return calculateTotal(cart,cartOrder)
   }, [cartOrder, cart]);
   
 
@@ -83,7 +74,7 @@ const CartDropMenu = ({ cartDropMenuHandler}: ICartDropProps) => {
             <span>小計 : </span>
             <span>
               <YenIcon className="fill-current inline-block mb-1" />
-              {totalPriceCalculator()}
+              {autoPriceCalculator()}
             </span>
           </div>
           <Link href="/cart">

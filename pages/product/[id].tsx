@@ -2,13 +2,13 @@ import React, { useRef } from "react";
 import Head from "next/head";
 import Router from "next/router";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
-import Feature from "../../components/Feature/Feature";
+import Feature from "components/Feature/Feature";
 import Image from "next/image";
-import YenIcon from "../../public/image/static/YenIcon.svg";
-import list from "../../Data/itemList.json";
-import type { IProductData } from "../../type/type";
-import { useCartContext } from "../../store/cart-context";
-import { formateTexts } from "../../util/util";
+import YenIcon from "public/image/static/YenIcon.svg";
+import list from "Data/itemList.json";
+import type { IProductData } from "type/type";
+import { useCartContext } from "store/cart-context";
+import { formatTexts } from "lib/util/util";
 
 interface IProductProps {
   product: IProductData;
@@ -30,6 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (staticProps) => {
+  console.log(staticProps)
   const { params } = staticProps;
 
   const product = list.find((item) => item.id === params?.id);
@@ -48,10 +49,10 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
   const sizeSelectRef = useRef<HTMLSelectElement>(null);
 
   const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`;
-  const { inspect } = require("util");
 
   const putInCartHandler = () => {
-    const size =sizeSelectRef.current?.value && JSON.parse(sizeSelectRef.current.value);
+    const size =
+      sizeSelectRef.current?.value && JSON.parse(sizeSelectRef.current.value);
     const quantity = +quantitySelectRef.current!.value;
     const optionArray = [size, quantity];
 
@@ -106,7 +107,7 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
           </div>
           <div className="flex flex-col w-full lg:flex-row lg:justify-between">
             <div className="flex flex-col font-semibold lg:w-3/5">
-              {product.option.length ?(
+              {product.option.length ? (
                 <>
                   {" "}
                   <label htmlFor="size">サイズ</label>
@@ -118,11 +119,17 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
                     defaultValue={JSON.stringify(product.option[0])}
                   >
                     {product.option.map((opt, i) => (
-                      <option key={i} value={JSON.stringify(opt)}>{formateTexts(opt, "cm")}</option>
+                      <option key={i} value={JSON.stringify(opt)}>
+                        {formatTexts(opt, "cm")}
+                      </option>
                     ))}
                   </select>
                 </>
-              ): <p className="text-zinc-500  border-b-2 text-center absolute text-2xl">ワンサイズ</p>}
+              ) : (
+                <p className="text-zinc-500  border-b-2 text-center absolute text-2xl">
+                  ワンサイズ
+                </p>
+              )}
             </div>
             <p className="flex flex-col items-start font-semibold lg:w-1/4 relative">
               <label htmlFor="quantity">数量</label>

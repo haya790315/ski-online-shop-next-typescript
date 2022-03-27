@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import {formateTexts} from "../util/util"
+import {formatTexts} from "../lib/util/util"
 import type { TCartOrder } from "../store/cart-context";
 import type { IOption } from "../pages/cart";
 import type { TOption } from "../type/type";
@@ -31,11 +31,11 @@ const CustomerSelect = ({
     height: "100%",
     outline: "1px solid rgba(51,65,85)",
     transform: `${
-      openList ? `translateY(${order * 65}px)` : "translateY(65px)"
+      openList ? `translateY(${order * 60}px)` : "translateY(48px)"
     }`,
     backgroundColor: "rgb(28,25,23,1)",
     textAlign: "center",
-    lineHeight: "60px",
+    lineHeight: "52px",
     top: "0",
     bottom: "0",
     transition: "all 0.2s ease-in-out",
@@ -47,14 +47,14 @@ const CustomerSelect = ({
   
 
   const changOptionHandler = (value: TOption) => {
-    const text = formateTexts(value);
+    const text = formatTexts(value);
 
     setInnerText(text);
 
     setNewOrder({
       id: order.id,
       size: order.option[0],
-      quantity: order.option[1],
+      quantity: order.option[1]!,
       [name]: value,
     });
   };
@@ -63,7 +63,7 @@ const CustomerSelect = ({
     <>
       {option.length>0 && (
         <ul
-          className="relative flex flex-row justify-evenly items-center flex-1 outline-1 outline  h-full  outline-slate-700 "
+          className="relative flex flex-row justify-evenly items-center flex-1 outline-1 outline  h-full  outline-slate-700 text-sm"
           onClick={openMenuHandler}
         >
           <span>{label}</span>
@@ -75,7 +75,7 @@ const CustomerSelect = ({
               onClick={() => changOptionHandler(value)}
               className="hover:text-gray-400"
             >
-              {formateTexts(value)}
+              {formatTexts(value)}
             </li>
           ))}
           <IoMdArrowDropdown />

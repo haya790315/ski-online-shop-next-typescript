@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import SearchBar from "./SearchBar";
-import AccountIcon from "../../public/image/static/AccountIcon.svg";
-import CheckoutIcon from "../../public/image/static/CheckoutIcon.svg";
-import ContactIcon from "../../public/image/static/ContactIcon.svg";
-import styles from "../../styles/Navbar.module.css";
+import AccountIcon from "public/image/static/AccountIcon.svg";
+import CheckoutIcon from "public/image/static/CheckoutIcon.svg";
+import ContactIcon from "public/image/static/ContactIcon.svg";
+import styles from "styles/Navbar.module.css";
 
 const Navbar = () => {
   const router = useRouter()
