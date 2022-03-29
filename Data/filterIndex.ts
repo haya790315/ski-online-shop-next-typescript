@@ -1,7 +1,7 @@
 import type { TOption } from "../type/type";
-export type TId = 1 | 2 | 3 | 4 | 5 | 6;
+export type TFilterId = 1 | 2 | 3 | 4 | 5 | 6;
 export interface IFilterIndex {
-  id: TId;
+  id: TFilterId;
   value: string;
   label: string;
   option: Array<TOption>;
@@ -19,9 +19,10 @@ export const filterIndex: IFilterIndex[] = [
       "Dc Shoes",
       "Ride",
       "Nitro",
-      "Bolle",
+      "Superdry",
       "Oakley",
-      "Black Diamond",
+      "Alpina",
+      "Bolle"
     ],
   },
 
@@ -42,8 +43,8 @@ export const filterIndex: IFilterIndex[] = [
       [150, 154],
       [155, 159],
       [160, 164],
-      [165, 169],
     ],
+    //option: ["140-144", "145-149", etc],
   },
   {
     id: 4,
@@ -57,7 +58,7 @@ export const filterIndex: IFilterIndex[] = [
       [58, 60],
       [61, 63],
     ],
-    // option: ["46-48", "49-51", "52-54", "55-57", "58-60", "61-63"],
+    // option: ["46-48", "49-51", "52-54",etc],
   },
   {
     id: 5,

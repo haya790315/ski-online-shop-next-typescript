@@ -9,16 +9,24 @@ import list from "Data/itemList.json";
 import type { IProductData } from "type/type";
 import { useCartContext } from "store/cart-context";
 import { formatTexts } from "lib/util/util";
+import clientPromise from "lib/mongodb/mongodb";
 
 interface IProductProps {
   product: IProductData;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = list.map((item) => {
+  const client = await clientPromise;
+  const db = await client.db(process.env.MONGODB_Name);
+  const response = await db.collection("All_Products").find({}).toArray();
+  const dataList = (await JSON.parse(
+    JSON.stringify(response)
+  )) as IProductData[];
+
+  const paths = dataList.map((item) => {
     return {
       params: {
-        id: item.id,
+        id: item._id,
       },
     };
   });
@@ -30,10 +38,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (staticProps) => {
-  console.log(staticProps)
   const { params } = staticProps;
+  const client = await clientPromise;
+  const db = await client.db(process.env.MONGODB_Name);
+  const response = await db.collection("All_Products").find({}).toArray();
+  const dataList = JSON.parse(JSON.stringify(response)) as IProductData[];
 
-  const product = list.find((item) => item.id === params?.id);
+  const product = dataList.find((item) => item._id === params?.id);
 
   return {
     props: {
@@ -43,24 +54,47 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 };
 
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
-  const { setCartOrder, cartOrder } = useCartContext();
+  const { setCartOrder, cartOrder, setCart, cart } = useCartContext();
 
   const quantitySelectRef = useRef<HTMLInputElement>(null);
   const sizeSelectRef = useRef<HTMLSelectElement>(null);
 
+  const deliverDate = () => {
+    const newDate = new Date();
+
+    const twoDays = new Date(
+      newDate.getFullYear(),
+      newDate.getMonth(),
+      newDate.getDate() + 2
+    );
+    const threeDays = new Date(
+      newDate.getFullYear(),
+      newDate.getMonth(),
+      newDate.getDate() + 3
+    );
+    const dayOfWeek = ["日", "月", "火", "水", "木", "金", "土"];
+
+    return `${twoDays.getMonth() + 1}月${twoDays.getDate()}日 ${
+      dayOfWeek[twoDays.getDay()]
+    }曜日 - ${threeDays.getMonth() + 1}月${threeDays.getDate()}日 ${
+      dayOfWeek[threeDays.getDay()]
+    }曜日`;
+  };
+
   const logoImgPath = `/image/BrandLogo/${product.brand}Logo.jpg`;
 
   const putInCartHandler = () => {
+    //set Order into cartOrder
     const size =
       sizeSelectRef.current?.value && JSON.parse(sizeSelectRef.current.value);
     const quantity = +quantitySelectRef.current!.value;
     const optionArray = [size, quantity];
 
-    const newOrder = { id: product.id, option: optionArray };
+    const newOrder = { id: product._id, option: optionArray };
     const idsArray = cartOrder.map((item) => item.id);
-    if (cartOrder.length > 0 && idsArray.includes(product.id)) {
+    if (cartOrder.length > 0 && idsArray.includes(product._id)) {
       const newCartOrder = cartOrder.map((item) => {
-        if (item.id === product.id) {
+        if (item.id === product._id) {
           return newOrder;
         } else {
           return item;
@@ -70,7 +104,13 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     } else {
       setCartOrder([...cartOrder, newOrder]);
     }
-
+    //set Item into Cart
+    if (cart.length) {
+      const newCart = cart.filter((item) => item._id !== product._id);
+      setCart([...newCart, product]);
+    } else {
+      setCart([product]);
+    }
     Router.push("/cart");
   };
   return (
@@ -94,15 +134,15 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
               objectFit="contain"
               quality={100}
             />
-            <div className="flex  flex-col  text-3xl ">
+            <div className="flex  flex-col  text-2xl">
               <div className="flex justify-start items-center mb-2 ">
                 <h1 className="mr-4">{product.brand}</h1>
                 <h2>{product.name}</h2>
               </div>
               <h2>{product.model}</h2>
             </div>
-            <p className="text-4xl  flex items-end my-6">
-              <YenIcon className="w-10 h-10 fill-current " /> {product.price}
+            <p className="text-2xl  flex items-end my-6">
+              <YenIcon className="w-6 h-6 fill-current " /> {product.price}
             </p>
           </div>
           <div className="flex flex-col w-full lg:flex-row lg:justify-between">
@@ -155,8 +195,9 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
             カートに入れる
           </button>
           <p>
-            今すぐご注文した場合、商品のお届け予定日は 火曜日 8 3月 - 水曜日 9
-            3月 となります
+            今すぐご注文した場合、商品のお届け予定日は<br/>
+            <strong className="text-blue-500">{deliverDate()}</strong>
+            となります
           </p>
         </div>
       </div>

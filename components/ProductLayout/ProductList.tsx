@@ -39,17 +39,17 @@ const ProductList = ({ list }: IProductListProps) => {
   const filterItem = () => {
     const filterByType = list.reduce((acc, item, i, list) => {
       if (
-        item.value === "binding" &&
+        item.category === "binding" &&
         item.option.some((e) => selectedTag[6].includes(e))
       ) {
         acc.push(item);
       } else if (
-        item.value === "snowboard_boots" &&
+        item.category === "snowboard_boots" &&
         item.option.some((e) => selectedTag[5].includes(e))
       ) {
         acc.push(item);
       } else if (
-        item.value === "snowboard" &&
+        item.category === "snowboard" &&
         item.option.some((e) =>
           selectedTag[3].some(
             (t) => typeof t === "object" && t[0] <= e && e <= t[1]
@@ -58,7 +58,7 @@ const ProductList = ({ list }: IProductListProps) => {
       ) {
         acc.push(item);
       } else if (
-        item.value === "helmet" &&
+        item.category === "helmet" &&
         item.option.some((e) =>
           selectedTag[4].some((t) => e.toString() === t.toString())
         )
@@ -98,7 +98,7 @@ const ProductList = ({ list }: IProductListProps) => {
   });
 
   return (
-    <div className="grid grid-cols-2 px-6 mb-20 mt-5 ml-5 gap-6 md:grid-cols-4 ">
+    <div className="grid grid-cols-2 px-6 mb-20 mt-5 ml-5 gap-6 bg-white z-10 md:grid-cols-4 ">
       {selectedTagValue.length > 0 ? filteredItem : allItem}
     </div>
   );

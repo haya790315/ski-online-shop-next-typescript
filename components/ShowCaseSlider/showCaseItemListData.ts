@@ -1,20 +1,10 @@
-export type TItem = {
-  id: string;
-  brand: string;
-  name: string;
-  model: string;
-  price: string;
-  imageURL: string;
-  picture: string[];
-};
 
-interface IShowCaseItemList {
-  [key: string]: TItem[];
-}
+
+
 
 export const listTitle = ["人気商品", "特売商品", "ランキング商品", "限定商品"];
 
-export const showCaseItemList: IShowCaseItemList = {
+export const showCaseItemList = {
   popularItemList: [
     {
       id: "58383954",

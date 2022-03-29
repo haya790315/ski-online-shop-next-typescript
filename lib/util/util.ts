@@ -29,7 +29,7 @@ export const  formatTexts:TFormatTexts<TOption> = (data,unit="") => {
   export const calculateTotal = (cartItem:IProductData[],cartOrder:TCartOrder[]):number =>{
     const orderPriceArray = cartItem.flatMap((item) => {
       return cartOrder.map((order) => {
-        if (order.id === item.id) {
+        if (order.id === item._id) {
           return Number(item.price) * Number(order.option[1]);
         } else return 0;
       });

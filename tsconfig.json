@@ -23,6 +23,6 @@
     "**/*.tsx",
     "pages/product",
     "pages/[type]"
-  ],
+, "lib/fetcher"  ],
   "exclude": ["node_modules"]
 }

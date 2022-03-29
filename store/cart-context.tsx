@@ -1,18 +1,17 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import {IProductData} from "../type/type"
-import {TOption} from "../type/type"
-
-const itemList = require("../Data/itemList.json") as IProductData[];
+import React, { createContext, useState, useContext } from "react";
+import { IProductData } from "../type/type";
+import { TOption } from "../type/type";
 
 export type TCartOrder = {
   id: string;
-  option: (TOption|undefined)[];
+  option: (TOption | undefined)[];
 };
 
 interface IContext {
   cart: IProductData[];
   cartOrder: TCartOrder[];
   setCartOrder: React.Dispatch<React.SetStateAction<TCartOrder[]>>;
+  setCart: React.Dispatch<React.SetStateAction<IProductData[]>>;
 }
 
 const CartContext = createContext({} as IContext);
@@ -21,16 +20,8 @@ export const CartContextProvider: React.FC = ({ children }) => {
   const [cartOrder, setCartOrder] = useState<TCartOrder[]>([]);
   const [cart, setCart] = useState<IProductData[]>([]);
 
-  useEffect(() => {
-    if (cartOrder.length > 0) {
-      const idsArray = cartOrder.map((order) => order.id);
-      const cartItems = itemList.filter((item) =>idsArray.includes(item.id));
-      setCart([...cartItems]);
-    } else setCart([]);
-  }, [cartOrder]);
-
   return (
-    <CartContext.Provider value={{ cart, cartOrder, setCartOrder }}>
+    <CartContext.Provider value={{ cart, cartOrder, setCartOrder, setCart }}>
       {children}
     </CartContext.Provider>
   );

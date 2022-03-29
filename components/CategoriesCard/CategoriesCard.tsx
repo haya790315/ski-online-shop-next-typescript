@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ListData } from "./CategoriesData";
+import { CategoriesData } from "./CategoriesData";
 import BrandLinks from "./BrandLinks";
 
 const CategoriesCard = () => {
@@ -13,7 +13,7 @@ const CategoriesCard = () => {
     >
       <BrandLinks />
       <div className="grid grid-cols-1 gap-1 relative h-full w-full md:grid-cols-6 md:gap-4">
-        {ListData.categories.map((category, index) => {
+        {CategoriesData.categories.map((category, index) => {
           return (
             <div
               data-aos="fade-up"
@@ -27,9 +27,9 @@ const CategoriesCard = () => {
               <Link
                 href={{
                   pathname: `/shopping/${category.name}`,
-                  query: { type: category.name },
                 }}
                 key={index}
+                passHref
               >
                 <a>
                   <div className="flex justify-center cursor-pointer md:hover:opacity-75 relative w-full h-full">

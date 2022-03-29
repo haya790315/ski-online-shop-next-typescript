@@ -8,7 +8,7 @@ export enum ACTION_TYPES {
 }
 type TPayload = { id: number; value: TOption };
 
-type TRestorePayload =  { value: ISelectedTag };
+type TRestorePayload = { value: ISelectedTag };
 
 type IAction =
   | {
@@ -21,15 +21,13 @@ type IAction =
     }
   | {
       type: ACTION_TYPES.CLEAR_SELECTED_LIST;
-      payload: Pick<TPayload,`id`>;
+      payload: Pick<TPayload, `id`>;
     }
   | {
       type: ACTION_TYPES.RESTORE_SELECTED_LIST;
       payload: TRestorePayload;
     };
-export interface ISelectedTag {
-  [key: number]: Array<TOption>;
-}
+export type ISelectedTag = Record<number, Array<TOption>>;
 interface IContext {
   selectedTag: ISelectedTag;
   dispatch: React.Dispatch<IAction>;
@@ -37,13 +35,13 @@ interface IContext {
 
 const selectorReducer: React.Reducer<ISelectedTag, IAction> = (
   selectedTag: ISelectedTag,
-  { type, payload}: IAction
+  { type, payload }: IAction
 ) => {
-  if (type === ACTION_TYPES.ADD_SELECTED_LIST ) {
+  if (type === ACTION_TYPES.ADD_SELECTED_LIST) {
     const thisTypeTag = selectedTag[payload.id];
 
     return { ...selectedTag, [payload.id]: [...thisTypeTag, payload.value] };
-  } else if (type === ACTION_TYPES.DELETE_SELECTED_LIST ) {
+  } else if (type === ACTION_TYPES.DELETE_SELECTED_LIST) {
     const thisTypeTag = selectedTag[payload.id];
 
     const newSelectedTag = thisTypeTag.filter(
@@ -55,7 +53,7 @@ const selectorReducer: React.Reducer<ISelectedTag, IAction> = (
       [payload.id]: newSelectedTag,
     };
   } else if (type === ACTION_TYPES.RESTORE_SELECTED_LIST) {
-    return payload.value
+    return payload.value;
   } else if (type === ACTION_TYPES.CLEAR_SELECTED_LIST) {
     return {
       ...selectedTag,

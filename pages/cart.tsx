@@ -8,7 +8,7 @@ import { useCartContext } from "store/cart-context";
 import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
 import type { TOption } from "type/type";
-import {calculateTotal} from "lib/util/util"
+import { calculateTotal } from "lib/util/util";
 export interface IOption {
   id: string;
   size?: TOption;
@@ -16,13 +16,16 @@ export interface IOption {
 }
 
 const Cart: NextPage = () => {
-  const { cart, setCartOrder, cartOrder } = useCartContext();
-  
-  const [newOrder, setNewOrder] = useState<IOption>({size:"", quantity:3} as IOption);
+  const { cart, setCart, setCartOrder, cartOrder } = useCartContext();
+
+  const [newOrder, setNewOrder] = useState<IOption>({
+    size: "",
+    quantity: 3,
+  } as IOption);
 
   const changeCartOrderHandler = useCallback(() => {
     const optionArray = [newOrder.size, newOrder.quantity];
-    
+
     const newOrderTransToCartOrder = { id: newOrder.id, option: optionArray };
     const newCartOrder = cartOrder.map((item) => {
       if (item.id === newOrderTransToCartOrder.id) {
@@ -41,12 +44,15 @@ const Cart: NextPage = () => {
 
   const autoPriceCalculator = useCallback((): number => {
     if (!cart.length) return 0;
-    return calculateTotal(cart,cartOrder)
-  }, [cart,cartOrder]);
+    return calculateTotal(cart, cartOrder);
+  }, [cart, cartOrder]);
 
   const deleteCartHandler = (id: string) => {
     const newOrderList = cartOrder.filter((order) => order.id !== id);
     setCartOrder([...newOrderList]);
+
+    const newCart = cart.filter((item) => item._id !== id);
+    setCart([...newCart]);
   };
 
   return (
@@ -56,15 +62,15 @@ const Cart: NextPage = () => {
         <div className="flex flex-col flex-1 justify-between border-t border-solid border-slate-700">
           {cart.length > 0 &&
             cart.map((item, i) => {
-              const order = cartOrder.find((order) => order.id === item.id);
+              const order = cartOrder.find((order) => order.id === item._id);
               if (!order) return;
-              
+
               return (
                 <div
                   key={i}
                   className="relative flex flex-row pl-10 py-6 border-b border-solid border-slate-700"
                 >
-                  <Link href="/product/[id]" as={`/product/${item.id}`} >
+                  <Link href="/product/[id]" as={`/product/${item._id}`}>
                     <a>
                       <Image
                         src={item.imageURL}
@@ -75,21 +81,19 @@ const Cart: NextPage = () => {
                         priority
                         objectPosition="center center"
                         quality={100}
-                        
-                        />
+                      />
                     </a>
                   </Link>
 
                   <div className="flex flex-col pl-12 text-left text-lg">
-                    <Link href="/product/[id]" as={`/product/${item.id}`}>
+                    <Link href="/product/[id]" as={`/product/${item._id}`}>
                       <a>
                         {" "}
                         <h1>{item.brand + " " + item.model}</h1>
                       </a>
                     </Link>
-                      <span className="text-lg">¥{item.price}</span>
+                    <span className="text-lg">¥{item.price}</span>
                     <div className="text-base py-3">
-
                       <span
                         className={`block ${
                           order.option[0] ? "text-zinc-400" : "text-red-700"

@@ -1,4 +1,4 @@
-export const ListData = {
+export const CategoriesData = {
   categories: [
     {
       name:"snowboard",
@@ -7,22 +7,22 @@ export const ListData = {
         "https://cache.tradeinn.com/images/banners-categorias/11587-grande.jpg",
     },
     {
-      name:"goggle",
+      name:"googles",
       title: "マスクとゴーグル",
       imgURL:
         "https://cache.tradeinn.com/images/banners-categorias/11592-grande.jpg",
     },
     {
-      name:"wear",
-      title: "ウェア",
+      name:"helmet",
+      title: "ヘルメット",
       imgURL:
-        "https://cache.tradeinn.com/images/banners-categorias/1025-peke.jpg",
+        "https://cache.tradeinn.com/images/banners-categorias/11588-grande.jpg",
     },
     {
-      name:"ski",
-      title: "スキー",
+      name:"binding",
+      title: "バインディング",
       imgURL:
-        "https://cache.tradeinn.com/images/banners-categorias/11584-peke.jpg",
+        "https://cache.tradeinn.com/images/banners-categorias/11585-peke.jpg",
     },
     {
       name:"snowboard_boots",

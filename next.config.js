@@ -14,6 +14,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["www.snowinn.com","cache.tradeinn.com"],
+    domains: ["www.snowinn.com", "cache.tradeinn.com", "www.tradeinn.com"],
   },
 };

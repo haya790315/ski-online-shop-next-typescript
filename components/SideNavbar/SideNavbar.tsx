@@ -14,14 +14,14 @@ const SideNavbar = () => {
 
   const { cart, cartOrder } = useCartContext();
 
-  console.log({cart,cartOrder});
+  console.log({ cart, cartOrder });
 
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
-      if (window.matchMedia( "(max-width: 768px)" ).matches) return;
+      if (window.matchMedia("(max-width: 768px)").matches) return;
       e.preventDefault();
       const scrollY = window.scrollY;
-      if (scrollY > 135 ) {
+      if (scrollY > 135) {
         sideNavbarRef.current!.classList.remove("relative");
         sideNavbarRef.current!.classList.add("fixed");
       } else {
@@ -38,11 +38,11 @@ const SideNavbar = () => {
 
   const cartDropMenuHandler = {
     mouseEnter: () => {
-      if (window.matchMedia( "(max-width: 768px)" ).matches) return;
+      if (window.matchMedia("(max-width: 768px)").matches) return;
       setCartDropMenuOpen(true);
     },
     mouseLeave: () => {
-      if (window.matchMedia( "(max-width: 768px)" ).matches) return;
+      if (window.matchMedia("(max-width: 768px)").matches) return;
       setCartDropMenuOpen(false);
     },
   };

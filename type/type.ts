@@ -9,12 +9,12 @@ export type TOption = string | number | number[];
 
 
 export type IProductData = {
-  id: string;
+  _id: string;
   brand: string;
-  value: TProductType;
+  category: TProductType;
   name: string;
   model: string;
-  price: string;
+  price: number;
   option: Array<TOption>;
   gender: TGender;
   imageURL: string;

@@ -3,21 +3,15 @@ import Image from "next/image";
 import YenIcon from "public/image/static/YenIcon.svg";
 import styles from "styles/ShowCard.module.css";
 import Link from "next/link";
+import type {IProductData} from "type/type"
 
 interface IShowCardProps {
-  item: {
-    id: number | string;
-    brand: string;
-    name: string;
-    model: string;
-    price: string;
-    imageURL: string;
-  };
+  item: IProductData;
   hoverEffect: "none" | "auto";
   key: number | string;
 }
 
-const ShowCard = ({ item:{id,brand, name, model, imageURL, price }, hoverEffect }: IShowCardProps) => {
+const ShowCard = ({ item:{_id,brand, name, model, imageURL, price }, hoverEffect }: IShowCardProps) => {
   const [imageSize, setImageSize] = useState(260);
   const containerRef = useRef<HTMLElement | null>(null);
 
@@ -38,8 +32,9 @@ const ShowCard = ({ item:{id,brand, name, model, imageURL, price }, hoverEffect 
     <Link
       href={{
         pathname: "/product/[id]",
-        query: { id },
+        query: { id:_id },
       }}
+      passHref
     >
       <a style={{ cursor: "unset" }}>
         <div
@@ -63,10 +58,10 @@ const ShowCard = ({ item:{id,brand, name, model, imageURL, price }, hoverEffect 
           </div>
           <div className={styles.container_description_animation}>
             <div className="flex flex-col md:text-lg">
-              <hr className="my-6 w-10/12" />
+              <hr className="my-4 w-10/12" />
               <div className="text-left">
-                <strong>{brand}</strong>
-                <span className="lg:inline-block ml-2 text-sm display-none">{name}</span>
+                <strong className="text-sm">{brand}</strong>
+                <p className="lg:inline-block ml-1 text-sm display-none">{name}</p>
                 <br />
                 <small >{model}</small>
               </div>
