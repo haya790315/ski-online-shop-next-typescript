@@ -9,8 +9,8 @@ import "aos/dist/aos.css";
 const Home: NextPage = () => {
   useEffect(() => {
     AOS.init({
-      offset: 250,
-      delay: 0,
+      offset: 200,
+      delay: 100,
       duration: 1000,
       easing: "ease-in-out",
       once: false,

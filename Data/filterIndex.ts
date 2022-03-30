@@ -22,7 +22,7 @@ export const filterIndex: IFilterIndex[] = [
       "Superdry",
       "Oakley",
       "Alpina",
-      "Bolle"
+      "Bolle",
     ],
   },
 
@@ -70,6 +70,6 @@ export const filterIndex: IFilterIndex[] = [
     id: 6,
     value: "binding",
     label: "バインディング",
-    option: ["S", "M", "L", "XL","2XL"],
+    option: ["S", "M", "L", "XL", "2XL"],
   },
 ];

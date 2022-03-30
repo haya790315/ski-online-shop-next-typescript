@@ -30,11 +30,11 @@ const Product: NextPage<IProduct> = ({ productList }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const client = await clientPromise;
-  const db = await client.db(process.env.MONGODB_Name);
+  const db = await client.db(process.env.MONGODB_NAME);
 
   // get random doc by aggregate
   const response = await db
-    .collection("All_Products")
+    .collection(process.env.MONGODB_COLLECTION)
     .aggregate([
       {
         $sample: {

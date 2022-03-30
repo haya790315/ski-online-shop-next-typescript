@@ -14,16 +14,17 @@ const Navbar = () => {
   return (
     <div className="relative h-32 w-full top-0 left-0 bg-gray-900 flex flex-row justify-around items-center">
       
-          <div className="h-14 w-52 bg-white relative ">
+          <div className="relative cursor-pointer">
             <Image
-              src="/image/BrandLogo/NideckerLogo.jpg"
+              src="/image/BrandLogo/SkiJapanLogo.png"
               alt="logo"
-              layout="fill"
+              height={56}
+              width={208}
               objectFit="cover"
               priority
               objectPosition="center center"
-              quality={100}
-              onClick={() => router.push('/', undefined, { shallow: true })}
+              quality={70}
+              onClick={() => router.push('/')}
             />
           </div>
 

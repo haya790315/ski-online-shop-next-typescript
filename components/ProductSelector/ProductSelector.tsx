@@ -10,7 +10,7 @@ interface IProductSelector {
 
 const ProductSelector = ({ collection }: IProductSelector) => {
   return (
-    <section className="relative w-48 bg-gray-200 flex flex-col content-around px-4 h-full shrink-0">
+    <section className="relative display_none w-48 bg-gray-200 md:flex flex-col content-around px-4 h-full shrink-0">
       <div className="flex flex-row justify-between items-center  font-semibold py-4">
         <h1>フィルター</h1>
         <BsFilterLeft className="inline-block text-xl" />

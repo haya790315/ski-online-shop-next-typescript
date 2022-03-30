@@ -110,6 +110,7 @@ const Feature = ({ picture }: IFeatureProps) => {
       blockElement.style.display = "none";
       magnifiedElement.style.display = "none";
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onMouseShowPictureHandler = (index: number) => {
@@ -136,7 +137,7 @@ const Feature = ({ picture }: IFeatureProps) => {
               >
                 <Image
                   src={item}
-                  alt={`picture${+"" + i}`}
+                  alt={"preview"}
                   height={50}
                   width={50}
                   objectFit="cover"
@@ -160,13 +161,13 @@ const Feature = ({ picture }: IFeatureProps) => {
               >
                 <Image
                   src={url}
-                  alt="no"
+                  alt="main"
                   height={500}
                   width={500}
                   objectFit="cover"
                   objectPosition="center center"
-                  quality={100}
-                  priority
+                  quality={70}
+                  priority={true}
                   placeholder="blur"
                   blurDataURL={url}
                 />

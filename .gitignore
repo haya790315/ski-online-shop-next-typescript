@@ -38,3 +38,6 @@ yarn-error.log*
 
 # mongodb
 *.mongodb
+
+#database
+/Data/*.json

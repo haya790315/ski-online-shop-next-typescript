@@ -19,8 +19,8 @@ export default async function handler(
 
       const client = await clientPromise;
 
-      const db = await client.db(process.env.MONGODB_Name);
-      const collection = await db.collection("All_Products");
+      const db = await client.db(process.env.MONGODB_NAME);
+      const collection = await db.collection(process.env.MONGODB_COLLECTION);
 
       const filterCategory = {
         $match: {
@@ -50,9 +50,9 @@ export default async function handler(
       const categorizedDb = await collection.aggregate(pipeline).toArray();
 
       res.status(200).json(categorizedDb);
-      // const data = await db.collection("All_Products").find({}).toArray();
+      
     } else {
-      res.status(404).json({ message: "not get method" });
+      res.status(404).json({ message: "only get method allowable" });
     }
   } catch (err) {
     console.log(err);

@@ -1,4 +1,4 @@
-[
+const brandList =  [
   {
     "id": "1",
     "brandName": "Burton",
@@ -50,3 +50,5 @@
     "brandLogo": "/image/BrandLogo/SuperdryLogo.jpg"
   }
 ]
+
+export default brandList

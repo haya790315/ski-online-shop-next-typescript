@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import brand from "Data/brandList.json"
+import brand from "Data/brandList";
 
 const BrandLinks = () => {
   return (
     <div className="flex relative w-full h-auto bg-white justify-around items-center md:justify-evenly">
+      
       {brand.map((brandData, index) => {
         return (
           <div key={index}>

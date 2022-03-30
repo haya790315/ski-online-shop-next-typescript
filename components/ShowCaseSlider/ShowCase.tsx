@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import ShowCard from "../ShowCard/ShowCard";
-import {IProductData} from "type/type"
-
+import { IProductData } from "type/type";
 
 interface IShowCaseProps {
   itemList: IProductData[];
@@ -45,10 +44,10 @@ const ShowCase = ({ itemList, listTitle }: IShowCaseProps) => {
   };
 
   return (
-    <>
+    <div data-aos="slide-left">
       <div className="flex flex-col justify-start items-start my-12 mx-2 w-screen ">
         <big className="my-5 font-semibold">{listTitle}</big>
-        <div data-aos="slide-left" className="w-full">
+        <div className="w-full">
           <div
             className={
               !isDrag
@@ -77,7 +76,7 @@ const ShowCase = ({ itemList, listTitle }: IShowCaseProps) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

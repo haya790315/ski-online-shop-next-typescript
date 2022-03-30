@@ -7,7 +7,7 @@ import {
 } from "components/ProductSelector";
 import type { IProductData } from "type/type";
 import type { TFilterId } from "Data/filterIndex";
-import { fetchApiData } from "lib/fetcher/fetchData";
+import { fetchApiData } from "lib/fetcher/fetchApiData";
 import ProductList from "components/ProductLayout/ProductList";
 import { SelectedTagProvider } from "store/selector-context";
 import { useRouter } from "next/router";
@@ -42,7 +42,6 @@ const Shopping: NextPage<IShoppingProps> = ({ product }) => {
     if (query.category === "googles") return [1, 2];
     return [1, 2, 3, 4, 5, 6];
   };
-
   return (
     <>
       <SelectedTagProvider>

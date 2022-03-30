@@ -9,6 +9,7 @@ import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
 import type { TOption } from "type/type";
 import { calculateTotal } from "lib/util/util";
+
 export interface IOption {
   id: string;
   size?: TOption;
@@ -80,7 +81,7 @@ const Cart: NextPage = () => {
                         objectFit="cover"
                         priority
                         objectPosition="center center"
-                        quality={100}
+                        quality={70}
                       />
                     </a>
                   </Link>

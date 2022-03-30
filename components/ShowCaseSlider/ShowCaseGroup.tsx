@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ShowCase from "./ShowCase";
-import { showCaseItemList, listTitle } from "./showCaseItemListData";
+import { fetchApiData } from "lib/fetcher/fetchApiData";
 
 const ShowCaseGroup = () => {
+  const popularItemList = useRef([]);
+  const onSaleItemList = useRef([]);
+  const rankingItemList = useRef([]);
+  const limitedItemList = useRef([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRandomData = async () => {
+      setIsLoading(true);
+      popularItemList.current = await fetchApiData(
+        "http://localhost:3000/api/randomProduct"
+      );
+      onSaleItemList.current = await fetchApiData(
+        "http://localhost:3000/api/randomProduct"
+      );
+      rankingItemList.current = await fetchApiData(
+        "http://localhost:3000/api/randomProduct"
+      );
+      limitedItemList.current = await fetchApiData(
+        "http://localhost:3000/api/randomProduct"
+      );
+      setIsLoading(false);
+    };
+
+    fetchRandomData();
+  }, []);
+
   return (
     <>
-      {Object.keys(showCaseItemList).map((listKey, index) => {
-        return (
-          <div key={index}>
-            {showCaseItemList[listKey].length > 0 && (
-              <ShowCase
-                itemList={showCaseItemList[listKey]}
-                listTitle={listTitle[index]}
-                
-              />
-            )}
-          </div>
-        );
-      })}
+      {isLoading && <div>Loading</div>}
+      <div>
+        <ShowCase itemList={popularItemList.current} listTitle={"人気商品"} />
+        <ShowCase itemList={onSaleItemList.current} listTitle={"特売商品"} />
+        <ShowCase itemList={rankingItemList.current} listTitle={"ランキング"} />
+        <ShowCase itemList={limitedItemList.current} listTitle={"限定商品"} />
+      </div>
     </>
   );
 };

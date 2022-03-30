@@ -7,3 +7,5 @@ export const fetchApiData = async (api:string) => {
   }
   return data;
 };
+
+

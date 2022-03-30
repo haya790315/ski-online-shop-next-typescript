@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-const {MONGODB_URI:uri,MONGODB_Name:dbName} = process.env
+const {MONGODB_URI:uri,MONGODB_NAME:dbName} = process.env
 
 const options = {}
 

@@ -5,23 +5,17 @@ import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "components/Feature/Feature";
 import Image from "next/image";
 import YenIcon from "public/image/static/YenIcon.svg";
-import list from "Data/itemList.json";
 import type { IProductData } from "type/type";
 import { useCartContext } from "store/cart-context";
 import { formatTexts } from "lib/util/util";
-import clientPromise from "lib/mongodb/mongodb";
+import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
 
 interface IProductProps {
   product: IProductData;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const client = await clientPromise;
-  const db = await client.db(process.env.MONGODB_Name);
-  const response = await db.collection("All_Products").find({}).toArray();
-  const dataList = (await JSON.parse(
-    JSON.stringify(response)
-  )) as IProductData[];
+  const dataList = await fetchMongoDbCollection();
 
   const paths = dataList.map((item) => {
     return {
@@ -39,10 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (staticProps) => {
   const { params } = staticProps;
-  const client = await clientPromise;
-  const db = await client.db(process.env.MONGODB_Name);
-  const response = await db.collection("All_Products").find({}).toArray();
-  const dataList = JSON.parse(JSON.stringify(response)) as IProductData[];
+  const dataList = await fetchMongoDbCollection();
 
   const product = dataList.find((item) => item._id === params?.id);
 
@@ -87,7 +78,8 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     //set Order into cartOrder
     const size =
       sizeSelectRef.current?.value && JSON.parse(sizeSelectRef.current.value);
-    const quantity = +quantitySelectRef.current!.value;
+    const quantity =
+      quantitySelectRef.current && +quantitySelectRef.current.value;
     const optionArray = [size, quantity];
 
     const newOrder = { id: product._id, option: optionArray };
@@ -195,7 +187,8 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
             カートに入れる
           </button>
           <p>
-            今すぐご注文した場合、商品のお届け予定日は<br/>
+            今すぐご注文した場合、商品のお届け予定日は
+            <br />
             <strong className="text-blue-500">{deliverDate()}</strong>
             となります
           </p>

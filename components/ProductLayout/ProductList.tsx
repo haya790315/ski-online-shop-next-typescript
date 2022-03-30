@@ -98,7 +98,7 @@ const ProductList = ({ list }: IProductListProps) => {
   });
 
   return (
-    <div className="grid grid-cols-2 px-6 mb-20 mt-5 ml-5 gap-6 bg-white z-10 md:grid-cols-4 ">
+    <div className="grid grid-cols-3 px-6 mb-20 mt-5 ml-5 gap-6 bg-white z-10 md:grid-cols-4 ">
       {selectedTagValue.length > 0 ? filteredItem : allItem}
     </div>
   );

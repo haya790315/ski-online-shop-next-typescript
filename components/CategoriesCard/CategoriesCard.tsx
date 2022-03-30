@@ -6,11 +6,7 @@ import BrandLinks from "./BrandLinks";
 
 const CategoriesCard = () => {
   return (
-    <div
-      className="relative w-full h-auto"
-      data-aos="fade-in"
-      data-aos-offset="50"
-    >
+    <div className="relative w-full h-auto" data-aos="fade-in">
       <BrandLinks />
       <div className="grid grid-cols-1 gap-1 relative h-full w-full md:grid-cols-6 md:gap-4">
         {CategoriesData.categories.map((category, index) => {
@@ -18,6 +14,7 @@ const CategoriesCard = () => {
             <div
               data-aos="fade-up"
               key={index}
+              data-aos-offset="0"
               className={
                 index < 2
                   ? "h-36 w-auto  md:h-80 md:col-span-3"
