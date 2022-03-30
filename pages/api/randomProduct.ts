@@ -4,7 +4,7 @@ import { IProductData } from "type/type";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IProductData[]>
+  res: NextApiResponse<IProductData[]|{message: string}>
 ) {
   try {
     const { method } = req;

@@ -10,23 +10,18 @@ type TPayload = { id: number; value: TOption };
 
 type TRestorePayload = { value: ISelectedTag };
 
-type IAction =
-  | {
-      type: ACTION_TYPES.ADD_SELECTED_LIST;
-      payload: TPayload;
-    }
-  | {
-      type: ACTION_TYPES.DELETE_SELECTED_LIST;
-      payload: TPayload;
-    }
-  | {
-      type: ACTION_TYPES.CLEAR_SELECTED_LIST;
-      payload: Pick<TPayload, `id`>;
-    }
-  | {
-      type: ACTION_TYPES.RESTORE_SELECTED_LIST;
-      payload: TRestorePayload;
-    };
+type TAdd = { type: ACTION_TYPES.ADD_SELECTED_LIST; payload: TPayload };
+type TDel = { type: ACTION_TYPES.DELETE_SELECTED_LIST; payload: TPayload };
+type TClear = {
+  type: ACTION_TYPES.CLEAR_SELECTED_LIST;
+  payload: Pick<TPayload, `id`>;
+};
+type TRstore = {
+  type: ACTION_TYPES.RESTORE_SELECTED_LIST;
+  payload: TRestorePayload;
+};
+type IAction = TAdd | TDel | TClear | TRstore;
+
 export type ISelectedTag = Record<number, Array<TOption>>;
 interface IContext {
   selectedTag: ISelectedTag;
@@ -35,29 +30,39 @@ interface IContext {
 
 const selectorReducer: React.Reducer<ISelectedTag, IAction> = (
   selectedTag: ISelectedTag,
-  { type, payload }: IAction
+  action: IAction
 ) => {
-  if (type === ACTION_TYPES.ADD_SELECTED_LIST) {
-    const thisTypeTag = selectedTag[payload.id];
+  if (action.type === ACTION_TYPES.ADD_SELECTED_LIST) {
+    const thisTypeTag = selectedTag[action.payload.id];
 
-    return { ...selectedTag, [payload.id]: [...thisTypeTag, payload.value] };
-  } else if (type === ACTION_TYPES.DELETE_SELECTED_LIST) {
-    const thisTypeTag = selectedTag[payload.id];
+    return {
+      ...selectedTag,
+      [action.payload.id]: [...thisTypeTag, action.payload.value],
+    };
+  } else if (
+    action.type === ACTION_TYPES.DELETE_SELECTED_LIST &&
+    action.payload.id &&
+    action.payload.value
+  ) {
+    const thisTypeTag = selectedTag[action.payload.id];
 
     const newSelectedTag = thisTypeTag.filter(
-      (item) => item.toString() !== payload.value.toString()
+      (item) => item.toString() !== action.payload.value.toString()
     );
 
     return {
       ...selectedTag,
-      [payload.id]: newSelectedTag,
+      [action.payload.id]: newSelectedTag,
     };
-  } else if (type === ACTION_TYPES.RESTORE_SELECTED_LIST) {
-    return payload.value;
-  } else if (type === ACTION_TYPES.CLEAR_SELECTED_LIST) {
+  } else if (action.type === ACTION_TYPES.RESTORE_SELECTED_LIST) {
+    return action.payload.value;
+  } else if (
+    action.type === ACTION_TYPES.CLEAR_SELECTED_LIST &&
+    action.payload.id
+  ) {
     return {
       ...selectedTag,
-      [payload.id]: [],
+      [action.payload.id]: [],
     };
   } else {
     return selectedTag;

@@ -7,7 +7,7 @@ type Data = IProductData[];
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data|{message: string}>
 ) {
   try {
     const {
@@ -42,7 +42,7 @@ export default async function handler(
               },
             };
 
-      const pipeline = [filterCategory];
+      const pipeline:any = [filterCategory];
       if (sort) {
         pipeline.push(pricePipeline);
       }
