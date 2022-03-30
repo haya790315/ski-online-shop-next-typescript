@@ -12,18 +12,11 @@ const ShowCaseGroup = () => {
   useEffect(() => {
     const fetchRandomData = async () => {
       setIsLoading(true);
-      popularItemList.current = await fetchApiData(
-        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
-      );
-      onSaleItemList.current = await fetchApiData(
-        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
-      );
-      rankingItemList.current = await fetchApiData(
-        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
-      );
-      limitedItemList.current = await fetchApiData(
-        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
-      );
+
+      popularItemList.current = await fetchApiData(`api/randomProduct`);
+      onSaleItemList.current = await fetchApiData(`api/randomProduct`);
+      rankingItemList.current = await fetchApiData(`api/randomProduct`);
+      limitedItemList.current = await fetchApiData(`api/randomProduct`);
       setIsLoading(false);
     };
 

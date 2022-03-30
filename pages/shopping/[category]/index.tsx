@@ -14,9 +14,9 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params, query } = context;
-  let uri = `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/shopping/${params?.category}?`;
+  let uri = `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/shopping/${params?.category}`;
 
-  if (query.sort) uri += `?sort=${query.sort}&`;
+  if (query.sort) uri += `?sort=${query.sort}`;
 
   const product = await fetchApiData(uri);
   return {
