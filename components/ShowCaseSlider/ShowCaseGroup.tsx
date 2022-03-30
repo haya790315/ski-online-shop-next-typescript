@@ -13,16 +13,16 @@ const ShowCaseGroup = () => {
     const fetchRandomData = async () => {
       setIsLoading(true);
       popularItemList.current = await fetchApiData(
-        "http://localhost:3000/api/randomProduct"
+        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
       );
       onSaleItemList.current = await fetchApiData(
-        "http://localhost:3000/api/randomProduct"
+        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
       );
       rankingItemList.current = await fetchApiData(
-        "http://localhost:3000/api/randomProduct"
+        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
       );
       limitedItemList.current = await fetchApiData(
-        "http://localhost:3000/api/randomProduct"
+        `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/randomProduct`
       );
       setIsLoading(false);
     };

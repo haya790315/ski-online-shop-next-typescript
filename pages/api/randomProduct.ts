@@ -11,8 +11,8 @@ export default async function handler(
 
     if (method === "GET") {
       const client = await clientPromise;
-      const db = await client.db(process.env.MONGODB_Name);
-      const collection = await db.collection(process.env.MONGODB_Collection);
+      const db = await client.db(process.env.MONGODB_NAME);
+      const collection = await db.collection(process.env.MONGODB_COLLECTION);
 
       const aggregation = [
         {

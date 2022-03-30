@@ -12,9 +12,9 @@ const SideNavbar = () => {
   const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
   const router = useRouter();
 
-  const { cart, cartOrder } = useCartContext();
+  const { cart } = useCartContext();
 
-  console.log({ cart, cartOrder });
+  // console.log({ cart, cartOrder });
 
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
