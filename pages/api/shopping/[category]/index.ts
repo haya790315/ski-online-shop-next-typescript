@@ -7,7 +7,7 @@ type Data = IProductData[];
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data|{message: string}>
+  res: NextApiResponse<Data>
 ) {
   try {
     const {
@@ -17,7 +17,7 @@ export default async function handler(
     if (method === "GET") {
       // Get data from mongodb
 
-      const client = await clientPromise;
+      const client = await clientPromise
 
       const db = await client.db(process.env.MONGODB_NAME);
       const collection = await db.collection(process.env.MONGODB_COLLECTION);
@@ -52,9 +52,9 @@ export default async function handler(
       res.status(200).json(categorizedDb);
       
     } else {
-      res.status(404).json({ message: "only get method allowable" });
+      throw new Error ("wrong request");
     }
   } catch (err) {
-    console.log(err);
+    console.error("no response",err);
   }
 }

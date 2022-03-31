@@ -4,7 +4,7 @@ import { IProductData } from "type/type";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IProductData[]|{message: string}>
+  res: NextApiResponse<IProductData[]>
 ) {
   try {
     const { method } = req;
@@ -26,7 +26,7 @@ export default async function handler(
 
       res.status(200).json(randomProduct);
     } else {
-      res.status(400).json({ message: "only get method allowable" });
+      throw new Error ("wrong request")
     }
   } catch (err) {
     console.log(err);

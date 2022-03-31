@@ -59,7 +59,7 @@
   transition: all 4s linear;
 }
 
-.description>span{
+.description .text_expand{
   display: block;
   font-size:5vw;
   opacity:0;
@@ -70,11 +70,11 @@
   left:50%;
   font-weight:800;
   z-index:5;
-  animation: text-expand  0.7s ease-in-out both;
+  animation: text-expand  0.7s 0.5s ease-in-out both;
   transform: translate(-25%,-50%);
 }
 
-.description>h1{
+.description .text_expand2{
   display: block;
   font-size:5vw;
   color:white;
@@ -85,11 +85,11 @@
   left:50%;
   font-weight:bold;
   transform: translate(-40%,-50%);
-  animation: text-expand  1s ease-in-out both;
+  animation: text-expand  1s 1s ease-in-out both;
   z-index:5;
 }
 
-.description>h2{
+.description .tracking_in{
   display: block;
   opacity:0;
   font-size:4.5vw;
@@ -101,7 +101,7 @@
   left:50%;
   font-weight:bold;
   transform: translate(-50%,-50%);
-  animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.5s alternate forwards;
+  animation: tracking-in 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.5s alternate forwards;
   z-index:5;
 
 }
@@ -152,7 +152,7 @@
 }
 
 
-@keyframes tracking-in-contract-bck {
+@keyframes tracking-in {
   0% {
     letter-spacing: 1em;
     -webkit-transform: translateZ(400px);

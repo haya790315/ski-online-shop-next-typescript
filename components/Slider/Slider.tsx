@@ -1,54 +1,64 @@
 import React, { useState, useEffect } from "react";
 import styles from "styles/Slider.module.css";
-import Link from "next/link"
+import Link from "next/link";
 import Image from "next/image";
 
-const Slider = () => {
-  const sliderStatic = [
-    {
-      id: 1,
-      imgUrl: "/image/slide/slide1.jpg",
-      post1: "浮遊感と爽快感",
-    },
-    {
-      id: 2,
-      imgUrl: "/image/slide/slide2.jpg",
-      post2: "初級者から上級者までが楽しめる",
-    },
-    {
-      id: 3,
-      imgUrl: "/image/slide/slide3.jpg",
-      post1: "いつからも",
-      post2: "遅くはない",
-    },
-    {
-      id: 4,
-      imgUrl: "/image/slide/slide4.jpg",
-      post3: "今すぐ、チャンスを掴めよう",
-    },
-    {
-      id: 5,
-      imgUrl: "/image/slide/slide5.jpg",
-    },
-  ];
-
+const sliderStatic = [
+  {
+    id: 1,
+    imgUrl: "/image/slide/slide1.jpg",
+    post1: "浮遊感と爽快感",
+    post2: "",
+    post3: "",
+  },
+  {
+    id: 2,
+    imgUrl: "/image/slide/slide2.jpg",
+    post1: "",
+    post2: "初級者から上級者までが楽しめる",
+    post3: "",
+  },
+  {
+    id: 3,
+    imgUrl: "/image/slide/slide3.jpg",
+    post1: "いつからも",
+    post2: "遅くはない",
+    post3: "",
+  },
+  {
+    id: 4,
+    imgUrl: "/image/slide/slide4.jpg",
+    post1: "",
+    post2: "",
+    post3: "今すぐ、チャンスを掴めよう",
+  },
+  {
+    id: 5,
+    imgUrl: "/image/slide/slide5.jpg",
+    post1: "",
+    post2: "",
+    post3: "",
+  },
+];
+const Slider = ({}) => {
   const [slideIndex, setSlideIndex] = useState(1);
 
-  const [shown, setIsShown] = useState(false);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
+    const slideBeginTimeout = setTimeout(() => {
+      setShown(true);
+    }, 500);
+    return () => clearTimeout(slideBeginTimeout);
+  }, []);
+
+  useEffect(() => {
+    if (!shown) return;
     const slideTimeout = setTimeout(() => {
       setSlideIndex((prev) => (prev !== sliderStatic.length ? prev + 1 : 1));
     }, 4000);
     return () => clearTimeout(slideTimeout);
-  }, [slideIndex, sliderStatic.length]);
-
-  useEffect(() => {
-    const slidePostTimeout = setTimeout(() => {
-      setIsShown(true);
-      return () => clearTimeout(slidePostTimeout);
-    }, 30);
-  }, []);
+  }, [slideIndex, sliderStatic.length, shown]);
 
   const moveDot = (index: number) => {
     setSlideIndex(index + 1);
@@ -80,12 +90,18 @@ const Slider = () => {
                     index === slide && shown ? styles.description : "hidden"
                   }
                 >
-                  <span>{sliderStatic[slide].post1}</span>
-                  <h1>{sliderStatic[slide].post2}</h1>
-                  <h2>{sliderStatic[slide].post3}</h2>
+                  <h1 className={styles.text_expand}>
+                    {sliderStatic[slide].post1}
+                  </h1>
+                  <h1 className={styles.text_expand2}>
+                    {sliderStatic[slide].post2}
+                  </h1>
+                  <h1 className={styles.tracking_in}>
+                    {sliderStatic[slide].post3}
+                  </h1>
                   {slide === sliderStatic.length - 1 && (
                     <Link href="/product">
-                      <a >
+                      <a>
                         <button className={styles.button}>
                           コレクションを見る
                         </button>

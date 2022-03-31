@@ -13,7 +13,8 @@ import { SelectedTagProvider } from "store/selector-context";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params, query } = context;
+  const { params, query, res } = context;
+  res.setHeader("Cache-Control", "s-maxage=20, stale-while-revalidate");
   let uri = `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/shopping/${params?.category}`;
 
   if (query.sort) uri += `?sort=${query.sort}`;
