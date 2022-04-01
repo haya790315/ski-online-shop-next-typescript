@@ -5,7 +5,7 @@ export const fetchMongoDbCollection = async () => {
   const client = await clientPromise;
   const db = await client.db(process.env.MONGODB_NAME);
   const response = await db
-    .collection(process.env.MONGODB_COLLECTION)
+    .collection(process.env.MONGODB_COLLECTION as string)
     .find({})
     .toArray();
 

@@ -32,6 +32,7 @@ const ProductList = ({ list }: IProductListProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   useEffect(() => {
     sessionStorage.setItem("tag", selectMemo);
   }, [selectMemo]);

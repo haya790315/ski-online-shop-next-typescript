@@ -20,7 +20,7 @@ export default async function handler(
       const client = await clientPromise
 
       const db = await client.db(process.env.MONGODB_NAME);
-      const collection = await db.collection(process.env.MONGODB_COLLECTION);
+      const collection = await db.collection(process.env.MONGODB_COLLECTION as  string);
 
       const filterCategory = {
         $match: {
@@ -47,7 +47,7 @@ export default async function handler(
         pipeline.push(pricePipeline);
       }
 
-      const categorizedDb = await collection.aggregate(pipeline).toArray();
+      const categorizedDb = await collection.aggregate(pipeline).toArray() as IProductData[]
 
       res.status(200).json(categorizedDb);
       

@@ -12,7 +12,9 @@ export default async function handler(
     if (method === "GET") {
       const client = await clientPromise;
       const db = await client.db(process.env.MONGODB_NAME);
-      const collection = await db.collection(process.env.MONGODB_COLLECTION);
+      const collection = await db.collection(
+        process.env.MONGODB_COLLECTION as string
+      );
 
       const aggregation = [
         {
@@ -22,11 +24,13 @@ export default async function handler(
         },
       ];
 
-      const randomProduct = await collection.aggregate(aggregation).toArray();
+      const randomProduct = (await collection
+        .aggregate(aggregation)
+        .toArray()) as IProductData[];
 
       res.status(200).json(randomProduct);
     } else {
-      throw new Error ("wrong request")
+      throw new Error("wrong request");
     }
   } catch (err) {
     console.log(err);

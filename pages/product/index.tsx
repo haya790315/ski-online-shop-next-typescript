@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // get random doc by aggregate
   const response = await db
-    .collection(process.env.MONGODB_COLLECTION)
+    .collection(process.env.MONGODB_COLLECTION as string)
     .aggregate([
       {
         $sample: {
