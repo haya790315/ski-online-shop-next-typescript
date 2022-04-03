@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "styles/SideNavbar.module.css";
 import { useRouter } from "next/router";
 import ShopIcon from "public/image/static/ShopIcon.svg";
-import Categories from "./Categories";
+import Categories from "./CategoryDropMenu";
 import { useCartContext } from "store/cart-context";
-import { sideMenuData } from "./sideMenuData";
+import { sideMenuData } from "data/sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
 const SideNavbar = () => {

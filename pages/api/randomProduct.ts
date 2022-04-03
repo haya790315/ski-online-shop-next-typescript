@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "lib/mongodb/mongodb";
-import { IProductData } from "type/type";
+import { IProductData } from "type/ProductType";
 
 export default async function handler(
   req: NextApiRequest,

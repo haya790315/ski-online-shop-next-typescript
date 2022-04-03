@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import styles from "styles/Categories.module.css";
+import styles from "styles/CategoryDropMenu.module.css";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 interface IProps {
   type: string;
 }
 
-const Categories = ({ type }: IProps) => {
+const CategoryDropMenu = ({ type }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSwitch = () => {
@@ -25,4 +25,4 @@ const Categories = ({ type }: IProps) => {
   );
 };
 
-export default Categories;
+export default CategoryDropMenu;

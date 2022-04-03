@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import {formatTexts} from "../lib/util/util"
-import type { TCartOrder } from "../store/cart-context";
-import type { IOption } from "../pages/cart";
-import type { TOption } from "../type/type";
+import {formatTexts} from "lib/util/util"
+import type { TCartOrder } from "store/cart-context";
+import type { IOption } from "pages/cart";
+import type { TOption } from "type/ProductType";
 
 interface ISelectorProps {
   option: TOption[];

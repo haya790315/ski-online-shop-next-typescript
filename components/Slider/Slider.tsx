@@ -58,7 +58,7 @@ const Slider = ({}) => {
       setSlideIndex((prev) => (prev !== sliderStatic.length ? prev + 1 : 1));
     }, 4000);
     return () => clearTimeout(slideTimeout);
-  }, [slideIndex, sliderStatic.length, shown]);
+  }, [slideIndex, shown]);
 
   const moveDot = (index: number) => {
     setSlideIndex(index + 1);

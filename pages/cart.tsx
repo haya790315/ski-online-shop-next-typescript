@@ -2,12 +2,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import CustomerSelect from "components/CustomerSelect";
+import CustomerSelect from "components/CustomerCom/CustomerSelect";
 import { IoIosClose } from "react-icons/io";
 import { useCartContext } from "store/cart-context";
 import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
-import type { TOption } from "type/type";
+import type { TOption } from "type/ProductType";
 import { calculateTotal } from "lib/util/util";
 
 export interface IOption {
@@ -102,8 +102,8 @@ const Cart: NextPage = () => {
                       >
                         サイズ:
                         <strong className="ml-2">
-                          {item.option.length
-                            ? formatTexts(order.option[0]!, "cm")
+                          {order.option[0]
+                            ? formatTexts(order.option[0], "cm")
                             : "ワンサイズ"}
                         </strong>
                       </span>

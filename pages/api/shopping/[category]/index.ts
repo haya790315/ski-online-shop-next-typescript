@@ -1,13 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "lib/mongodb/mongodb";
-import { IProductData } from "type/type";
+import { IProductData } from "type/ProductType";
 
-type Data = IProductData[];
+type Data = IProductData;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data[]>
 ) {
   try {
     const {
@@ -20,9 +20,8 @@ export default async function handler(
       const client = await clientPromise
 
       const db = await client.db(process.env.MONGODB_NAME);
-      const collection = await db.collection(process.env.MONGODB_COLLECTION as  string);
-
-      const filterCategory = {
+      const collection = await db.collection<Data>(process.env.MONGODB_COLLECTION as  string);
+      const filterCategory  = {
         $match: {
           category: {
             $eq: category,
@@ -47,7 +46,7 @@ export default async function handler(
         pipeline.push(pricePipeline);
       }
 
-      const categorizedDb = await collection.aggregate(pipeline).toArray() as IProductData[]
+      const categorizedDb = await collection.aggregate<Data>(pipeline).toArray()
 
       res.status(200).json(categorizedDb);
       

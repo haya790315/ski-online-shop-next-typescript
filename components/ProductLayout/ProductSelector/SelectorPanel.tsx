@@ -5,7 +5,7 @@ import {
   useSelectedTagContext,
 } from "store/selector-context";
 import Selector from "./Selector";
-import type { IFilterIndex } from "Data/filterIndex";
+import type { IFilterIndex } from "data/filterIndex";
 
 interface ISelectedPanelProps {
   optionList: IFilterIndex;
@@ -18,7 +18,7 @@ const SelectorPanel = ({ optionList }: ISelectedPanelProps) => {
   const [selectorNumbers, setSelectorNumbers] = useState(
     initialSelectorNumber.current
   );
-  const { dispatch } = useSelectedTagContext();
+  const { selectedTagDispatch } = useSelectedTagContext();
 
   const opeMenuHandler = () => {
     setOpenMore(!openMore);
@@ -32,7 +32,7 @@ const SelectorPanel = ({ optionList }: ISelectedPanelProps) => {
   };
 
   const clearTagHandler = (id: number) => {
-    dispatch({
+    selectedTagDispatch({
       type: ACTION_TYPES.CLEAR_SELECTED_LIST,
       payload: {
         id,

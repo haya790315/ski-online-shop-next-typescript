@@ -1,1 +1,1 @@
-export {default} from "./ShowCaseGroup"
+export {default} from "./ShowCaseSlider"

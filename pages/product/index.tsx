@@ -1,11 +1,9 @@
 import React from "react";
 import type { NextPage, GetStaticProps } from "next";
-
-import { ProductSelector, SelectedTag } from "components/ProductSelector";
+import { ProductSelector, SelectedTag,ProductList } from "components/ProductLayout";
 import { SelectedTagProvider } from "store/selector-context";
-import ProductList from "components/ProductLayout/ProductList";
 import clientPromise from "lib/mongodb/mongodb";
-import { IProductData } from "type/type";
+import { IProductData } from "type/ProductType";
 
 interface IProduct {
   productList: IProductData[];
@@ -17,7 +15,6 @@ const Product: NextPage<IProduct> = ({ productList }) => {
       <section className="px-6">
         <SelectedTagProvider>
           <SelectedTag />
-
           <div className="flex flex-row">
             <ProductSelector collection={[1, 2, 3, 4, 5, 6]} />
             <ProductList list={productList} />
@@ -46,7 +43,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const data = JSON.parse(JSON.stringify(response));
 
   return {
-    revalidate:30,
+    revalidate: 30,
     props: { productList: data },
   };
 };

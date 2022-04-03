@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ShowCase from "./ShowCase";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
 
-const ShowCaseGroup = () => {
+const ShowCaseSlider = () => {
   const popularItemList = useRef([]);
   const onSaleItemList = useRef([]);
   const rankingItemList = useRef([]);
@@ -36,4 +36,4 @@ const ShowCaseGroup = () => {
   );
 };
 
-export default ShowCaseGroup;
+export default ShowCaseSlider;

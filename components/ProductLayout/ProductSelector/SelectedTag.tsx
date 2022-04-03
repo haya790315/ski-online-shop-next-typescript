@@ -3,16 +3,16 @@ import { IoIosClose } from "react-icons/io";
 import { SelectedTagContext } from "store/selector-context";
 import { ACTION_TYPES } from "store/selector-context";
 import {formatTexts} from "lib/util/util"
-import type { TOption } from "type/type";
+import type { TOption } from "type/ProductType";
 
 const SelectedTag = () => {
-  const { selectedTag, dispatch } = useContext(SelectedTagContext);
+  const { selectedTag, selectedTagDispatch } = useContext(SelectedTagContext);
   
   const tag = useMemo(()=>Object.values(selectedTag).flat(),[selectedTag])
 
   const deleteTagHandler = (value: TOption) => {
     Object.keys(selectedTag).map((key) => {
-      dispatch({
+      selectedTagDispatch({
         type: ACTION_TYPES.DELETE_SELECTED_LIST,
         payload: { id: +key, value },
       });

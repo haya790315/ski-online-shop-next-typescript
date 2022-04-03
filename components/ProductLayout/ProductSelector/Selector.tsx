@@ -1,7 +1,7 @@
 import React from "react";
 import { GiSquare, GiCheckMark } from "react-icons/gi";
 import { useSelectedTagContext, ACTION_TYPES } from "store/selector-context";
-import type { TOption } from "type/type";
+import type { TOption } from "type/ProductType";
 
 interface ISelectorProps {
   value: TOption;
@@ -11,13 +11,13 @@ interface ISelectorProps {
 
 
 const Selector = ({ value, label, id }: ISelectorProps) => {
-  const { selectedTag, dispatch } = useSelectedTagContext();
+  const { selectedTag, selectedTagDispatch } = useSelectedTagContext();
 
   const checkHandler = (id: number, value: TOption) => {
     const thisTypeTag = selectedTag[id];
 
     if (thisTypeTag.some((t) => t.toString() === value.toString())) {
-      dispatch({
+      selectedTagDispatch({
         type: ACTION_TYPES.DELETE_SELECTED_LIST,
         payload: {
           id,
@@ -26,7 +26,7 @@ const Selector = ({ value, label, id }: ISelectorProps) => {
       });
     }
     if (!thisTypeTag.some((t) => t.toString() === value.toString())) {
-      dispatch({
+      selectedTagDispatch({
         type: ACTION_TYPES.ADD_SELECTED_LIST,
         payload: {
           id,

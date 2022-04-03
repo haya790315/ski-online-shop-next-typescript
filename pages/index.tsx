@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import type { NextPage, GetStaticProps } from "next";
+import type { NextPage } from "next";
 import Slider from "components/Slider/Slider";
 import CategoriesCard from "components/CategoriesCard";
 import ShowCaseGroup from "components/ShowCaseSlider";

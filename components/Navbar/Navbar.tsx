@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from 'next/router'
 import SearchBar from "./SearchBar";
 import AccountIcon from "public/image/static/AccountIcon.svg";

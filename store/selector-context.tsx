@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import type { TOption } from "../type/type";
+import type { TOption } from "type/ProductType";
 export enum ACTION_TYPES {
   ADD_SELECTED_LIST = "ADD_SELECTED_LIST",
   DELETE_SELECTED_LIST = "DELETE_SELECTED_LIST",
@@ -25,7 +25,7 @@ type IAction = TAdd | TDel | TClear | TRstore;
 export type ISelectedTag = Record<number, Array<TOption>>;
 interface IContext {
   selectedTag: ISelectedTag;
-  dispatch: React.Dispatch<IAction>;
+  selectedTagDispatch: React.Dispatch<IAction>;
 }
 
 const selectorReducer: React.Reducer<ISelectedTag, IAction> = (
@@ -81,10 +81,10 @@ const SelectedTagProvider: React.FC = ({ children }) => {
     6: [], //binding size S/M/L/XL[]
   } as ISelectedTag;
 
-  const [selectedTag, dispatch] = useReducer(selectorReducer, initial);
+  const [selectedTag, selectedTagDispatch] = useReducer(selectorReducer, initial);
 
   return (
-    <SelectedTagContext.Provider value={{ selectedTag, dispatch }}>
+    <SelectedTagContext.Provider value={{ selectedTag, selectedTagDispatch }}>
       {children}
     </SelectedTagContext.Provider>
   );

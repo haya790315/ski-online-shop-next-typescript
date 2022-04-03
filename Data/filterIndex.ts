@@ -1,4 +1,4 @@
-import type { TOption } from "../type/type";
+import type { TOption } from "type/ProductType";
 export type TFilterId = 1 | 2 | 3 | 4 | 5 | 6;
 export interface IFilterIndex {
   id: TFilterId;

@@ -3,12 +3,12 @@ type TProductType =
   | "snowboard"
   | "snowboard_boots"
   | "helmet"
-  | "binding"|"googles";
+  | "binding"
+  | "googles";
 
 export type TOption = string | number | number[];
 
-
-export type IProductData = {
+export interface IProductData {
   _id: string;
   brand: string;
   category: TProductType;
@@ -19,9 +19,4 @@ export type IProductData = {
   gender: TGender;
   imageURL: string;
   picture: string[];
-};
-
-
-
-
-
+}

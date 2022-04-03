@@ -5,7 +5,7 @@ import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "components/Feature/Feature";
 import Image from "next/image";
 import YenIcon from "public/image/static/YenIcon.svg";
-import type { IProductData } from "type/type";
+import type { IProductData } from "type/ProductType";
 import { useCartContext } from "store/cart-context";
 import { formatTexts } from "lib/util/util";
 import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

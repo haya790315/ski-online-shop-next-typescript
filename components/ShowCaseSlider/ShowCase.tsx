@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import ShowCard from "../ShowCard/ShowCard";
-import { IProductData } from "type/type";
+import { IProductData } from "type/ProductType";
 
 interface IShowCaseProps {
   itemList: IProductData[];

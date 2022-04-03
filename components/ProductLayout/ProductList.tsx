@@ -4,13 +4,13 @@ import {
   useSelectedTagContext,
   ACTION_TYPES,
 } from "store/selector-context";
-import { IProductData } from "type/type";
+import { IProductData } from "type/ProductType";
 interface IProductListProps {
   list: IProductData[];
 }
 
 const ProductList = ({ list }: IProductListProps) => {
-  const { selectedTag, dispatch } = useSelectedTagContext();
+  const { selectedTag, selectedTagDispatch } = useSelectedTagContext();
 
   const selectedTagValue = Object.values(selectedTag).flat();
   const selectMemo = useMemo(() => {
@@ -21,7 +21,7 @@ const ProductList = ({ list }: IProductListProps) => {
     if (!sessionStorage.getItem("tag")) {
       sessionStorage.setItem("tag", JSON.stringify([]));
     } else {
-      dispatch({
+      selectedTagDispatch({
         type: ACTION_TYPES.RESTORE_SELECTED_LIST,
         payload: {
           value: JSON.parse(sessionStorage.getItem("tag") as string),

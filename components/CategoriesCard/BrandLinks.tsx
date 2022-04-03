@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import brand from "Data/brandList";
+import brand from "data/brandList";
 
 const BrandLinks = () => {
   return (

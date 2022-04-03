@@ -1,12 +1,12 @@
 import React from "react";
 import type { NextPage, GetServerSideProps } from "next";
 import {
+  SortButton,
   ProductSelector,
   SelectedTag,
-  SortButton,
-} from "components/ProductSelector";
-import type { IProductData } from "type/type";
-import type { TFilterId } from "Data/filterIndex";
+} from "components/ProductLayout";
+import type { IProductData } from "type/ProductType";
+import type { TFilterId } from "data/filterIndex";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
 import ProductList from "components/ProductLayout/ProductList";
 import { SelectedTagProvider } from "store/selector-context";
