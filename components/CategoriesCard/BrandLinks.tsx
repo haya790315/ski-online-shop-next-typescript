@@ -1,16 +1,14 @@
 import React from "react";
 import Image from "next/image";
-import brand from "data/brandList";
+import brandList from "data/brandList";
 
 const BrandLinks = () => {
   return (
     <div className="flex relative w-full h-auto bg-white justify-around items-center md:justify-evenly">
-      
-      {brand.map((brandData, index) => {
+      {brandList.map((brandData) => {
         return (
-          <div key={index}>
+          <div key={brandData.id}>
             <Image
-              key={brandData.id}
               height={60}
               width={60}
               src={brandData.brandLogo}
