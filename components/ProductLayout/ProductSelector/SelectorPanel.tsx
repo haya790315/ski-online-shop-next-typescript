@@ -5,7 +5,7 @@ import {
   useSelectedTagContext,
 } from "store/selector-context";
 import Selector from "./Selector";
-import type { IFilterIndex } from "data/filterIndex";
+import type { IFilterIndex } from "localDatabase/filterIndex";
 
 interface ISelectedPanelProps {
   optionList: IFilterIndex;

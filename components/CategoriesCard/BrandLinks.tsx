@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { brandList } from "../../data/brandList";
+import { brandList } from "../../localDatabase/brandList";
 
 const BrandLinks = () => {
   return (

@@ -6,7 +6,7 @@ import {
   SelectedTag,
 } from "components/ProductLayout";
 import type { IProductData } from "type/ProductType";
-import type { TFilterId } from "data/filterIndex";
+import type { TFilterId } from "localDatabase/filterIndex";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
 import ProductList from "components/ProductLayout/ProductList";
 import { SelectedTagProvider } from "store/selector-context";
