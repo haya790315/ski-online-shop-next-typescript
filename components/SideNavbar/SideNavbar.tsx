@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import ShopIcon from "public/image/static/ShopIcon.svg";
 import Categories from "./CategoryDropMenu";
 import { useCartContext } from "store/cart-context";
-import { sideMenuData } from "data/sideMenuData";
+import { sideMenuData } from "localDatabase/sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
 const SideNavbar = () => {

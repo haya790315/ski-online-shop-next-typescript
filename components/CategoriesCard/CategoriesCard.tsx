@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CategoriesData } from "data/CategoriesData";
+import { CategoriesData } from "localDatabase/CategoriesData";
 import BrandLinks from "./BrandLinks";
 
 const CategoriesCard = () => {
