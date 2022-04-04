@@ -40,4 +40,6 @@ yarn-error.log*
 *.mongodb
 
 #database
-/Data/*.json
+/localData/*.json
+
+
