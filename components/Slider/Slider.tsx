@@ -100,7 +100,7 @@ const Slider = ({}) => {
                     {sliderStatic[slide].post3}
                   </h1>
                   {slide === sliderStatic.length - 1 && (
-                    <Link href="/product">
+                    <Link href="/product"> 
                       <a>
                         <button className={styles.button}>
                           コレクションを見る
