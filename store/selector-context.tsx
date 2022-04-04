@@ -79,9 +79,12 @@ const SelectedTagProvider: React.FC = ({ children }) => {
     4: [], //helmet size [number,number][]
     5: [], //snowboard boots size number[]
     6: [], //binding size S/M/L/XL[]
-  } as ISelectedTag;
+  };
 
-  const [selectedTag, selectedTagDispatch] = useReducer(selectorReducer, initial);
+  const [selectedTag, selectedTagDispatch] = useReducer(
+    selectorReducer,
+    initial
+  );
 
   return (
     <SelectedTagContext.Provider value={{ selectedTag, selectedTagDispatch }}>

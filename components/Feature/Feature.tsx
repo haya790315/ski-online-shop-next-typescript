@@ -7,12 +7,12 @@ interface IFeatureProps {
 const Feature = ({ picture }: IFeatureProps) => {
   const [pictureIndex, setPictureIndex] = useState<number>(0);
 
-  const mainImgRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-  const containerRef = useRef<HTMLElement | null>(null);
+  const mainImgRefs = useRef<{ [key: string]: HTMLElement }>({});
+  const containerRef = useRef({} as HTMLElement);
 
-  const blockRef = useRef<HTMLDivElement | null>(null);
+  const blockRef = useRef({} as HTMLDivElement);
 
-  const magnifiedRef = useRef<HTMLDivElement | null>(null);
+  const magnifiedRef = useRef({} as HTMLDivElement);
 
   const block_width = useRef(125).current;
   const block_height = useRef(125).current;
@@ -55,14 +55,14 @@ const Feature = ({ picture }: IFeatureProps) => {
   });
 
   useEffect(() => {
-    mainImgRefs.current["0"]?.classList.remove("hidden");
-    mainImgRefs.current["0"]?.classList.add("block");
+    mainImgRefs.current[0].classList.remove("hidden");
+    mainImgRefs.current[0].classList.add("block");
   }, []);
 
   useEffect(() => {
-    const blockElement = blockRef.current!;
-    const containerElement = containerRef.current!;
-    const magnifiedElement = magnifiedRef.current!;
+    const blockElement = blockRef.current;
+    const containerElement = containerRef.current;
+    const magnifiedElement = magnifiedRef.current;
 
     const controlBlockHandler = (event: MouseEvent) => {
       if (window.innerWidth < 1024) return;
@@ -149,7 +149,7 @@ const Feature = ({ picture }: IFeatureProps) => {
           })}
         </div>
         <div
-          ref={(elm) => (containerRef.current = elm)}
+          ref={(elm) =>elm && (containerRef.current = elm)}
           style={mainImgElementStyle()}
         >
           {picture.map((url, i) => {
@@ -157,7 +157,7 @@ const Feature = ({ picture }: IFeatureProps) => {
               <div
                 key={i}
                 className="hidden"
-                ref={(elm) => (mainImgRefs.current[i] = elm)}
+                ref={(elm) =>elm && (mainImgRefs.current[i] = elm)}
               >
                 <Image
                   src={url}
@@ -176,13 +176,13 @@ const Feature = ({ picture }: IFeatureProps) => {
           })}
 
           <div
-            ref={(elm) => (blockRef.current = elm)}
+            ref={(elm) =>elm && (blockRef.current = elm)}
             style={blockElementStyle()}
           />
           <div className="h-full w-full absolute top-0 left-0 md:cursor-zoom-in lg:cursor-grab"></div>
         </div>
         <div
-          ref={(elm) => (magnifiedRef.current = elm)}
+          ref={(elm) =>elm && (magnifiedRef.current = elm)}
           style={magnifyElementStyle(pictureIndex)}
         />
       </div>
