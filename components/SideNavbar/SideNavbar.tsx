@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import ShopIcon from "public/image/static/ShopIcon.svg";
 import Categories from "./CategoryDropMenu";
 import { useCartContext } from "store/cart-context";
-import { sideMenuData } from "localDatabase/sideMenuData";
+import { sideMenuData } from "localData/sideMenuData";
 import CartDropMenu from "./CartDropMenu";
 
 const SideNavbar = () => {
-  const sideNavbarRef = useRef<HTMLDivElement>(null);
+  const sideNavbarRef = useRef({} as HTMLDivElement);
   const [cartDropMenuOpen, setCartDropMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -22,11 +22,11 @@ const SideNavbar = () => {
       e.preventDefault();
       const scrollY = window.scrollY;
       if (scrollY > 135) {
-        sideNavbarRef.current!.classList.remove("relative");
-        sideNavbarRef.current!.classList.add("fixed");
+        sideNavbarRef.current.classList.remove("relative");
+        sideNavbarRef.current.classList.add("fixed");
       } else {
-        sideNavbarRef.current!.classList.add("relative");
-        sideNavbarRef.current!.classList.remove("fixed");
+        sideNavbarRef.current.classList.add("relative");
+        sideNavbarRef.current.classList.remove("fixed");
       }
     };
     window.addEventListener("scroll", handleScrollEvent);

@@ -1,8 +1,8 @@
 import React from "react";
 import { BsFilterLeft } from "react-icons/bs";
 import SelectorPanel from "./SelectorPanel";
-import { filterIndex } from "localDatabase/filterIndex";
-import { TFilterId } from "localDatabase/filterIndex";
+import { filterIndex } from "localData/filterIndex";
+import { TFilterId } from "localData/filterIndex";
 //set the number to extend at beginning
 interface IProductSelector {
   collection: TFilterId[];

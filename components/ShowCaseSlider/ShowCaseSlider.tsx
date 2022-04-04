@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ShowCase from "./ShowCase";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
+import LoadingSpin from "components/LoadingSpin";
 
 const ShowCaseSlider = () => {
   const popularItemList = useRef([]);
@@ -25,13 +26,19 @@ const ShowCaseSlider = () => {
 
   return (
     <>
-      {isLoading && <div>Loading</div>}
-      <div>
-        <ShowCase itemList={popularItemList.current} listTitle={"人気商品"} />
-        <ShowCase itemList={onSaleItemList.current} listTitle={"特売商品"} />
-        <ShowCase itemList={rankingItemList.current} listTitle={"ランキング"} />
-        <ShowCase itemList={limitedItemList.current} listTitle={"限定商品"} />
-      </div>
+      {isLoading ? (
+        <LoadingSpin />
+      ) : (
+        <div>
+          <ShowCase itemList={popularItemList.current} listTitle={"人気商品"} />
+          <ShowCase itemList={onSaleItemList.current} listTitle={"特売商品"} />
+          <ShowCase
+            itemList={rankingItemList.current}
+            listTitle={"ランキング"}
+          />
+          <ShowCase itemList={limitedItemList.current} listTitle={"限定商品"} />
+        </div>
+      )}
     </>
   );
 };

@@ -10,6 +10,7 @@ interface IProductListProps {
 }
 
 const ProductList = ({ list }: IProductListProps) => {
+  
   const { selectedTag, selectedTagDispatch } = useSelectedTagContext();
 
   const selectedTagValue = Object.values(selectedTag).flat();
