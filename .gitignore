@@ -40,7 +40,13 @@ yarn-error.log*
 *.mongodb
 
 #database
+<<<<<<< HEAD
 localData/*.json
 
 #not yet completed
 User/
+=======
+/localData/*.json
+
+
+>>>>>>> dev
