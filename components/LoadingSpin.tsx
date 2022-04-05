@@ -5,13 +5,13 @@ import { IoIosSnow } from "react-icons/io";
 const LoadingSpin = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.circle}></div>
-      <div className={styles.loading}>
-        <IoIosSnow className={styles.loading_1} />
-        <IoIosSnow className={styles.loading_2} />
-        <IoIosSnow className={styles.loading_3} />
-        <IoIosSnow className={styles.loading_4} />
-        <IoIosSnow className={styles.loading_5} />
+      <div className={styles.background_circle}></div>
+      <div className={styles.container_snow}>
+        <IoIosSnow className={styles.snow_animate_1} />
+        <IoIosSnow className={styles.snow_animate_2} />
+        <IoIosSnow className={styles.snow_animate_3} />
+        <IoIosSnow className={styles.snow_animate_4} />
+        <IoIosSnow className={styles.snow_animate_5} />
       </div>
     </div>
   );
