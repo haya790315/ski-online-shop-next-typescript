@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import Head from "next/head";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Feature from "components/Feature/Feature";
 import Image from "next/image";
@@ -15,7 +15,10 @@ interface IProductProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const dataList = await fetchMongoDbCollection();
+  const collection = await fetchMongoDbCollection();
+  const jsonData = await collection.find({}).toArray();
+
+  const dataList = JSON.parse(JSON.stringify(jsonData)) as IProductData[];
 
   const paths = dataList.map((item) => {
     return {
@@ -33,7 +36,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (staticProps) => {
   const { params } = staticProps;
-  const dataList = await fetchMongoDbCollection();
+  const collection = await fetchMongoDbCollection();
+  const jsonData = await collection.find({}).toArray();
+  const dataList = JSON.parse(JSON.stringify(jsonData)) as IProductData[];
 
   const product = dataList.find((item) => item._id === params?.id);
 
@@ -46,7 +51,8 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
   const { setCartOrder, cartOrder, setCart, cart } = useCartContext();
-  console.log({cartOrder,cart})
+  const router = useRouter();
+
   const quantitySelectRef = useRef<HTMLInputElement>(null);
   const sizeSelectRef = useRef<HTMLSelectElement>(null);
 
@@ -83,20 +89,22 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     const optionArray = [size, quantity];
 
     const newOrder = { id: product._id, option: optionArray };
-    if (cartOrder.length ) {
-      const filterCartOrder = cartOrder.filter((item) =>item.id !== product._id);
-      setCartOrder([newOrder,...filterCartOrder]);
+    if (cartOrder.length) {
+      const filterCartOrder = cartOrder.filter(
+        (item) => item.id !== product._id
+      );
+      setCartOrder([newOrder, ...filterCartOrder]);
     } else {
-      setCartOrder([newOrder,...cartOrder]);
+      setCartOrder([newOrder, ...cartOrder]);
     }
     //set Item into Cart
     if (cart.length) {
       const filterCart = cart.filter((item) => item._id !== product._id);
-      setCart([product,...filterCart]);
+      setCart([product, ...filterCart]);
     } else {
-      setCart([...cart,product]);
+      setCart([...cart, product]);
     }
-    Router.push("/cart");
+    router.push("/cart");
   };
   return (
     <>

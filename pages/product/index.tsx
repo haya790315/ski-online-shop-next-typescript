@@ -1,9 +1,13 @@
 import React from "react";
 import type { NextPage, GetStaticProps } from "next";
-import { ProductSelector, SelectedTag,ProductList } from "components/ProductLayout";
+import {
+  ProductSelector,
+  SelectedTag,
+  ProductList,
+} from "components/ProductLayout";
 import { SelectedTagProvider } from "store/selector-context";
-import clientPromise from "lib/mongodb/mongodb";
 import { IProductData } from "type/ProductType";
+import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
 
 interface IProduct {
   productList: IProductData[];
@@ -26,12 +30,10 @@ const Product: NextPage<IProduct> = ({ productList }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const client = await clientPromise;
-  const db = await client.db(process.env.MONGODB_NAME);
+  const collection = await fetchMongoDbCollection();
 
   // get random doc by aggregate
-  const response = await db
-    .collection(process.env.MONGODB_COLLECTION as string)
+  const response = await collection
     .aggregate([
       {
         $sample: {
@@ -40,11 +42,11 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     ])
     .toArray();
-  const data = JSON.parse(JSON.stringify(response));
+  const dataList = JSON.parse(JSON.stringify(response));
 
   return {
     revalidate: 30,
-    props: { productList: data },
+    props: { productList: dataList },
   };
 };
 

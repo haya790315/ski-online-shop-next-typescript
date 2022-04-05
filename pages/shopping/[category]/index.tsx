@@ -19,10 +19,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (query.sort) uri += `?sort=${query.sort}`;
 
-  const product = await fetchApiData(uri);
+  const response = await fetchApiData(uri);
   return {
     props: {
-      product,
+      product:response,
     },
   };
 };
