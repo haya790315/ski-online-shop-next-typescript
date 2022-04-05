@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
   const { setCartOrder, cartOrder, setCart, cart } = useCartContext();
-
+  console.log({cartOrder,cart})
   const quantitySelectRef = useRef<HTMLInputElement>(null);
   const sizeSelectRef = useRef<HTMLSelectElement>(null);
 
@@ -83,25 +83,18 @@ const ProductDetail: NextPage<IProductProps> = ({ product }) => {
     const optionArray = [size, quantity];
 
     const newOrder = { id: product._id, option: optionArray };
-    const idsArray = cartOrder.map((item) => item.id);
-    if (cartOrder.length > 0 && idsArray.includes(product._id)) {
-      const newCartOrder = cartOrder.map((item) => {
-        if (item.id === product._id) {
-          return newOrder;
-        } else {
-          return item;
-        }
-      });
-      setCartOrder([...newCartOrder]);
+    if (cartOrder.length ) {
+      const filterCartOrder = cartOrder.filter((item) =>item.id !== product._id);
+      setCartOrder([newOrder,...filterCartOrder]);
     } else {
-      setCartOrder([...cartOrder, newOrder]);
+      setCartOrder([newOrder,...cartOrder]);
     }
     //set Item into Cart
     if (cart.length) {
-      const newCart = cart.filter((item) => item._id !== product._id);
-      setCart([...newCart, product]);
+      const filterCart = cart.filter((item) => item._id !== product._id);
+      setCart([product,...filterCart]);
     } else {
-      setCart([product]);
+      setCart([...cart,product]);
     }
     Router.push("/cart");
   };

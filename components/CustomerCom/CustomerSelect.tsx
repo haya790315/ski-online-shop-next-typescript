@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import {formatTexts} from "lib/util/util"
+import { formatTexts } from "lib/util/util";
 import type { TCartOrder } from "store/cart-context";
 import type { IOption } from "pages/cart";
 import type { TOption } from "type/ProductType";
@@ -36,7 +36,7 @@ const CustomerSelect = ({
     backgroundColor: "rgb(28,25,23,1)",
     textAlign: "center",
     lineHeight: "52px",
-    top: "0",
+    left: "0",
     bottom: "0",
     transition: "all 0.2s ease-in-out",
   });
@@ -44,7 +44,6 @@ const CustomerSelect = ({
   const openMenuHandler = () => {
     setOpenList(!openList);
   };
-  
 
   const changOptionHandler = (value: TOption) => {
     const text = formatTexts(value);
@@ -61,25 +60,29 @@ const CustomerSelect = ({
 
   return (
     <>
-      {option.length>0 && (
-        <ul
+      {option.length > 0 && (
+        <div
           className="relative flex flex-row justify-evenly items-center flex-1 outline-1 outline  h-full  outline-slate-700 text-sm"
           onClick={openMenuHandler}
         >
-          <span>{label}</span>
-          {innerText}
-          {option.map((value, i) => (
-            <li
-              style={liStyle(i + 1)}
-              key={i}
-              onClick={() => changOptionHandler(value)}
-              className="hover:text-gray-400"
-            >
-              {formatTexts(value)}
-            </li>
-          ))}
-          <IoMdArrowDropdown />
-        </ul>
+          <div className="flex flex-col justify-center items-center flex-1">
+            <strong className="text-xs">{label}</strong>
+            <span className="flex-initial">{innerText}</span>
+          </div>
+          <ul className="flex-none">
+            {option.map((value, i) => (
+              <li
+                style={liStyle(i + 1)}
+                key={i}
+                onClick={() => changOptionHandler(value)}
+                className="hover:text-gray-400"
+              >
+                {formatTexts(value)}
+              </li>
+            ))}
+          </ul>
+          <IoMdArrowDropdown className="shrink" />
+        </div>
       )}
     </>
   );
