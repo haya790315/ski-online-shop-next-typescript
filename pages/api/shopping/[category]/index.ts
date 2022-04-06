@@ -14,9 +14,9 @@ export default async function handler(
     if (method === "GET") {
       // Get collection Data from mongodb
       const collection = await fetchMongoDbCollection();
-      //filter by category
+      //find by category
       const categoryData = await collection.find({
-        category: { $eq: category },
+        category,
       });
 
       // sort by price
@@ -35,14 +35,28 @@ export default async function handler(
 
       const dataList = await categoryData.toArray();
 
-      res.status(200).json({
-        confirmation: "success",
-        result: dataList,
-      });
+      // check if category available
+      dataList.length
+        ? res.status(200).json({
+            confirmation: "success",
+            result: dataList,
+          })
+        : res.status(404).json({
+            confirmation: "fail",
+            message: "no product available please try other category",
+          });
     } else {
-      throw new Error("wrong request");
+      res.status(405).json({
+        confirmation: "fail",
+        message: "forbidden request",
+      });
     }
   } catch (err) {
-    console.error("no response", err);
+    res
+      .status(500)
+      .json({
+        confirmation: "fail",
+        message: "can't get product from server please try later",
+      });
   }
 }
