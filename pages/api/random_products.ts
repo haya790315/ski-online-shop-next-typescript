@@ -10,7 +10,6 @@ export default async function handler(
 
     if (method === "GET") {
       const collection = await fetchMongoDbCollection();
-
       const aggregation = [
         {
           $sample: {
@@ -18,7 +17,6 @@ export default async function handler(
           },
         },
       ];
-
       const randomProduct = await collection.aggregate(aggregation).toArray();
 
       res.status(200).json({
@@ -26,9 +24,17 @@ export default async function handler(
         result: randomProduct,
       });
     } else {
-      throw new Error("wrong request");
+      res.status(405).json({
+        confirmation: "fail",
+        message: "forbidden request",
+      });
     }
   } catch (err) {
-    console.log(err);
+    res
+      .status(500)
+      .json({
+        confirmation: "fail",
+        message: "can't get product from server please try later",
+      });
   }
 }

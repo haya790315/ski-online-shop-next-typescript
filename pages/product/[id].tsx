@@ -9,6 +9,7 @@ import type { IProductData } from "type/ProductType";
 import { useCartContext } from "store/cart-context";
 import { formatTexts } from "lib/util/util";
 import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
+import LoadingSpin from "components/LoadingSpin";
 
 interface IProductProps {
   product: IProductData;
@@ -16,9 +17,10 @@ interface IProductProps {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const collection = await fetchMongoDbCollection();
-  const jsonData = await collection.find({}).toArray();
-
-  const dataList = JSON.parse(JSON.stringify(jsonData)) as IProductData[];
+  const dataList = (await collection
+    .find({})
+    .toArray()
+    .then((data) => JSON.parse(JSON.stringify(data)))) as IProductData[];
 
   const paths = dataList.map((item) => {
     return {
@@ -30,15 +32,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
 export const getStaticProps: GetStaticProps = async (staticProps) => {
   const { params } = staticProps;
   const collection = await fetchMongoDbCollection();
-  const jsonData = await collection.find({}).toArray();
-  const dataList = JSON.parse(JSON.stringify(jsonData)) as IProductData[];
+  const dataList = (await collection
+    .find({})
+    .toArray()
+    .then((data) => JSON.parse(JSON.stringify(data)))) as IProductData[];
 
   const product = dataList.find((item) => item._id === params?.id);
 
@@ -52,9 +56,11 @@ export const getStaticProps: GetStaticProps = async (staticProps) => {
 const ProductDetail: NextPage<IProductProps> = ({ product }) => {
   const { setCartOrder, cartOrder, setCart, cart } = useCartContext();
   const router = useRouter();
-
   const quantitySelectRef = useRef<HTMLInputElement>(null);
   const sizeSelectRef = useRef<HTMLSelectElement>(null);
+  if (router.isFallback) {
+    return <LoadingSpin />;
+  }
 
   const deliverDate = () => {
     const newDate = new Date();
