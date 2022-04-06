@@ -1,13 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "lib/mongodb/mongodb";
-import { IProductData } from "type/ProductType";
-
-type Data = IProductData;
+import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data[]>
+  res: NextApiResponse
 ) {
   try {
     const {
@@ -15,45 +12,37 @@ export default async function handler(
       query: { category, sort },
     } = req;
     if (method === "GET") {
-      // Get data from mongodb
+      // Get collection Data from mongodb
+      const collection = await fetchMongoDbCollection();
+      //filter by category
+      const categoryData = await collection.find({
+        category: { $eq: category },
+      });
 
-      const client = await clientPromise
-
-      const db = await client.db(process.env.MONGODB_NAME);
-      const collection = await db.collection<Data>(process.env.MONGODB_COLLECTION as  string);
-      const filterCategory  = {
-        $match: {
-          category: {
-            $eq: category,
-          },
-        },
-      };
-      const pricePipeline =
-        sort === "asc"
-          ? {
-              $sort: {
-                price: 1,
-              },
-            }
-          : {
-              $sort: {
-                price: -1,
-              },
-            };
-
-      const pipeline:any = [filterCategory];
+      // sort by price
       if (sort) {
-        pipeline.push(pricePipeline);
+        switch (sort) {
+          case "asc":
+            categoryData.sort({ price: 1 });
+            break;
+          case "des":
+            categoryData.sort({ price: -1 });
+            break;
+          default:
+            categoryData.sort({ price: 1 });
+        }
       }
 
-      const categorizedDb = await collection.aggregate<Data>(pipeline).toArray()
+      const dataList = await categoryData.toArray();
 
-      res.status(200).json(categorizedDb);
-      
+      res.status(200).json({
+        confirmation: "success",
+        result: dataList,
+      });
     } else {
-      throw new Error ("wrong request");
+      throw new Error("wrong request");
     }
   } catch (err) {
-    console.error("no response",err);
+    console.error("no response", err);
   }
 }

@@ -14,10 +14,10 @@ const ShowCaseSlider = () => {
     const fetchRandomData = async () => {
       setIsLoading(true);
 
-      popularItemList.current = await fetchApiData(`api/randomProduct`);
-      onSaleItemList.current = await fetchApiData(`api/randomProduct`);
-      rankingItemList.current = await fetchApiData(`api/randomProduct`);
-      limitedItemList.current = await fetchApiData(`api/randomProduct`);
+      popularItemList.current = await fetchApiData(`api/random_products`);
+      onSaleItemList.current = await fetchApiData(`api/random_products`);
+      rankingItemList.current = await fetchApiData(`api/random_products`);
+      limitedItemList.current = await fetchApiData(`api/random_products`);
       setIsLoading(false);
     };
 
