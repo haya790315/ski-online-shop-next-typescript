@@ -26,6 +26,10 @@ export default async function handler(
         result: randomProduct,
       });
     } else {
+      res.status(405).json({
+        confirmation: "fail",
+        message: "forbidden request",
+      });
       throw new Error("wrong request");
     }
   } catch (err) {

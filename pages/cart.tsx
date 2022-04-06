@@ -144,10 +144,13 @@ const Cart: NextPage = () => {
                 </div>
               );
             })}
-
-          <button className="display-none lg:block h-24 w-full  bg-zinc-700 text-xl font-medium mt-40 bottom-0 hover:opacity-80 ">
-            ショッピングを続ける
-          </button>
+          <Link href="/product" passHref>
+            <a>
+              <button className="display-none lg:block h-24 w-full  bg-zinc-700 text-xl font-medium mt-40 bottom-0 hover:opacity-80 ">
+                ショッピングを続ける
+              </button>
+            </a>
+          </Link>
         </div>
         <div className=" flex flex-col justify-between flex-1   lg:border-l border-t border-solid border-slate-700">
           <div className="flex flex-col  p-6 border-b border-solid border-slate-700 mb-40">
