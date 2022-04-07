@@ -9,6 +9,7 @@ import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
 import type { TOption } from "type/ProductType";
 import { calculateTotal } from "lib/util/util";
+import { Router, useRouter } from "next/router";
 
 export interface IOption {
   id: string;
@@ -18,7 +19,7 @@ export interface IOption {
 
 const Cart: NextPage = () => {
   const { cart, setCart, setCartOrder, cartOrder } = useCartContext();
-
+  const router = useRouter();
   const [newOrder, setNewOrder] = useState<IOption>({
     size: "",
     quantity: 3,
@@ -145,11 +146,9 @@ const Cart: NextPage = () => {
               );
             })}
           <Link href="/product" passHref>
-            <a>
-              <button className="display-none lg:block h-24 w-full  bg-zinc-700 text-xl font-medium mt-40 bottom-0 hover:opacity-80 ">
-                ショッピングを続ける
-              </button>
-            </a>
+            <button className="display-none lg:block h-24 w-full  bg-zinc-700 text-xl font-medium mt-40 bottom-0 hover:opacity-80 ">
+              <a>ショッピングを続ける</a>
+            </button>
           </Link>
         </div>
         <div className=" flex flex-col justify-between flex-1   lg:border-l border-t border-solid border-slate-700">

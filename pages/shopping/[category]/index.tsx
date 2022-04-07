@@ -19,10 +19,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (query.sort) uri += `?sort=${query.sort}`;
 
-  const response = await fetchApiData(uri);
+  const data = await fetchApiData(uri);
+
   return {
     props: {
-      product:response,
+      product: data,
     },
   };
 };
@@ -32,7 +33,8 @@ interface IShoppingProps {
 }
 
 const Shopping: NextPage<IShoppingProps> = ({ product }) => {
-  const query = useRouter().query;
+  const router = useRouter();
+  const query = router.query;
 
   const filterCollection = (): TFilterId[] => {
     if (query.category === "snowboard") return [1, 2, 3];
