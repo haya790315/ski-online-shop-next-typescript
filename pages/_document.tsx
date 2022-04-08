@@ -10,10 +10,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-
-
       <body>
-      <h1>test</h1>
         <Main />
         <NextScript />
       </body>
