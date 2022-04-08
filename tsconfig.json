@@ -15,7 +15,8 @@
     "jsx": "preserve",
     "incremental": true,
     "strictNullChecks": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "useUnknownInCatchVariables":false
   },
   "include": [
     "next-env.d.ts",
@@ -23,6 +24,6 @@
     "**/*.tsx",
     "pages/product",
     "pages/[type]"
-, "lib/fetcher"  ],
+, "lib/fetcher", "test.js"  ],
   "exclude": ["node_modules"]
 }

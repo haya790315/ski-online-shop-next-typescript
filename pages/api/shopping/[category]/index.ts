@@ -46,7 +46,7 @@ export default async function handler(
             message: "no product available please try other category",
           });
     } else {
-      res.status(405).json({
+      res.status(400).json({
         confirmation: "fail",
         message: "forbidden request",
       });
@@ -56,7 +56,7 @@ export default async function handler(
       .status(500)
       .json({
         confirmation: "fail",
-        message: "can't get product from server please try later",
+        message: err.message
       });
   }
 }

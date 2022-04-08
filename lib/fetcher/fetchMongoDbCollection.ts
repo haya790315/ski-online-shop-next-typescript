@@ -1,5 +1,4 @@
 import clientPromise from "../mongodb/mongodb";
-import type {IProductData} from "type/ProductType"
 
 export const fetchMongoDbCollection = async () => {
   const client = await clientPromise;
