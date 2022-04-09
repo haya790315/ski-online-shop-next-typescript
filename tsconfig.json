@@ -16,14 +16,17 @@
     "incremental": true,
     "strictNullChecks": true,
     "baseUrl": ".",
-    "useUnknownInCatchVariables":false
+    "useUnknownInCatchVariables": false
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.js",
     "pages/product",
-    "pages/[type]"
-, "lib/fetcher", "test.js"  ],
+    "pages/[type]",
+    "lib/fetcher",
+    "customType/*.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
