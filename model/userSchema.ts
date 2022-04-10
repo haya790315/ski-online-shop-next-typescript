@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import { formatInTimeZone } from "date-fns-tz";
 
 const userSchema = new mongoose.Schema({
   userName: {
@@ -29,7 +31,14 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 
+  formatCreatedAt: {
+    type: String,
+  },
+
   updateAt: Date,
+  formatUpdatedAt: {
+    type: String,
+  },
 
   passwordChangedAt: Date,
   passwordResetToken: String,
@@ -37,9 +46,52 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", function (next) {
-  this.updateAt = Date.now();
-
+  if (!this.isNew) return next();
+  this.formatCreatedAt = formatInTimeZone(
+    new Date(),
+    "Asia/Tokyo",
+    "yyyy-MM-dd HH:mm:ss zzz"
+  );
+  const salt = bcrypt.genSaltSync(10);
+  this.password = bcrypt.hashSync(this.password, salt);
   next();
 });
 
-export default mongoose.models["User"] || mongoose.model("User", userSchema);
+userSchema.pre("save", async function (next) {
+  // Only run this function if password was actually modified
+  if (!this.isNew) {
+    this.updateAt = new Date();
+    this.formatUpdatedAt = formatInTimeZone(
+      new Date(),
+      "Asia/Tokyo",
+      "yyyy-MM-dd HH:mm:ss zzz"
+    );
+    next();
+  } else next();
+});
+
+interface mogo {
+  [key: string]: any;
+}
+
+userSchema.pre("findOneAndUpdate", function (next) {
+  const update = this.getUpdate() as mogo;
+  const password = update.password || undefined;
+
+  if (password) {
+    const salt = bcrypt.genSaltSync(10);
+    update.password = bcrypt.hashSync(update.password, salt);
+    update.updateAt = new Date();
+    update.formatUpdatedAt = formatInTimeZone(
+      new Date(),
+      "Asia/Tokyo",
+      "yyyy-MM-dd HH:mm:ss zzz"
+    );
+
+    next();
+  } else {
+    next();
+  }
+});
+
+export default mongoose.models.Users || mongoose.model("Users", userSchema);
