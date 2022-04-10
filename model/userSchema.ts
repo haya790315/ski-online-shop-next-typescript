@@ -70,17 +70,13 @@ userSchema.pre("save", async function (next) {
   } else next();
 });
 
-interface mogo {
-  [key: string]: any;
-}
-
 userSchema.pre("findOneAndUpdate", function (next) {
-  const update = this.getUpdate() as mogo;
+  const update = this.getUpdate() as Record<string, unknown>;
   const password = update.password || undefined;
 
-  if (password) {
+  if (typeof password === "string" && password) {
     const salt = bcrypt.genSaltSync(10);
-    update.password = bcrypt.hashSync(update.password, salt);
+    update.password = bcrypt.hashSync(password, salt);
     update.updateAt = new Date();
     update.formatUpdatedAt = formatInTimeZone(
       new Date(),
