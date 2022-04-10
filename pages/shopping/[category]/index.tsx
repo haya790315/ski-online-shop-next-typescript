@@ -5,7 +5,7 @@ import {
   ProductSelector,
   SelectedTag,
 } from "components/ProductLayout";
-import type { IProductData } from "type/ProductType";
+import type { IProductData } from "@type/ProductType";
 import type { TFilterId } from "localData/filterIndex";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
 import ProductList from "components/ProductLayout/ProductList";

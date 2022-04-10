@@ -1,5 +1,5 @@
-import {TOption} from "type/ProductType"
-import { IProductData } from "type/ProductType";
+import {TOption} from "@type/ProductType"
+import { IProductData } from "@type/ProductType";
 import { TCartOrder } from "store/cart-context";
 export const calculateTax = (amount: number) => Math.floor(amount - amount / 1.1);
 

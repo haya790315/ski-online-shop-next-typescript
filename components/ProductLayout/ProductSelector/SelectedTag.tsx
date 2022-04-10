@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 import { SelectedTagContext } from "store/selector-context";
 import { ACTION_TYPES } from "store/selector-context";
 import {formatTexts} from "lib/util/util"
-import type { TOption } from "type/ProductType";
+import type { TOption } from "@type/ProductType";
 
 const SelectedTag = () => {
   const { selectedTag, selectedTagDispatch } = useContext(SelectedTagContext);

@@ -26,7 +26,7 @@
     "pages/product",
     "pages/[type]",
     "lib/fetcher",
-    "customType/*.d.ts"
+    "@type/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }

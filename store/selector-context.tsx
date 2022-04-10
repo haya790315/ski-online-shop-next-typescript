@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import type { TOption } from "type/ProductType";
+import type { TOption } from "@type/ProductType";
 export enum ACTION_TYPES {
   ADD_SELECTED_LIST = "ADD_SELECTED_LIST",
   DELETE_SELECTED_LIST = "DELETE_SELECTED_LIST",

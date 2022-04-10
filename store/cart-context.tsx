@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
-import { IProductData } from "type/ProductType";
-import { TOption } from "type/ProductType";
+import { IProductData } from "@type/ProductType";
+import { TOption } from "@type/ProductType";
 
 export type TCartOrder = {
   id: string;

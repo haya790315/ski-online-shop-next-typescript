@@ -1,7 +1,7 @@
 import React from "react";
 import { GiSquare, GiCheckMark } from "react-icons/gi";
 import { useSelectedTagContext, ACTION_TYPES } from "store/selector-context";
-import type { TOption } from "type/ProductType";
+import type { TOption } from "@type/ProductType";
 
 interface ISelectorProps {
   value: TOption;
