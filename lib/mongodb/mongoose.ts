@@ -11,21 +11,22 @@ if (!MONGODB_URI) {
 let cached = global.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = global.mongoose = { conn: undefined, promise: undefined };
 }
 
 async function dbConnect() {
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
   if (cached.conn) {
     return cached.conn;
   }
 
   if (!cached.promise) {
     const opts = {
-      bufferCommands: false,
+      bufferCommands: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
@@ -33,7 +34,15 @@ async function dbConnect() {
     });
   }
   cached.conn = await cached.promise;
+  
+
   return cached.conn;
 }
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "DB connection error:"));
+db.once("open", () => console.log("DB connection successful"));
+
 
 export default dbConnect;

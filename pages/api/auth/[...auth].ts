@@ -6,8 +6,7 @@ import onError from "lib/util/onError";
 
 const handler = nc<NextApiRequest, NextApiResponse>({ onError });
 
-dbConnect().then(() => {
-  handler.patch(updateUser);
-});
+dbConnect();
+handler.patch(updateUser);
 
 export default handler;

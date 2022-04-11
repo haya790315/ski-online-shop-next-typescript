@@ -1,6 +1,8 @@
 import { TOption } from "@type/ProductType";
 import { IProductData } from "@type/ProductType";
 import { TCartOrder } from "store/cart-context";
+import { formatInTimeZone } from "date-fns-tz";
+
 
 type TFormatParams = string | number | Array<string | number>;
 type TFormatTexts<T extends TFormatParams> = (
@@ -39,3 +41,13 @@ export const calculateTotal = (
   const totalPrice = orderPriceArray.reduce((acc, cur) => acc + cur, 0);
   return totalPrice;
 };
+
+
+
+export const  formatTime = ()=>{
+  return formatInTimeZone(
+    new Date(),
+    "Asia/Tokyo",
+    "yyyy-MM-dd HH:mm:ss zzz"
+  )
+}
