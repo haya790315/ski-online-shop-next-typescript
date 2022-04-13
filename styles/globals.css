@@ -53,6 +53,14 @@
     -webkit-appearance: none;
     -moz-appearance: none;
   }
+
+  .z-300 {
+    z-index:300
+  }
+  .z-400 {
+    z-index:400
+  }
+
 }
 
 :root {

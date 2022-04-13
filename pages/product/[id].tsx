@@ -9,7 +9,7 @@ import type { IProductData } from "@type/ProductType";
 import { useCartContext } from "store/cart-context";
 import { formatTexts } from "lib/util/util";
 import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
-import LoadingSpin from "components/LoadingSpin";
+import LoadingSpin from "components/UI/LoadingSpin";
 
 interface IProductProps {
   product: IProductData;

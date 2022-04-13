@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const newUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await userSchema.create(req.body);
   res.status(200).json({
-    confirmation: "success",
+    success: true,
     user,
   });
 };
@@ -25,4 +25,17 @@ const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export { newUser, updateUser };
+const findUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  const userInfo = await userSchema.findById(req.query.id);
+
+  if (!userInfo) {
+    res.status(404).json({ success: false, message: "User not found" });
+  }
+
+  res.status(201).json({
+    success: true,
+    userInfo,
+  });
+};
+
+export { newUser, updateUser, findUser };

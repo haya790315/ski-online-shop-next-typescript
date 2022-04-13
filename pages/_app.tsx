@@ -5,10 +5,16 @@ import Layout from "components/Layout";
 import Head from "next/head";
 import { CartContextProvider } from "store/cart-context";
 import { useRouter } from "next/router";
-import LoadingSpin from "components/LoadingSpin";
+import LoadingSpin from "components/UI/LoadingSpin";
+import FormPortal from "components/User/FormPortal";
+import SingUpForm from "components/User/SingUpForm/SingUpForm";
+import BackDropLayout from "components/UI/BackDropLayout";
+import SideNavbar from "components/SideNavbar";
+import Navbar from "components/Navbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPortal, setShowPortal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -39,8 +45,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <CartContextProvider>
         <Layout>
+          <Navbar setShowPortal={setShowPortal} />
+          <SideNavbar />
           <Component {...pageProps} />
         </Layout>
+        {showPortal && (
+          <FormPortal showPortal={showPortal}>
+            <BackDropLayout setShowPortal={setShowPortal} />
+            <SingUpForm />
+          </FormPortal>
+        )}
       </CartContextProvider>
     </>
   );

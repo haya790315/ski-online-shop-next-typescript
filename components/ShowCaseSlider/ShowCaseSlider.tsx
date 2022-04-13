@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ShowCase from "./ShowCase";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
-import LoadingSpin from "components/LoadingSpin";
+import LoadingSpin from "components/UI/LoadingSpin";
 
 const ShowCaseSlider = () => {
   const popularItemList = useRef([]);

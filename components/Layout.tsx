@@ -1,17 +1,9 @@
-import React from "react";
-import Navbar from "./Navbar";
-import SideNavbar from "./SideNavbar";
+import React, { FC } from "react";
 
-
-const Layout: React.FC = ({ children }) => {
-  
+const Layout: FC = ({ children }) => {
   return (
     <>
-      <div className="flex flex-col relative">
-        <Navbar />
-        <SideNavbar />
-      </div>
-      {children}
+      <div className="flex flex-col relative">{children}</div>
     </>
   );
 };
