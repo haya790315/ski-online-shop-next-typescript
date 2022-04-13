@@ -6,15 +6,13 @@ import Head from "next/head";
 import { CartContextProvider } from "store/cart-context";
 import { useRouter } from "next/router";
 import LoadingSpin from "components/UI/LoadingSpin";
-import FormPortal from "components/User/FormPortal";
-import SingUpForm from "components/User/SingUpForm/SingUpForm";
-import BackDropLayout from "components/UI/BackDropLayout";
 import SideNavbar from "components/SideNavbar";
 import Navbar from "components/Navbar";
+import FormPortal from "components/Form";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [showPortal, setShowPortal] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -41,19 +39,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>SKI JAPAN</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+
       {isLoading && <LoadingSpin />}
 
       <CartContextProvider>
         <Layout>
-          <Navbar setShowPortal={setShowPortal} />
+          <Navbar setShowLogin={setShowLogin} />
           <SideNavbar />
           <Component {...pageProps} />
         </Layout>
-        {showPortal && (
-          <FormPortal showPortal={showPortal}>
-            <BackDropLayout setShowPortal={setShowPortal} />
-            <SingUpForm />
-          </FormPortal>
+        {showLogin && (
+          <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
         )}
       </CartContextProvider>
     </>

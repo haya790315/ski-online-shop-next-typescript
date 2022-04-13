@@ -8,10 +8,10 @@ import ContactIcon from "public/image/static/ContactIcon.svg";
 import styles from "styles/Navbar.module.css";
 
 interface INavbar {
-  setShowPortal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Navbar = ({ setShowPortal }: INavbar) => {
+const Navbar = ({ setShowLogin }: INavbar) => {
   const router = useRouter();
 
   return (
@@ -33,7 +33,7 @@ const Navbar = ({ setShowPortal }: INavbar) => {
       <SearchBar />
       <ul className="text-white flex flex-row flex-grow-0 text-center">
         <div
-          onClick={() => setShowPortal(true)}
+          onClick={() => setShowLogin(true)}
           className="px-8 relative cursor-pointer group"
         >
           <div>

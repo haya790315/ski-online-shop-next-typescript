@@ -8,7 +8,7 @@ const BackDropLayout = ({ setShowPortal }: IB) => {
   return (
     <div
       onClick={() => setShowPortal(false)}
-      className="absolute h-screen w-screen opacity-90 backdrop-blur-md  bg-neutral-900"
+      className="absolute h-screen w-screen opacity-90 bg-zinc-200"
     ></div>
   );
 };
