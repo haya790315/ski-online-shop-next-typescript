@@ -2,13 +2,13 @@ import nc from "next-connect";
 import dbConnect from "lib/mongodb/mongoose";
 import { userLogin } from "controllers/userController";
 import { NextApiRequest, NextApiResponse } from "next";
-import onError from "lib/util/onError";
+import {onError,onNoMatch} from "lib/util/nextConnectHandler";
 
-const handler = nc<NextApiRequest, NextApiResponse>({ onError });
+const handler = nc<NextApiRequest, NextApiResponse>({ onError,onNoMatch });
 
 dbConnect();
 
-handler.get(userLogin);
+handler.post(userLogin);
 
 
 export default handler;

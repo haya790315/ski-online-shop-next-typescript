@@ -51,13 +51,22 @@ const LoginForm = ({ display }: ILoginForm) => {
     //   `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user?email=${inputValue["email"]}&password=${inputValue["password"]}`
     // );
 
+    // const response = await axios({
+    //   method: "get",
+    //   url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user?email=${inputValue["email"]}&password=${inputValue["password"]}`,
+    // });
+
     const response = await axios({
-      method: "get",
-      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user?email=${inputValue["email"]}&password=${inputValue["password"]}`,
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user`,
+      data: {
+        email: inputValue["email"],
+        password: inputValue["password"],
+      },
     });
 
     if (response.data.success) {
-      console.log("login");
+      console.log(response.data.message);
       router.replace("/");
     } else {
       setLoginFailMessage(response.data.message);
@@ -86,7 +95,7 @@ const LoginForm = ({ display }: ILoginForm) => {
             name="password"
             type={passwordVisible ? "text" : "password"}
             placeholder="パスワード"
-            id="password"
+            id="password_login"
             className="h-10 w-full mb-4 border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue"
             value={inputValue.password}
             onChange={(event) => inputOnChangeHandler(event, "password")}
@@ -112,12 +121,12 @@ const LoginForm = ({ display }: ILoginForm) => {
         >
           ログイン
         </button>
+        {loginFailMessage  && (
+          <p className="text-red-600 text-base text-center p-5 absolute bottom-0">
+            {loginFailMessage}
+          </p>
+        )}
       </form>
-      {loginFailMessage && (
-        <p className="text-red-600 text-base text-center p-5 absolute bottom-0">
-          {loginFailMessage}
-        </p>
-      )}
     </>
   );
 };

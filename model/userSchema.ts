@@ -6,8 +6,7 @@ const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     required: [true, "Please enter user name"],
-    unique: true,
-    maxLength: [10, "user name cannot exceed 10 characters"],
+    maxLength: [16, "user name cannot exceed 10 characters"],
     immutable: (doc: { authorization: string }) =>
       doc.authorization === "ADMIN",
   },
@@ -30,11 +29,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-
   formatCreatedAt: {
     type: String,
   },
-
   updateAt: Date,
   formatUpdatedAt: {
     type: String,
@@ -78,4 +75,17 @@ userSchema.pre("findOneAndUpdate", function (next) {
   }
 });
 
+
+userSchema.methods.checkPassword = async function(
+  hash:string,
+  userPassword:string
+) {
+  return await bcrypt.compare(hash, userPassword);
+};
+
+
 export default mongoose.models.Users || mongoose.model("Users", userSchema);
+
+
+
+

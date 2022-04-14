@@ -1,12 +1,17 @@
 import userSchema from "../model/userSchema";
 import { NextApiRequest, NextApiResponse } from "next";
+import type { NextHandler } from "@type/nextConnect";
 
 const newUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = await userSchema.create(req.body);
-  res.status(201).json({
-    success: true,
-    user,
-  });
+  try {
+    const user = await userSchema.create(req.body);
+    res.status(201).json({
+      success: true,
+      user,
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -26,22 +31,47 @@ const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { email, password } = req.body;
+  //  Check if email and password exist
+  if (!email || !password) {
+    res.status(400).json({
+      success: false,
+      message: "password and email are required",
+    });
+  }
+  //  Check if user exists && password is correct
+  const user = await userSchema.findOne({ email });
+
+  if (!user || !(await user.checkPassword(password, user.password))) {
+    res.status(202).json({
+      success: false,
+      message: "メールアドレス、もしくはパスワードが間違っています。",
+    });
+  } else
+    res.status(201).json({
+      success: true,
+      message: "ログイン",
+      user,
+    });
+};
+
+const checkUserEmailExcited = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   try {
     const user = await userSchema.findOne({
       email: req.query.email,
-      password: req.query.password,
     });
-    if (!user) {
-      res
-        .status(202)
-        .json({
-          success: false,
-          message: "メールアドレス、もしくはパスワードが間違っています。",
-        });
-    } else {
+    if (user) {
       res.status(200).json({
         success: true,
-        result: user,
+        message: "メールアドレスは既に存在します",
+      });
+    } else {
+      res.status(202).json({
+        success: false,
+        message: "メールアドレスは有効です",
       });
     }
   } catch (err) {
@@ -49,30 +79,4 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-
-const checkUserEmailExcited= async (req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    const user = await userSchema.findOne({
-      email: req.query.email,
-    });
-    if (user) {
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "メールアドレスは既に存在します",
-        });
-    } else {
-      res
-        .status(202)
-        .json({
-          success: false,
-          message: "メールアドレスは有効です",
-        });
-    }
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export { newUser, updateUser, userLogin,checkUserEmailExcited };
+export { newUser, updateUser, userLogin, checkUserEmailExcited };

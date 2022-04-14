@@ -34,15 +34,32 @@ const SingUpForm = ({ display }: ISingUpForm) => {
     return setEmailOnFocus(true);
   };
 
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const response = await axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/register`,
+      data: {
+        userName,
+        email,
+        password,
+      },
+    });
+
+    if (response.data.success) {
+    } else console.log("fail");
+  };
+
   useEffect(() => {
     setValidationMessage("");
     if (!(userName || email || password)) return;
     if (
       userNameOnFocus &&
-      (!validator.isLength(userName, { min: 6, max: 16 }) ||
+      (!validator.isLength(userName, { min: 6, max: 10 }) ||
         validator.isEmpty(userName, { ignore_whitespace: true }))
     ) {
-      setValidationMessage("「ユーザーネーム」:半角英数6文字以上16文字以内");
+      setValidationMessage("「ユーザーネーム」:半角英数6文字以上10文字以内");
       setValidation(false);
       return;
     } else if (emailOnFocus && !validator.isEmail(email)) {
@@ -88,33 +105,32 @@ const SingUpForm = ({ display }: ISingUpForm) => {
         className={`flex flex-col h-full w-full mt-4 justify-center items-center ${
           !display && "display-none"
         }`}
-        // onSubmit={(event) => submitHandler(event)}
+        onSubmit={(event) => submitHandler(event)}
       >
         <div className="w-10/12">
           <input
             name="userName"
             type="text"
             placeholder="ユーザーネーム"
-            id="email_login"
+            id="userName"
             className="h-8  w-full border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
             value={userName}
             onBlur={() => setUserNameOnFocus(true)}
             onChange={(e) => setUserName(e.target.value)}
-            // onChange={(event) => inputOnChangeHandler(event, "email")}
           ></input>
           <p className="text-xs text-neutral-400 mb-2">*半角英数6文字以上</p>
           <input
             name="email"
             type="email"
             placeholder="メールアドレス"
-            id="email_login"
+            id="email"
             className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
             value={email}
             onBlur={() => checkEmailDuplicated()}
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <p
-            className={`"text-xs h-4  mb-2 ${
+            className={`text-xs h-4  mb-2 ${
               emailDuplicated ? "text-red-600" : "text-green-400"
             }`}
           >
@@ -129,7 +145,6 @@ const SingUpForm = ({ display }: ISingUpForm) => {
             value={password}
             onBlur={() => setPasswordOnFocus(true)}
             onChange={(e) => setPassword(e.target.value)}
-            // onChange={(event) => inputOnChangeHandler(event, "password")}
           ></input>
           <p className="text-xs text-neutral-400 mb-2">*半角英数6文字以上</p>
           <input
@@ -140,7 +155,6 @@ const SingUpForm = ({ display }: ISingUpForm) => {
             className="h-8 w-full border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue"
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
-            // onChange={(event) => inputOnChangeHandler(event, "password")}
           ></input>
         </div>
         <button
