@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const newUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await userSchema.create(req.body);
-  res.status(200).json({
+  res.status(201).json({
     success: true,
     user,
   });
@@ -19,23 +19,60 @@ const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   );
 
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     updateUser,
   });
 };
 
-const findUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const userInfo = await userSchema.findById(req.query.id);
-
-  if (!userInfo) {
-    res.status(404).json({ success: false, message: "User not found" });
+const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const user = await userSchema.findOne({
+      email: req.query.email,
+      password: req.query.password,
+    });
+    if (!user) {
+      res
+        .status(202)
+        .json({
+          success: false,
+          message: "メールアドレス、もしくはパスワードが間違っています。",
+        });
+    } else {
+      res.status(200).json({
+        success: true,
+        result: user,
+      });
+    }
+  } catch (err) {
+    console.error(err);
   }
-
-  res.status(201).json({
-    success: true,
-    userInfo,
-  });
 };
 
-export { newUser, updateUser, findUser };
+
+const checkUserEmailExcited= async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const user = await userSchema.findOne({
+      email: req.query.email,
+    });
+    if (user) {
+      res
+        .status(200)
+        .json({
+          success: true,
+          message: "メールアドレスは既に存在します",
+        });
+    } else {
+      res
+        .status(202)
+        .json({
+          success: false,
+          message: "メールアドレスは有効です",
+        });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export { newUser, updateUser, userLogin,checkUserEmailExcited };

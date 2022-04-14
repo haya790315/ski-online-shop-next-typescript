@@ -26,7 +26,7 @@ const FormComp: FC = () => {
         </h3>
       </div>
       <LoginForm display={loginFormActive}/>
-      
+      <SingUpForm display={!loginFormActive}/>
     </div>
   );
 };

@@ -12,7 +12,7 @@ import FormPortal from "components/Form";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [showLogin, setShowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
