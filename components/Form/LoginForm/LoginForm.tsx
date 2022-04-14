@@ -47,22 +47,11 @@ const LoginForm = ({ display }: ILoginForm) => {
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const response = await axios.get(
-    //   `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user?email=${inputValue["email"]}&password=${inputValue["password"]}`
-    // );
-
-    // const response = await axios({
-    //   method: "get",
-    //   url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user?email=${inputValue["email"]}&password=${inputValue["password"]}`,
-    // });
 
     const response = await axios({
       method: "post",
-      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/user`,
-      data: {
-        email: inputValue["email"],
-        password: inputValue["password"],
-      },
+      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/login`,
+      data: inputValue,
     });
 
     if (response.data.success) {
@@ -87,7 +76,7 @@ const LoginForm = ({ display }: ILoginForm) => {
             type="email"
             placeholder="メールアドレス"
             id="email_login"
-            className="h-10  w-full mb-4 border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-10 w-full mb-4 border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue"
             value={inputValue.email}
             onChange={(event) => inputOnChangeHandler(event, "email")}
           ></input>

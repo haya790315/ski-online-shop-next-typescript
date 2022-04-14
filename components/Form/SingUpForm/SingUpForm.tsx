@@ -53,7 +53,6 @@ const SingUpForm = ({ display }: ISingUpForm) => {
 
   useEffect(() => {
     setValidationMessage("");
-    if (!(userName || email || password)) return;
     if (
       userNameOnFocus &&
       (!validator.isLength(userName, { min: 6, max: 10 }) ||

@@ -1,6 +1,5 @@
 import userSchema from "../model/userSchema";
 import { NextApiRequest, NextApiResponse } from "next";
-import type { NextHandler } from "@type/nextConnect";
 
 const newUser = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -55,7 +54,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 };
 
-const checkUserEmailExcited = async (
+const checkUserEmailExisted = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
@@ -79,4 +78,4 @@ const checkUserEmailExcited = async (
   }
 };
 
-export { newUser, updateUser, userLogin, checkUserEmailExcited };
+export { newUser, updateUser, userLogin, checkUserEmailExisted };
