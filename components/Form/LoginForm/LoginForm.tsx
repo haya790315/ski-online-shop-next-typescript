@@ -3,6 +3,7 @@ import { BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { signIn, useSession } from "next-auth/react";
 
 interface ILoginForm {
   display: boolean;
@@ -26,7 +27,10 @@ const LoginForm = ({ display }: ILoginForm) => {
     setInputValue({ ...inputValue, [type]: event.target.value });
   };
 
+  const { data: session } = useSession();
+
   useEffect(() => {
+    console.log(session);
     if (
       validator.isEmpty(email, { ignore_whitespace: true }) ||
       validator.isEmpty(password, { ignore_whitespace: true })
@@ -39,22 +43,34 @@ const LoginForm = ({ display }: ILoginForm) => {
     } else if (password.length < 6) {
       setValidation(false);
     } else return setValidation(true);
-  }, [email, password]);
+  }, [email, password, session]);
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // check if user is registered
-    const response = await axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/login`,
-      data: inputValue,
+    // const response = await axios({
+    //   method: "post",
+    //   url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/login`,
+    //   data: inputValue,
+    // });
+
+    // if (response.data.success) {
+    //   console.log(response.data.message);
+    //   router.replace("/");
+    // } else {
+    //   setLoginFailMessage(response.data.message);
+    // }
+    const response = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
     });
-    
-    if (response.data.success) {
-      console.log(response.data.message);
-      router.replace("/");
+
+    if (!response.ok) {
+      console.log(response);
     } else {
-      setLoginFailMessage(response.data.message);
+      router.push("/");
+      console.log(response);
     }
   };
 

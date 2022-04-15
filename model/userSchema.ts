@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   },
   authorization: {
     type: String,
-    enum: ["ADMIN", "VIP", "USER"],
+    enum: ["ADMIN", "VIP", "USER","BLOCK"],
     default: "USER",
   },
   createdAt: {
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
   formatUpdatedAt: {
     type: String,
   },
-
+  jwt:String,
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

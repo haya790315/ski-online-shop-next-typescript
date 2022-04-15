@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 import "styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "components/Layout";
@@ -42,16 +43,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       {isLoading && <LoadingSpin />}
 
-      <CartContextProvider>
-        <Layout>
-          <Navbar setShowLogin={setShowLogin} />
-          <SideNavbar />
-          <Component {...pageProps} />
-        </Layout>
-        {showLogin && (
-          <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
-        )}
-      </CartContextProvider>
+      <SessionProvider>
+        <CartContextProvider>
+          <Layout>
+            <Navbar setShowLogin={setShowLogin} />
+            <SideNavbar />
+            <Component {...pageProps} />
+          </Layout>
+          {showLogin && (
+            <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
+          )}
+        </CartContextProvider>
+      </SessionProvider>
     </>
   );
 }

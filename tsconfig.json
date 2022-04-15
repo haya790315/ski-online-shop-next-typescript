@@ -27,6 +27,6 @@
     "pages/[type]",
     "lib/fetcher",
     "@type/*.d.ts"
-  ],
+, "pages/api/auth/[...nextauth].ts"  ],
   "exclude": ["node_modules"]
 }
