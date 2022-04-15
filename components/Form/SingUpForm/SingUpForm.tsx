@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import validator from "validator";
 import axios from "axios";
 
@@ -11,6 +11,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
   const [emailOnFocus, setEmailOnFocus] = useState(false);
   const [passwordOnFocus, setPasswordOnFocus] = useState(false);
   const [validation, setValidation] = useState(false);
+  const [errorNumber, setErrorNumber] = useState(0);
   const [emailDuplicated, setEmailDuplicated] = useState(false);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -48,21 +49,25 @@ const SingUpForm = ({ display }: ISingUpForm) => {
     });
 
     if (response.data.success) {
+      console.log("created");
     } else console.log("fail");
   };
 
   useEffect(() => {
     setValidationMessage("");
+    setErrorNumber(0);
     if (
       userNameOnFocus &&
       (!validator.isLength(userName, { min: 6, max: 10 }) ||
         validator.isEmpty(userName, { ignore_whitespace: true }))
     ) {
       setValidationMessage("「ユーザーネーム」:半角英数6文字以上10文字以内");
+      setErrorNumber(1);
       setValidation(false);
       return;
     } else if (emailOnFocus && !validator.isEmail(email)) {
       setValidationMessage("メールアドレスが正しくありません");
+      setErrorNumber(2);
       setValidation(false);
       return;
     } else if (
@@ -71,6 +76,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
         validator.isEmpty(password, { ignore_whitespace: true }))
     ) {
       setValidationMessage("「パスワード」:半角英数6文字以上");
+      setErrorNumber(3);
       setValidation(false);
       return;
     } else if (
@@ -88,11 +94,11 @@ const SingUpForm = ({ display }: ISingUpForm) => {
     } else return setValidation(true);
   }, [
     userName,
+    email,
+    password,
     userNameOnFocus,
     emailOnFocus,
-    email,
     passwordOnFocus,
-    password,
     passwordConfirm,
     emailDuplicated,
   ]);
@@ -113,6 +119,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
             placeholder="ユーザーネーム"
             id="userName"
             className="h-8  w-full border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            style={{ borderColor: errorNumber === 1 ? "#D25050" : "" }}
             value={userName}
             onBlur={() => setUserNameOnFocus(true)}
             onChange={(e) => setUserName(e.target.value)}
@@ -124,6 +131,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
             placeholder="メールアドレス"
             id="email"
             className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            style={{ borderColor: errorNumber === 2 ? "#D25050" : "" }}
             value={email}
             onBlur={() => checkEmailDuplicated()}
             onChange={(e) => setEmail(e.target.value)}
@@ -141,6 +149,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
             placeholder="パスワード"
             id="password"
             className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            style={{ borderColor: errorNumber === 3 ? "#D25050" : "" }}
             value={password}
             onBlur={() => setPasswordOnFocus(true)}
             onChange={(e) => setPassword(e.target.value)}

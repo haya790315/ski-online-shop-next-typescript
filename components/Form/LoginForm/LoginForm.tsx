@@ -4,12 +4,6 @@ import validator from "validator";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-interface IInput {
-  [key: string]: string;
-  email: string;
-  password: string;
-}
-
 interface ILoginForm {
   display: boolean;
 }
@@ -18,12 +12,12 @@ const LoginForm = ({ display }: ILoginForm) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [validation, setValidation] = useState(false);
   const [loginFailMessage, setLoginFailMessage] = useState("");
-  const [inputValue, setInputValue] = useState<IInput>({
+  const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
   });
-
   const router = useRouter();
+  const { email, password } = inputValue;
 
   const inputOnChangeHandler = (
     event: ChangeEvent<HTMLInputElement>,
@@ -34,26 +28,28 @@ const LoginForm = ({ display }: ILoginForm) => {
 
   useEffect(() => {
     if (
-      validator.isEmpty(inputValue["email"], { ignore_whitespace: true }) ||
-      validator.isEmpty(inputValue["password"], { ignore_whitespace: true })
-    )
-      return;
-    if (!validator.isEmail(inputValue["email"])) {
+      validator.isEmpty(email, { ignore_whitespace: true }) ||
+      validator.isEmpty(password, { ignore_whitespace: true })
+    ) {
       setValidation(false);
-    } else if (inputValue["password"].length < 6) {
+      return;
+    }
+    if (!validator.isEmail(email)) {
+      setValidation(false);
+    } else if (password.length < 6) {
       setValidation(false);
     } else return setValidation(true);
-  }, [inputValue]);
+  }, [email, password]);
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    // check if user is registered
     const response = await axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/login`,
       data: inputValue,
     });
-
+    
     if (response.data.success) {
       console.log(response.data.message);
       router.replace("/");
@@ -110,7 +106,7 @@ const LoginForm = ({ display }: ILoginForm) => {
         >
           ログイン
         </button>
-        {loginFailMessage  && (
+        {loginFailMessage && (
           <p className="text-red-600 text-base text-center p-5 absolute bottom-0">
             {loginFailMessage}
           </p>

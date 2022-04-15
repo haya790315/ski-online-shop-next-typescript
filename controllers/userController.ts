@@ -9,6 +9,7 @@ const newUser = async (req: NextApiRequest, res: NextApiResponse) => {
       user,
     });
   } catch (err) {
+    res.status(500).send(err)
     console.error(err);
   }
 };
@@ -23,7 +24,7 @@ const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   );
 
-  res.status(200).json({
+  res.status(201).json({
     success: true,
     updateUser,
   });
@@ -47,7 +48,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
       message: "メールアドレス、もしくはパスワードが間違っています。",
     });
   } else
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "ログイン",
       user,

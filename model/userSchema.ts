@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter user name"],
     maxLength: [16, "user name cannot exceed 10 characters"],
     immutable: (doc: { authorization: string }) =>
-      doc.authorization === "ADMIN",
+      doc.authorization === "ADMIN"
   },
   password: {
     type: String,
