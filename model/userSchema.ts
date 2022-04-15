@@ -45,8 +45,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", function (next) {
   if (!this.isNew) return next();
   this.formatCreatedAt = formatTime();
-  const salt = bcrypt.genSaltSync(10);
-  this.password = bcrypt.hashSync(this.password, salt);
+  this.password = bcrypt.hashSync(this.password, 12);
   next();
 });
 
@@ -64,8 +63,7 @@ userSchema.pre("findOneAndUpdate", function (next) {
   const password = update.password || undefined;
 
   if (typeof password === "string" && password) {
-    const salt = bcrypt.genSaltSync(10);
-    update.password = bcrypt.hashSync(password, salt);
+    update.password = bcrypt.hashSync(password, 12);
     update.updateAt = new Date();
     update.formatUpdatedAt = formatTime();
 
@@ -75,17 +73,11 @@ userSchema.pre("findOneAndUpdate", function (next) {
   }
 });
 
-
-userSchema.methods.checkPassword = async function(
-  hash:string,
-  userPassword:string
+userSchema.methods.checkPassword = async function (
+  userPassword: string,
+  hash: string
 ) {
-  return await bcrypt.compare(hash, userPassword);
+  return bcrypt.compareSync(userPassword, hash);
 };
 
-
 export default mongoose.models.Users || mongoose.model("Users", userSchema);
-
-
-
-
