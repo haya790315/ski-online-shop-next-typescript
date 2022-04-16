@@ -2,27 +2,37 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "lib/mongodb/mongoose";
 import userSchema from "model/userSchema";
-import type { ICredentials } from "@type/nextAuth";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 export default NextAuth({
   session: {
-    strategy: "jwt",
     maxAge: 30,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
+  secret: process.env.NEXTAUTH_URL,
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
     CredentialsProvider({
       name: "credentials",
       credentials: { email: {}, password: {} },
       async authorize(credentials) {
         dbConnect();
-        const { email, password } = credentials as ICredentials;
         //  Check if email and password exist
 
-        if (!email || !password) {
+        if (!credentials || !credentials.email || !credentials.password) {
           throw new Error("no email or password");
         }
         //  Check if user exists && password is correct
+        const { email, password } = credentials;
+
         const user = await userSchema.findOne({ email });
 
         if (!user || !(await user.checkPassword(password, user.password))) {
@@ -33,17 +43,25 @@ export default NextAuth({
       },
     }),
   ],
+  jwt: {
+    maxAge: 60,
+  },
+  pages: {
+    signIn: "/",
+    error: "/",
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.name = user.userName as string;
+        token.name = user.name;
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
         session.id = token.id;
+        session.user.name = token.name as string;
       }
       return session;
     },

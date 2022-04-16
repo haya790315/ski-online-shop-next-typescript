@@ -1,12 +1,17 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { BsEyeSlash } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 import validator from "validator";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
+import { AiFillGithub } from "react-icons/ai";
 
 interface ILoginForm {
   display: boolean;
+}
+
+interface IResponse {
+  ok: boolean;
 }
 
 const LoginForm = ({ display }: ILoginForm) => {
@@ -47,31 +52,20 @@ const LoginForm = ({ display }: ILoginForm) => {
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // check if user is registered
-    // const response = await axios({
-    //   method: "post",
-    //   url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/login`,
-    //   data: inputValue,
-    // });
-
-    // if (response.data.success) {
-    //   console.log(response.data.message);
-    //   router.replace("/");
-    // } else {
-    //   setLoginFailMessage(response.data.message);
-    // }
-    const response = await signIn("credentials", {
+    const response = await signIn<any>("credentials", {
       redirect: false,
       email,
       password,
     });
 
-    if (!response.ok) {
-      console.log(response);
+    if (response?.ok) {
+      console.log("login");
     } else {
-      router.push("/");
-      console.log(response);
+      setLoginFailMessage(
+        "メールアドレス、もしくはパスワードが間違っています。"
+      );
     }
+    console.log(response);
   };
 
   return (
@@ -113,6 +107,26 @@ const LoginForm = ({ display }: ILoginForm) => {
         <p className="inline-block text-sm absolute">
           パスワードをお忘れですか？
         </p>
+        <div className="absolute top-1/2 mt-8 flex flex-row justify-between items-center">
+          <button
+            type="button"
+            onClick={() => signIn("github")}
+            className="h-6 w-6 flex justify-center items-center rounded-full button_orange focus:bg-blue-700 mr-5"
+          >
+            <span>
+              <AiFillGithub />
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => signIn("google")}
+            className="h-6 w-6 flex justify-center items-center rounded-full button_orange focus:bg-blue-700 mr-5"
+          >
+            <span>
+              <FcGoogle />
+            </span>
+          </button>
+        </div>
         <button
           disabled={!validation}
           type="submit"
@@ -122,6 +136,7 @@ const LoginForm = ({ display }: ILoginForm) => {
         >
           ログイン
         </button>
+
         {loginFailMessage && (
           <p className="text-red-600 text-base text-center p-5 absolute bottom-0">
             {loginFailMessage}

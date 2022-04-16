@@ -3,12 +3,12 @@ import bcrypt from "bcryptjs";
 import { formatTime } from "lib/util/util";
 
 const userSchema = new mongoose.Schema({
-  userName: {
+  name: {
     type: String,
     required: [true, "Please enter user name"],
     maxLength: [16, "user name cannot exceed 10 characters"],
     immutable: (doc: { authorization: string }) =>
-      doc.authorization === "ADMIN"
+      doc.authorization === "ADMIN",
   },
   password: {
     type: String,
@@ -20,9 +20,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: [true, "Please enter email"],
   },
+  address: String,
   authorization: {
     type: String,
-    enum: ["ADMIN", "VIP", "USER","BLOCK"],
+    enum: ["ADMIN", "VIP", "USER", "BLOCK"],
     default: "USER",
   },
   createdAt: {
@@ -36,7 +37,6 @@ const userSchema = new mongoose.Schema({
   formatUpdatedAt: {
     type: String,
   },
-  jwt:String,
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
