@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { ObjectId } from "mongodb";
 import { formatTime } from "lib/util/util";
-import clientPromise from "lib/mongodb/mongodb";
-import { generateSessionToken } from "session-id-token";
 
 const userSchema = new mongoose.Schema({
   name: {
