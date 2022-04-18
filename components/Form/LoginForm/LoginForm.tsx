@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { BsEyeSlash } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import validator from "validator";
-import { useRouter } from "next/router";
+import style from "styles/LoadingSpin.module.css";
 import { signIn, useSession } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
 
@@ -10,19 +10,16 @@ interface ILoginForm {
   display: boolean;
 }
 
-interface IResponse {
-  ok: boolean;
-}
-
 const LoginForm = ({ display }: ILoginForm) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [validation, setValidation] = useState(false);
   const [loginFailMessage, setLoginFailMessage] = useState("");
+  const [login, setIsLogin] = useState(false);
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
   });
-  const router = useRouter();
+
   const { email, password } = inputValue;
 
   const inputOnChangeHandler = (
@@ -35,7 +32,7 @@ const LoginForm = ({ display }: ILoginForm) => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    console.log(session);
+    setLoginFailMessage("");
     if (
       validator.isEmpty(email, { ignore_whitespace: true }) ||
       validator.isEmpty(password, { ignore_whitespace: true })
@@ -52,12 +49,13 @@ const LoginForm = ({ display }: ILoginForm) => {
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLogin(true);
     const response = await signIn<any>("credentials", {
       redirect: false,
       email,
       password,
     });
-
+    setIsLogin(false);
     if (response?.ok) {
       console.log("login");
     } else {
@@ -107,7 +105,7 @@ const LoginForm = ({ display }: ILoginForm) => {
         <p className="inline-block text-sm absolute">
           パスワードをお忘れですか？
         </p>
-        <div className="absolute top-1/2 mt-8 flex flex-row justify-between items-center">
+        <div className="absolute bottom-2 mt-8 flex flex-row justify-between items-center">
           <button
             type="button"
             onClick={() => signIn("github")}
@@ -127,18 +125,19 @@ const LoginForm = ({ display }: ILoginForm) => {
             </span>
           </button>
         </div>
+
         <button
           disabled={!validation}
           type="submit"
-          className={`inline-block h-11 w-10/12  button_orange focus:bg-blue-700 ${
+          className={`relative flex justify-center items-center h-11 w-10/12 mb-5 button_orange focus:bg-blue-700 ${
             !validation && "bg-zinc-600 opacity-50 cursor-pointer"
           }`}
         >
-          ログイン
+          {login ? <div className={style.loader}></div> : "ログイン"}
         </button>
 
         {loginFailMessage && (
-          <p className="text-red-600 text-base text-center p-5 absolute bottom-0">
+          <p className="text-red-600 text-base text-center mb-5 p-5 absolute bottom-0">
             {loginFailMessage}
           </p>
         )}

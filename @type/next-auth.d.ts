@@ -14,7 +14,7 @@ declare module "next-auth" {
     passwordChangedAt: Date;
     passwordResetToken: string;
     passwordResetExpires: Date;
-    address: string;
+    address: string;auth
   }
   interface Session {
     user: User & DefaultSession["user"];

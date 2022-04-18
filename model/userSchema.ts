@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { ObjectId } from "mongodb";
 import { formatTime } from "lib/util/util";
+import clientPromise from "lib/mongodb/mongodb";
+import { generateSessionToken } from "session-id-token";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,7 +20,6 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
     required: [true, "Please enter email"],
   },
   address: String,
@@ -26,6 +28,8 @@ const userSchema = new mongoose.Schema({
     enum: ["ADMIN", "VIP", "USER", "BLOCK"],
     default: "USER",
   },
+  image: String,
+  emailVerified: String,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -51,11 +55,22 @@ userSchema.pre("save", function (next) {
 
 userSchema.pre("save", async function (next) {
   // Only run this function if password was actually modified
+
   if (!this.isNew) {
     this.updateAt = new Date();
     this.formatUpdatedAt = formatTime();
     next();
-  } else next();
+  } else {
+    // const userId = new ObjectId(this._id);
+    // const _db = (await clientPromise).db(process.env.MONGODB_NAME);
+    // const accountCollection = await _db.collection("accounts");
+    // accountCollection.insertOne({
+    //   ...this._doc,
+    //   userId,
+    //   _id: userId,
+    // });
+    next();
+  }
 });
 
 userSchema.pre("findOneAndUpdate", function (next) {

@@ -4,11 +4,15 @@ import dbConnect from "lib/mongodb/mongoose";
 import userSchema from "model/userSchema";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "lib/mongodb/mongodb";
 
 export default NextAuth({
   session: {
-    maxAge: 30,
+    maxAge: 60 * 60,
+    strategy: "database",
   },
+  adapter: MongoDBAdapter(clientPromise),
   debug: true,
   secret: process.env.NEXTAUTH_URL,
   providers: [
@@ -22,7 +26,10 @@ export default NextAuth({
     }),
     CredentialsProvider({
       name: "credentials",
-      credentials: { email: {}, password: {} },
+      credentials: {
+        email: {},
+        password: {},
+      },
       async authorize(credentials) {
         dbConnect();
         //  Check if email and password exist
@@ -43,13 +50,14 @@ export default NextAuth({
       },
     }),
   ],
-  jwt: {
-    maxAge: 60,
-  },
+  // jwt: {
+  //   maxAge: 60,
+  // },
   pages: {
     signIn: "/",
-    error: "/",
+    error: "http://localhost:3000/",
   },
+  
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

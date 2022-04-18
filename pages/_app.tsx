@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import "styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "components/Layout";
@@ -9,9 +9,11 @@ import { useRouter } from "next/router";
 import LoadingSpin from "components/UI/LoadingSpin";
 import SideNavbar from "components/SideNavbar";
 import Navbar from "components/Navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import FormPortal from "components/Form";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const router = useRouter();
@@ -43,9 +45,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       {isLoading && <LoadingSpin />}
 
-      <SessionProvider>
+      <SessionProvider
+        session={session}
+        refetchInterval={5 * 60}
+        refetchOnWindowFocus={false}
+      >
         <CartContextProvider>
           <Layout>
+            <ToastContainer limit={1} />
             <Navbar setShowLogin={setShowLogin} />
             <SideNavbar />
             <Component {...pageProps} />
