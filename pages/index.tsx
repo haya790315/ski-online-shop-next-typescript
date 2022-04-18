@@ -5,12 +5,9 @@ import CategoriesCard from "components/CategoriesCard";
 import ShowCaseGroup from "components/ShowCaseSlider";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useSession } from "next-auth/react";
+
 
 const Home: NextPage = () => {
-  const session = useSession();
-  console.log(session);
-
   useEffect(() => {
     AOS.init({
       offset: 200,

@@ -17,7 +17,7 @@ const Layout: FC = ({ children }) => {
       });
     }
   }, [data, status]);
-  console.log(data, status);
+  // console.log(data, status);
 
   return (
     <>

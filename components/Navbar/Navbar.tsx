@@ -48,7 +48,6 @@ const Navbar = ({ setShowLogin }: INavbar) => {
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
-                    progress: undefined,
                   })
                 )
           }

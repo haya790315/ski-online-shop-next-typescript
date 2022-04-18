@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import validator from "validator";
 import axios from "axios";
+import { toast } from "react-toastify";
+import styles from "styles/LoadingSpin.module.css"
 
 interface ISingUpForm {
   display: boolean;
+  setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SingUpForm = ({ display }: ISingUpForm) => {
+const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
   const [nameOnFocus, setUserNameOnFocus] = useState(false);
   const [emailOnFocus, setEmailOnFocus] = useState(false);
   const [passwordOnFocus, setPasswordOnFocus] = useState(false);
   const [validation, setValidation] = useState(false);
+  const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   const [errorNumber, setErrorNumber] = useState(0);
   const [emailDuplicated, setEmailDuplicated] = useState(false);
   const [name, setUserName] = useState("");
@@ -19,14 +23,11 @@ const SingUpForm = ({ display }: ISingUpForm) => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
   const [emailDuplicatedMessage, setEmailDuplicatedMessage] = useState("");
-
   const checkEmailDuplicated = async () => {
     if (!validator.isEmail(email)) return setEmailOnFocus(true);
-    const response = await axios.get(
-      `api/auth/register?email=${email}`
-    );
 
-    console.log(response)
+    setIsCheckingEmail(true);
+    const response = await axios.get(`api/auth/register?email=${email}`);
     if (response.data.success) {
       setEmailDuplicated(true);
       setEmailDuplicatedMessage(response.data.message);
@@ -34,6 +35,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
       setEmailDuplicated(false);
       setEmailDuplicatedMessage(response.data.message);
     }
+    setIsCheckingEmail(false);
     return setEmailOnFocus(true);
   };
 
@@ -51,8 +53,18 @@ const SingUpForm = ({ display }: ISingUpForm) => {
     });
 
     if (response.data.success) {
-      console.log("created");
-    } else console.log("fail");
+      // console.log("created");
+      toast.success("アカウントを作成しました。", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 0,
+      });
+      setShowLogin(false);
+    }
   };
 
   useEffect(() => {
@@ -138,13 +150,13 @@ const SingUpForm = ({ display }: ISingUpForm) => {
             onBlur={() => checkEmailDuplicated()}
             onChange={(e) => setEmail(e.target.value)}
           ></input>
-          <p
+          <div
             className={`text-xs h-4  mb-2 ${
               emailDuplicated ? "text-red-600" : "text-green-400"
             }`}
           >
-            {emailDuplicatedMessage}
-          </p>
+            {isCheckingEmail?( <div className={styles.loader_checkEmail}></div>):emailDuplicatedMessage}
+          </div>
           <input
             name="password"
             type="password"

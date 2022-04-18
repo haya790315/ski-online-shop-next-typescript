@@ -1,10 +1,16 @@
-import React, { FC, useState } from "react";
-import LoginForm from "./LoginForm/LoginForm";
-import SingUpForm from "./SingUpForm/SingUpForm";
+import React from "react";
 
-const FormComp: FC = () => {
-  const [loginFormActive, setLoginFormActive] = useState(true);
+interface IFormComp {
+  children: React.ReactNode;
+  loginFormActive: boolean;
+  setLoginFormActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+const FormComp = ({
+  loginFormActive,
+  setLoginFormActive,
+  children,
+}: IFormComp) => {
   return (
     <div className="w-80 h-96 relative bg-white opacity-100 z-400 shadow-inner rounded-xl overflow-hidden">
       <div className="absolute flex flex-row top-0 h-12 w-full text-center  bg-stone-500 text-zinc-700">
@@ -25,8 +31,7 @@ const FormComp: FC = () => {
           アカウントを作成
         </h3>
       </div>
-      <LoginForm display={loginFormActive}/>
-      <SingUpForm display={!loginFormActive}/>
+      {children}
     </div>
   );
 };

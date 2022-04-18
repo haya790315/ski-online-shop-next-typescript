@@ -5,12 +5,12 @@ import validator from "validator";
 import style from "styles/LoadingSpin.module.css";
 import { signIn, useSession } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
-
 interface ILoginForm {
   display: boolean;
+  setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginForm = ({ display }: ILoginForm) => {
+const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [validation, setValidation] = useState(false);
   const [loginFailMessage, setLoginFailMessage] = useState("");
@@ -57,13 +57,13 @@ const LoginForm = ({ display }: ILoginForm) => {
     });
     setIsLogin(false);
     if (response?.ok) {
-      console.log("login");
+      // console.log("login");
+      setShowLogin(false)
     } else {
       setLoginFailMessage(
         "メールアドレス、もしくはパスワードが間違っています。"
       );
     }
-    console.log(response);
   };
 
   return (
@@ -133,7 +133,7 @@ const LoginForm = ({ display }: ILoginForm) => {
             !validation && "bg-zinc-600 opacity-50 cursor-pointer"
           }`}
         >
-          {login ? <div className={style.loader}></div> : "ログイン"}
+          {login ? <div className={style.loader_logIn}></div> : "ログイン"}
         </button>
 
         {loginFailMessage && (
