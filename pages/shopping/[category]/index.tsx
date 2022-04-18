@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params, query, res } = context;
   res.setHeader("Cache-Control", "s-maxage=20, stale-while-revalidate");
-  let uri = `https://${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/shopping/${params?.category}`;
+  let uri = `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/shopping/${params?.category}`;
 
   if (query.sort) uri += `?sort=${query.sort}`;
 
