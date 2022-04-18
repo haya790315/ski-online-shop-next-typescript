@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import React, { FC, useEffect} from "react";
 import { toast } from "react-toastify";
 
-const Layout: FC = ({ children }) => {
+const BodyLayout: FC = ({ children }) => {
   const { data, status } = useSession();
   useEffect(() => {
     if (data && status === "authenticated") {
@@ -26,4 +26,4 @@ const Layout: FC = ({ children }) => {
   );
 };
 
-export default Layout;
+export default BodyLayout;
