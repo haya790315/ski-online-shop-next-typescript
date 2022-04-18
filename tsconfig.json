@@ -15,14 +15,18 @@
     "jsx": "preserve",
     "incremental": true,
     "strictNullChecks": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "useUnknownInCatchVariables": false
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.js",
     "pages/product",
-    "pages/[type]"
-, "lib/fetcher"  ],
+    "pages/[type]",
+    "lib/fetcher",
+    "@type/*.d.ts"
+, "pages/api/auth/[...nextauth].ts"  ],
   "exclude": ["node_modules"]
 }

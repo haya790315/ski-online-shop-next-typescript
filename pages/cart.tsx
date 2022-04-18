@@ -7,7 +7,7 @@ import { IoIosClose } from "react-icons/io";
 import { useCartContext } from "store/cart-context";
 import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
-import type { TOption } from "type/ProductType";
+import type { TOption } from "@type/ProductType";
 import { calculateTotal } from "lib/util/util";
 import { Router, useRouter } from "next/router";
 

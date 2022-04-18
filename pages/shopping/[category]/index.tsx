@@ -5,7 +5,7 @@ import {
   ProductSelector,
   SelectedTag,
 } from "components/ProductLayout";
-import type { IProductData } from "type/ProductType";
+import type { IProductData } from "@type/ProductType";
 import type { TFilterId } from "localData/filterIndex";
 import { fetchApiData } from "lib/fetcher/fetchApiData";
 import ProductList from "components/ProductLayout/ProductList";
@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params, query, res } = context;
   res.setHeader("Cache-Control", "s-maxage=20, stale-while-revalidate");
-  let uri = `${process.env.NEXT_PUBLIC_URI_DOMAIN}api/shopping/${params?.category}`;
+  let uri = `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/shopping/${params?.category}`;
 
   if (query.sort) uri += `?sort=${query.sort}`;
 

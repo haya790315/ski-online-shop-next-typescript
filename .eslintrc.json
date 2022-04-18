@@ -1,4 +1,4 @@
 {
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
-  "rules": { "@typescript-eslint/no-non-null-assertion": "warn" }
+  "rules": { "@typescript-eslint/no-non-null-assertion": "warn", "no-var": 0 }
 }

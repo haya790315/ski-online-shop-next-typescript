@@ -4,7 +4,11 @@ export const fetchApiData = async (api:string) => {
   const data = response.result
 
   if (res.status !== 200) {
+<<<<<<< HEAD
     throw new Error(response.message);
+=======
+    console.error(data.message)
+>>>>>>> dev
   }
   
   return data;

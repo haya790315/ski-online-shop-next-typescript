@@ -4,7 +4,7 @@ import {
   useSelectedTagContext,
   ACTION_TYPES,
 } from "store/selector-context";
-import { IProductData } from "type/ProductType";
+import { IProductData } from "@type/ProductType";
 interface IProductListProps {
   list: IProductData[];
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import YenIcon from "public/image/static/YenIcon.svg";
 import styles from "styles/ShowCard.module.css";
 import Link from "next/link";
-import type {IProductData} from "type/ProductType"
+import type {IProductData} from "@type/ProductType"
 
 interface IShowCardProps {
   item: IProductData;

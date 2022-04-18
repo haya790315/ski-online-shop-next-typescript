@@ -6,7 +6,7 @@ import {
   ProductList,
 } from "components/ProductLayout";
 import { SelectedTagProvider } from "store/selector-context";
-import { IProductData } from "type/ProductType";
+import { IProductData } from "@type/ProductType";
 import { fetchMongoDbCollection } from "lib/fetcher/fetchMongoDbCollection";
 
 interface IProduct {

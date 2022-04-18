@@ -6,6 +6,7 @@ import ShowCaseGroup from "components/ShowCaseSlider";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+
 const Home: NextPage = () => {
   useEffect(() => {
     AOS.init({
