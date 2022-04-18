@@ -3,7 +3,7 @@ namespace NodeJS {
     MONGODB_URI: string;
     MONGODB_NAME: string;
     MONGODB_COLLECTION: string;
-    NEXT_PUBLIC_URI_DOMAIN: string;
+    NEXT_PUBLIC_VERCEL_URL: string;
     MONGO_DB_USER: string;
     MONGO_DB_PASSWORD: string;
     NEXTAUTH_SECRET: string;

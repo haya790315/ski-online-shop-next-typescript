@@ -10,7 +10,7 @@ import clientPromise from "lib/mongodb/mongodb";
 export default NextAuth({
   session: {
     maxAge: 60 * 60,
-    strategy: "database",
+    strategy: "jwt",
   },
   adapter: MongoDBAdapter(clientPromise),
   debug: true,

@@ -23,7 +23,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
   const checkEmailDuplicated = async () => {
     if (!validator.isEmail(email)) return setEmailOnFocus(true);
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/register?email=${email}`
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/register?email=${email}`
     );
     if (response.data.success) {
       setEmailDuplicated(true);
@@ -40,7 +40,7 @@ const SingUpForm = ({ display }: ISingUpForm) => {
 
     const response = await axios({
       method: "post",
-      url: `${process.env.NEXT_PUBLIC_URI_DOMAIN}/api/auth/register`,
+      url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/register`,
       data: {
         name,
         email,
