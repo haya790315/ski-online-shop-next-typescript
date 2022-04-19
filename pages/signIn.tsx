@@ -11,4 +11,8 @@ const SignIn = () => {
   );
 };
 
+SignIn.getLayout = (page: React.ReactElement) => {
+  return <>{page}</>;
+};
+
 export default SignIn;

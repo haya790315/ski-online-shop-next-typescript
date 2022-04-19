@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { SessionProvider} from "next-auth/react";
+import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 import "styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "components/Layout";
+import BodyLayout from "components/BodyLayout";
 import Head from "next/head";
 import { CartContextProvider } from "store/cart-context";
 import { useRouter } from "next/router";
@@ -12,11 +12,33 @@ import Navbar from "components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FormPortal from "components/Form";
+import { NextPage } from "next";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   const [isLoading, setIsLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const router = useRouter();
+
+  const getLayout =
+    Component.getLayout ??
+    ((page) => (
+      <>
+        <Navbar setShowLogin={setShowLogin} />
+        <SideNavbar />
+        {page}
+      </>
+    ));
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -28,7 +50,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     };
 
     router.events.on("routeChangeStart", handleRouteChange);
-
     router.events.on("routeChangeComplete", handleRouteComplete);
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
@@ -51,12 +72,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         refetchOnWindowFocus={false}
       >
         <CartContextProvider>
-          <Layout>
+          <BodyLayout>
             <ToastContainer limit={1} />
-            <Navbar setShowLogin={setShowLogin} />
-            <SideNavbar />
-            <Component {...pageProps} />
-          </Layout>
+            {getLayout(<Component {...pageProps} />)}
+          </BodyLayout>
           {showLogin && (
             <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
           )}
