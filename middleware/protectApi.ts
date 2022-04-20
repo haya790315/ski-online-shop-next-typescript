@@ -6,7 +6,7 @@ const protectAPI = async (
   res: NextApiResponse,
   next: NextHandler
 ) => {
-  if(!req.headers.referer?.startsWith(process.env.NEXT_PUBLIC_DOMAIN_URL)) {
+  if(!req.headers.referer?.startsWith(process.env.NEXTAUTH_URL)) {
     return res
       .status(401)
       .json({ success: false, message: "not authorized domain" });
