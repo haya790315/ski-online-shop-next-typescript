@@ -54,8 +54,8 @@ export default NextAuth({
   //   maxAge: 60,
   // },
   pages: {
-    signIn: "/",
-    error: "http://localhost:3000/",
+    signIn: "/signIn",
+    error: "/",
   },
   
   callbacks: {

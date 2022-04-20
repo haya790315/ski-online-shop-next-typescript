@@ -21,7 +21,7 @@ const BodyLayout: FC = ({ children }) => {
 
   return (
     <>
-      <div className="flex flex-col relative">{children}</div>
+      <div className="flex flex-col relative overflow-hidden">{children}</div>
     </>
   );
 };

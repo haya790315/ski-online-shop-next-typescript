@@ -27,7 +27,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
     if (!validator.isEmail(email)) return setEmailOnFocus(true);
 
     setIsCheckingEmail(true);
-    const response = await axios.get(`api/auth/register?email=${email}`);
+    const response = await axios.get(`api/auth/register?apikey=${process.env.NEXT_PUBLIC_API_KEY}&email=${email}`);
     if (response.data.success) {
       setEmailDuplicated(true);
       setEmailDuplicatedMessage(response.data.message);
@@ -44,6 +44,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
 
     const response = await axios({
       method: "post",
+      headers:{ Authorization: "JWT" + process.env.NEXT_PUBLIC_API_TOKEN },
       url: `api/auth/register`,
       data: {
         name,

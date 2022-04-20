@@ -108,7 +108,7 @@ const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
         <div className="absolute bottom-2 mt-8 flex flex-row justify-between items-center">
           <button
             type="button"
-            onClick={() => signIn("github")}
+            onClick={() => signIn("github",{ callbackUrl: '/' })}
             className="h-6 w-6 flex justify-center items-center rounded-full button_orange focus:bg-blue-700 mr-5"
           >
             <span>
@@ -117,7 +117,7 @@ const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
           </button>
           <button
             type="button"
-            onClick={() => signIn("google")}
+            onClick={() => signIn("google",{ callbackUrl: '/' })}
             className="h-6 w-6 flex justify-center items-center rounded-full button_orange focus:bg-blue-700 mr-5"
           >
             <span>
