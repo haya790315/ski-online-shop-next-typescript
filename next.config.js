@@ -16,4 +16,14 @@ module.exports = {
   images: {
     domains: ["www.snowinn.com", "cache.tradeinn.com", "www.tradeinn.com"],
   },
+
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/api/auth/:nextauth*",
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   ];
+  // },
 };

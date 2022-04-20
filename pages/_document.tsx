@@ -5,6 +5,7 @@ export default function Document() {
     <Html>
       <Head>
         <link rel="icon" href="/image/BrandLogo/favicon.ico" />
+        
         <link
           href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap"
           rel="stylesheet"
