@@ -56,7 +56,8 @@ const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
       password,
     });
     setIsLogin(false);
-    if (response?.ok) {
+    console.log(response)
+    if (response?.ok && !response.error ) {
       // console.log("login");
       setShowLogin(false)
     } else {
