@@ -44,7 +44,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
 
     const response = await axios({
       method: "post",
-      headers:{ Authorization: "JWT" + process.env.NEXT_PUBLIC_API_TOKEN },
+      headers:{ authorization: process.env.NEXT_PUBLIC_API_TOKEN },
       url: `api/auth/register`,
       data: {
         name,
