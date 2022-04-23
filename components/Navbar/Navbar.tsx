@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import SearchBar from "./SearchBar";
@@ -9,16 +9,16 @@ import ContactIcon from "public/image/static/ContactIcon.svg";
 import styles from "styles/Navbar.module.css";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import FormPortal from "components/Form";
 
-interface INavbar {
-  setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const Navbar = ({ setShowLogin }: INavbar) => {
+const Navbar = () => {
+  const [showLogin, setShowLogin] = useState(false);
   const router = useRouter();
   const session = useSession();
 
   return (
+    <>
     <div className="relative h-32 w-full top-0 left-0 bg-gray-900 flex flex-row justify-around items-center">
       <div className="relative cursor-pointer">
         <Image
@@ -31,7 +31,7 @@ const Navbar = ({ setShowLogin }: INavbar) => {
           objectPosition="center center"
           quality={70}
           onClick={() => router.push("/")}
-        />
+          />
       </div>
 
       <SearchBar />
@@ -79,6 +79,10 @@ const Navbar = ({ setShowLogin }: INavbar) => {
         </div>
       </ul>
     </div>
+    {showLogin && (
+            <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
+          )}
+  </>
   );
 };
 

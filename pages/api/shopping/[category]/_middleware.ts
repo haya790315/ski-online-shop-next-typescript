@@ -5,13 +5,13 @@ const protectAPI = async (
   req: NextRequest
 ) => {
 
-  const basicAuth = req.headers.get('authorization')
-  const apikey = req.nextUrl.searchParams.get('apiKey')
+  const basicAuth = req.headers.get('apitoken')
+  const apikey = req.nextUrl.searchParams.get('apikey')
   
   if (
     req.method === "POST" &&
     basicAuth !==  process.env.NEXT_PUBLIC_API_TOKEN
-  ) {
+    ) {
     return new Response('Auth required', {
       status: 401,
       headers: {

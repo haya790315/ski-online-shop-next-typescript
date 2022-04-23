@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import validator from "validator";
 import axios from "axios";
 import { toast } from "react-toastify";
-import styles from "styles/LoadingSpin.module.css"
+import styles from "styles/LoadingSpin.module.css";
 
 interface ISingUpForm {
   display: boolean;
@@ -27,7 +27,9 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
     if (!validator.isEmail(email)) return setEmailOnFocus(true);
 
     setIsCheckingEmail(true);
-    const response = await axios.get(`api/auth/register?apikey=${process.env.NEXT_PUBLIC_API_KEY}&email=${email}`);
+    const response = await axios.get(
+      `api/auth/register?apikey=${process.env.NEXT_PUBLIC_API_KEY}&email=${email}`
+    );
     if (response.data.success) {
       setEmailDuplicated(true);
       setEmailDuplicatedMessage(response.data.message);
@@ -44,7 +46,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
 
     const response = await axios({
       method: "post",
-      headers:{ authorization: process.env.NEXT_PUBLIC_API_TOKEN },
+      headers: { apitoken: process.env.NEXT_PUBLIC_API_TOKEN },
       url: `api/auth/register`,
       data: {
         name,
@@ -54,7 +56,6 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
     });
 
     if (response.data.success) {
-      // console.log("created");
       toast.success("アカウントを作成しました。", {
         position: "top-center",
         autoClose: 5000,
@@ -156,7 +157,11 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
               emailDuplicated ? "text-red-600" : "text-green-400"
             }`}
           >
-            {isCheckingEmail?( <div className={styles.loader_checkEmail}></div>):emailDuplicatedMessage}
+            {isCheckingEmail ? (
+              <div className={styles.loader_checkEmail}></div>
+            ) : (
+              emailDuplicatedMessage
+            )}
           </div>
           <input
             name="password"

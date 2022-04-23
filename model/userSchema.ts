@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { formatTime } from "lib/util/util";
+import { getTimezoneOffset } from "date-fns-tz";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -30,7 +31,7 @@ const userSchema = new mongoose.Schema({
   emailVerified: String,
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: new Date(Date.now() + getTimezoneOffset("Asia/Tokyo")),
   },
   formatCreatedAt: {
     type: String,
@@ -55,18 +56,10 @@ userSchema.pre("save", async function (next) {
   // Only run this function if password was actually modified
 
   if (!this.isNew) {
-    this.updateAt = new Date();
+    this.updateAt = new Date(Date.now() + getTimezoneOffset("Asia/Tokyo"));
     this.formatUpdatedAt = formatTime();
     next();
   } else {
-    // const userId = new ObjectId(this._id);
-    // const _db = (await clientPromise).db(process.env.MONGODB_NAME);
-    // const accountCollection = await _db.collection("accounts");
-    // accountCollection.insertOne({
-    //   ...this._doc,
-    //   userId,
-    //   _id: userId,
-    // });
     next();
   }
 });
@@ -77,9 +70,8 @@ userSchema.pre("findOneAndUpdate", function (next) {
 
   if (typeof password === "string" && password) {
     update.password = bcrypt.hashSync(password, 12);
-    update.updateAt = new Date();
+    update.updateAt = new Date(Date.now() + getTimezoneOffset("Asia/Tokyo"));
     update.formatUpdatedAt = formatTime();
-
     next();
   } else {
     next();

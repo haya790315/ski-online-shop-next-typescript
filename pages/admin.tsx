@@ -1,7 +1,7 @@
 import FormPortal from "components/Form";
 import React, { useState } from "react";
 
-const SignIn = () => {
+const Admin = () => {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
@@ -11,8 +11,8 @@ const SignIn = () => {
   );
 };
 
-SignIn.getLayout = (page: React.ReactElement) => {
+Admin.getLayout = (page: React.ReactElement) => {
   return <>{page}</>;
 };
 
-export default SignIn;
+export default Admin;

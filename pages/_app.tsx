@@ -11,7 +11,6 @@ import SideNavbar from "components/SideNavbar";
 import Navbar from "components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FormPortal from "components/Form";
 import { NextPage } from "next";
 
 type NextPageWithLayout = NextPage & {
@@ -27,14 +26,13 @@ function MyApp({
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) {
   const [isLoading, setIsLoading] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const router = useRouter();
 
   const getLayout =
     Component.getLayout ??
     ((page) => (
       <>
-        <Navbar setShowLogin={setShowLogin} />
+        <Navbar/>
         <SideNavbar />
         {page}
       </>
@@ -76,9 +74,6 @@ function MyApp({
             <ToastContainer limit={1} />
             {getLayout(<Component {...pageProps} />)}
           </BodyLayout>
-          {showLogin && (
-            <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
-          )}
         </CartContextProvider>
       </SessionProvider>
     </>

@@ -9,7 +9,7 @@ const protectAPI = async (
 
   if (
     req.method === "POST" &&
-    req.headers.authorization !==  process.env.NEXT_PUBLIC_API_TOKEN
+    req.headers.apitoken !==  process.env.NEXT_PUBLIC_API_TOKEN
   ) {
     return res
       .status(401)

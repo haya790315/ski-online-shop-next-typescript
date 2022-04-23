@@ -9,7 +9,7 @@ import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
 import type { TOption } from "@type/ProductType";
 import { calculateTotal } from "lib/util/util";
-import { Router, useRouter } from "next/router";
+import {  useRouter } from "next/router";
 
 export interface IOption {
   id: string;
@@ -22,8 +22,10 @@ const Cart: NextPage = () => {
   const router = useRouter();
   const [newOrder, setNewOrder] = useState<IOption>({
     size: "",
-    quantity: 3,
+    quantity:0,
   } as IOption);
+
+  console.log(cartOrder)
 
   const changeCartOrderHandler = useCallback(() => {
     const optionArray = [newOrder.size, newOrder.quantity];
