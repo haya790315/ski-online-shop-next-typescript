@@ -12,19 +12,20 @@ const OrderForm = () => {
       w-full
       bg-white
       rounded-lg
+      transition
+      ease-in-out
+      duration-200
       md:grid-cols-2"
     >
       <div className="relative">
         <input
           type="text"
           id="first-name"
-          className="peer space-x-1 w-full font-medium text-left text-neutral-700 border-b-2 
-          focus:border-b-2 border-zinc-300 focus:border-green-500 border-solid
-      focus:outline-none
-      placeholder-transparent"
+          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid text-neutral-700 font-medium focus:outline-none placeholder-transparent"
           autoComplete="family-name"
           placeholder="姓"
         />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full scale-0 origin-left transition-all ease-in  duration-200 peer-focus:bg-blue-300  peer-focus:scale-100"></span>
         <label
           htmlFor="post-first-name"
           className="
@@ -41,6 +42,8 @@ const OrderForm = () => {
     peer-placeholder-shown:text-zinc-400
     peer-focus:text-blue-400
     transition-all
+      linear
+      duration-300
     -translate-y-1/2 "
         >
           姓
@@ -50,16 +53,16 @@ const OrderForm = () => {
         <input
           type="text"
           id="last-name"
-          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid 
-          text-neutral-700 font-medium focus:border-b-2 focus:border-green-500
-      focus:outline-none
-      placeholder-transparent"
+          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid text-neutral-700 font-medium focus:outline-none placeholder-transparent"
           autoComplete="given-name"
           placeholder="名"
         />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full scale-0 origin-left transition-all ease-in  duration-200 peer-focus:bg-blue-300  peer-focus:scale-100"></span>
         <label
           htmlFor="last-name"
-          className="text-blue-400 text-sm font-semibold  absolute  -top-4  left-2  -translate-y-1/2 transition-all peer-placeholder-shown:left-0 peer-placeholder-shown:top-1/2
+          className="text-blue-400 text-sm font-semibold  absolute  -top-4  left-2  -translate-y-1/2 transition-all
+          linear
+          duration-300 peer-placeholder-shown:left-0 peer-placeholder-shown:top-1/2
     peer-placeholder-shown:text-zinc-400
     peer-focus:-top-4
     peer-focus:left-2
@@ -72,13 +75,11 @@ const OrderForm = () => {
         <input
           type="text"
           id="post-code"
-          className="peer space-x-1 w-full font-medium text-left text-neutral-700 border-b-2 
-          focus:border-b-2 border-zinc-300 focus:border-green-500 border-solid
-      focus:outline-none
-      placeholder-transparent"
+          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid text-neutral-700 font-medium focus:outline-none placeholder-transparent"
           autoComplete="off"
           placeholder="郵便番号"
         />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full scale-0 origin-left transition-all ease-in  duration-200 peer-focus:bg-blue-300  peer-focus:scale-100"></span>
         <label
           htmlFor="post-code"
           className="
@@ -95,6 +96,8 @@ const OrderForm = () => {
     peer-placeholder-shown:text-zinc-400
     peer-focus:text-blue-400
     transition-all
+      linear
+      duration-300
     -translate-y-1/2 "
         >
           郵便番号
@@ -104,16 +107,16 @@ const OrderForm = () => {
         <input
           type="text"
           id="address"
-          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid 
-          text-neutral-700 font-medium focus:border-b-2 focus:border-green-500
-      focus:outline-none
-      placeholder-transparent"
+          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid text-neutral-700 font-medium focus:outline-none placeholder-transparent"
           autoComplete="street-address"
           placeholder="住所 (道路名と住宅番号)"
         />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full scale-0 origin-left transition-all ease-in  duration-200 peer-focus:bg-blue-300  peer-focus:scale-100"></span>
         <label
           htmlFor="address"
-          className="text-blue-400 text-sm font-semibold  absolute  -top-4  left-2  -translate-y-1/2 transition-all peer-placeholder-shown:left-0 peer-placeholder-shown:top-1/2
+          className="text-blue-400 text-sm font-semibold  absolute  -top-4  left-2  -translate-y-1/2 transition-all
+          linear
+          duration-300 peer-placeholder-shown:left-0 peer-placeholder-shown:top-1/2
     peer-placeholder-shown:text-zinc-400
     peer-focus:-top-4
     peer-focus:left-2
@@ -126,11 +129,11 @@ const OrderForm = () => {
         <input
           type="text"
           id="Province"
-          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid 
-          text-neutral-700 font-medium focus:border-b-2 focus:border-green-500 focus:outline-none placeholder-transparent"
+          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid text-neutral-700 font-medium focus:outline-none placeholder-transparent"
           autoComplete="address-level1"
           placeholder="都道府県"
         />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full scale-0 origin-left transition-all ease-in  duration-200 peer-focus:bg-blue-300  peer-focus:scale-100"></span>
         <label
           htmlFor="Province"
           className="
@@ -142,6 +145,8 @@ const OrderForm = () => {
     left-2
     -translate-y-1/2
     transition-all
+      linear
+      duration-300
     peer-placeholder-shown:left-0
     peer-placeholder-shown:top-1/2
     peer-placeholder-shown:text-zinc-400
@@ -156,11 +161,11 @@ const OrderForm = () => {
         <input
           type="text"
           id="ward"
-          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid 
-          text-neutral-700 font-medium focus:border-b-2 focus:border-green-500 focus:outline-none placeholder-transparent"
+          className="peer w-full border-b-2 border-zinc-300 text-left space-x-1 border-solid text-neutral-700 font-medium focus:outline-none placeholder-transparent"
           autoComplete="address-level2"
           placeholder="市町村"
         />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full scale-0 origin-left transition-all ease-in  duration-200 peer-focus:bg-blue-300  peer-focus:scale-100"></span>
         <label
           htmlFor="ward"
           className="
@@ -172,6 +177,8 @@ const OrderForm = () => {
     left-2
     -translate-y-1/2
     transition-all
+      linear
+      duration-300
     peer-placeholder-shown:left-0
     peer-placeholder-shown:top-1/2
     peer-placeholder-shown:text-zinc-400
