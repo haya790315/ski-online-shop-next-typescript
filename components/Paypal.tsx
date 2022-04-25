@@ -103,7 +103,10 @@ const Paypal = () => {
         })
         .render(paypalRef.current as HTMLElement);
     });
-  }, [cart, cartOrder, router]);
+    return ()=>paypalRef.current?.remove()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart, cartOrder]);
 
   return <>{<div ref={(v) => v && (paypalRef.current = v)} />}</>;
 };

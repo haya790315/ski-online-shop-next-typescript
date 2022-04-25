@@ -80,7 +80,10 @@ const SideNavbar = () => {
 
       <div className="flex flex-row cursor-default relative text-white ">
         {router.pathname === "/cart" ? (
-          <button className="block  h-16 ml-4 w-48 bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
+          <button
+            className="block  h-16 ml-4 w-48 bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90"
+            onClick={() => router.push("/order")}
+          >
             注文手続きへ
           </button>
         ) : (
