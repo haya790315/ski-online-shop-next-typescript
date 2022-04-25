@@ -10,7 +10,7 @@ import styles from "styles/Navbar.module.css";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import FormPortal from "components/Form";
-
+import Link from "next/link";
 
 const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -19,70 +19,73 @@ const Navbar = () => {
 
   return (
     <>
-    <div className="relative h-32 w-full top-0 left-0 bg-gray-900 flex flex-row justify-around items-center">
-      <div className="relative cursor-pointer">
-        <Image
-          src="/image/BrandLogo/SkiJapanLogo.png"
-          alt="logo"
-          height={56}
-          width={208}
-          objectFit="cover"
-          priority
-          objectPosition="center center"
-          quality={70}
-          onClick={() => router.push("/")}
+      <div className="relative h-32 w-full top-0 left-0 bg-gray-900 flex flex-row justify-around items-center">
+        <div className="relative cursor-pointer">
+          <Image
+            src="/image/BrandLogo/SkiJapanLogo.png"
+            alt="logo"
+            height={56}
+            width={208}
+            objectFit="cover"
+            priority
+            objectPosition="center center"
+            quality={70}
+            onClick={() => router.push("/")}
           />
+        </div>
+
+        <SearchBar />
+        <ul className="text-white flex flex-row flex-grow-0 text-center">
+          <div
+            onClick={() =>
+              session.status === "unauthenticated"
+                ? setShowLogin(true)
+                : signOut({ redirect: false }).then(() =>
+                    toast(`また,いらっしゃいませ`, {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                    })
+                  )
+            }
+            className="px-8 relative cursor-pointer group"
+          >
+            {session.status === "authenticated" ? (
+              <SignOutIcon className="ml-2 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
+            ) : (
+              <AccountIcon className="ml-2 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
+            )}
+            <li className="text-sm font-semibold text-md group-hover:translate-y-1 transition-transform duration-300 ease-in-out">
+              {session.status === "authenticated" ? "ログアウト" : "ログイン"}
+            </li>
+            <div className={styles.line}></div>
+          </div>
+          <div className="px-8 relative cursor-pointer group">
+            <CheckoutIcon className="ml-1 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
+            <Link href="/order">
+              <a>
+                <li className="text-md font-semibold group-hover:translate-y-1 transition-transform duration-300 ease-in-out">
+                  レジ
+                </li>
+              </a>
+            </Link>
+            <div className={styles.line}></div>
+          </div>
+          <div className=" px-8 relative cursor-pointer group">
+            <ContactIcon className="group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
+            <li className="text-md font-semibold text-justify group-hover:translate-y-1 transition-transform duration-300 ease-in-out">
+              SNS
+            </li>
+          </div>
+        </ul>
       </div>
-
-      <SearchBar />
-      <ul className="text-white flex flex-row flex-grow-0 text-center">
-        <div
-          onClick={() =>
-            session.status === "unauthenticated"
-              ? setShowLogin(true)
-              : signOut({redirect: false}).then(() =>
-                  toast(`また,いらっしゃいませ`, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                  })
-                )
-          }
-          className="px-8 relative cursor-pointer group"
-        >
-          {session.status === "authenticated" ? (
-            <SignOutIcon className="ml-2 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
-          ) : (
-            <AccountIcon className="ml-2 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
-          )}
-          <li className="text-sm font-semibold text-md group-hover:translate-y-1 transition-transform duration-300 ease-in-out">
-            {session.status === "authenticated" ? "ログアウト" : "ログイン"}
-          </li>
-          <div className={styles.line}></div>
-        </div>
-        <div className="px-8 relative cursor-pointer group">
-          <CheckoutIcon className="ml-1 group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
-
-          <li className="text-md font-semibold group-hover:translate-y-1 transition-transform duration-300 ease-in-out">
-            レジ
-          </li>
-          <div className={styles.line}></div>
-        </div>
-        <div className=" px-8 relative cursor-pointer group">
-          <ContactIcon className="group-hover:translate-y-1 transition-transform duration-300 ease-in-out" />
-          <li className="text-md font-semibold text-justify group-hover:translate-y-1 transition-transform duration-300 ease-in-out">
-            SNS
-          </li>
-        </div>
-      </ul>
-    </div>
-    {showLogin && (
-            <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
-          )}
-  </>
+      {showLogin && (
+        <FormPortal showLogin={showLogin} setShowLogin={setShowLogin} />
+      )}
+    </>
   );
 };
 

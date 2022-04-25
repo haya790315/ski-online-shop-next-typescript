@@ -9,7 +9,6 @@ import { calculateTax, currencyFormat } from "lib/util/util";
 import { formatTexts } from "lib/util/util";
 import type { TOption } from "@type/ProductType";
 import { calculateTotal } from "lib/util/util";
-import {  useRouter } from "next/router";
 
 export interface IOption {
   id: string;
@@ -19,13 +18,11 @@ export interface IOption {
 
 const Cart: NextPage = () => {
   const { cart, setCart, setCartOrder, cartOrder } = useCartContext();
-  const router = useRouter();
   const [newOrder, setNewOrder] = useState<IOption>({
     size: "",
-    quantity:0,
+    quantity: 0,
   } as IOption);
 
-  console.log(cartOrder)
 
   const changeCartOrderHandler = useCallback(() => {
     const optionArray = [newOrder.size, newOrder.quantity];
@@ -179,9 +176,13 @@ const Cart: NextPage = () => {
           <button className="block lg:display-none h-24 w-full  bg-zinc-700 text-xl font-medium  bottom-0 hover:opacity-80 ">
             ショッピングを続ける
           </button>
-          <button className="block h-24 w-full  bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
-            注文手続きへ
-          </button>
+          <Link href="/order">
+            <a>
+              <button className="block h-24 w-full  bg-slate-50 text-stone-900 text-xl  font-medium  hover:opacity-90">
+                注文手続きへ
+              </button>
+            </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -14,8 +14,6 @@ const SideNavbar = () => {
 
   const { cart } = useCartContext();
 
-  // console.log({ cart, cartOrder });
-
   useEffect(() => {
     const handleScrollEvent = (e: Event) => {
       if (window.matchMedia("(max-width: 768px)").matches) return;

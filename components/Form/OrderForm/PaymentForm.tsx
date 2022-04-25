@@ -1,13 +1,11 @@
+import Paypal from "components/Paypal";
 import React from "react";
 
 const PaymentForm = () => {
   return (
     <>
-      <div className="px-4">
-        <hr />
-        <input type="radio" id="paypal" />
-        <label htmlFor="paypal" className="p-2">Paypal</label>
-      
+      <div className="px-4 text-center ">
+        <Paypal/>
       </div>
     </>
   );

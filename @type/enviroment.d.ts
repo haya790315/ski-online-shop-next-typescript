@@ -14,5 +14,6 @@ namespace NodeJS {
     NEXTAUTH_URL:string;
     NEXT_PUBLIC_API_KEY:string;
     NEXT_PUBLIC_API_TOKEN:string;
+    NEXT_PUBLIC_PAYPAL_ID:string;
   }
 }

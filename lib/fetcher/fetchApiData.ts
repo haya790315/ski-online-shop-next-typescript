@@ -1,10 +1,9 @@
 export const fetchApiData = async (api: string) => {
-  const response = await fetch(api).then(res=>res.json());
-  const data = response.result;
-
-  if (response.status !== 200) {
-    console.error(data.message);
+  try {
+    const response = await fetch(api).then((res) => res.json());
+    const data = response.result;
+    return data;
+  } catch (err) {
+    throw new Error(err);
   }
-
-  return data;
 };

@@ -9,7 +9,6 @@ const protectAPI = async (req: NextApiRequest) => {
   
   const token = await getToken({ req, secret })
   if (token) {
-    console.log(token,"token")
     return NextResponse.next();
   } else {
     return new Response("ログインしてください", {
