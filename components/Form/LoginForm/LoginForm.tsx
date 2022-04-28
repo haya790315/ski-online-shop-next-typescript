@@ -79,7 +79,7 @@ const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
             type="email"
             placeholder="メールアドレス"
             id="email_login"
-            className="h-10 w-full mb-4 border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-10 w-full mb-4 border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue dark:bg-black"
             value={inputValue.email}
             onChange={(event) => inputOnChangeHandler(event, "email")}
           ></input>
@@ -88,7 +88,7 @@ const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
             type={passwordVisible ? "text" : "password"}
             placeholder="パスワード"
             id="password_login"
-            className="h-10 w-full mb-4 border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-10 w-full mb-4 border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue dark:bg-black"
             value={inputValue.password}
             onChange={(event) => inputOnChangeHandler(event, "password")}
           ></input>
@@ -129,7 +129,7 @@ const LoginForm = ({ display,setShowLogin }: ILoginForm) => {
           disabled={!validation}
           type="submit"
           className={`relative flex justify-center items-center h-11 w-10/12 mb-5 button_orange focus:bg-blue-700 ${
-            !validation && "bg-zinc-600 opacity-50 cursor-pointer"
+            !validation && "bg-zinc-600 opacity-50 dark:bg-zinc-600 cursor-not-allowed"
           }`}
         >
           {login ? <div className={style.loader_logIn}></div> : "ログイン"}

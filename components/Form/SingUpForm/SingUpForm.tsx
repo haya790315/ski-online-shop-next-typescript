@@ -134,7 +134,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
             type="text"
             placeholder="ユーザーネーム"
             id="name"
-            className="h-8  w-full border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-8  w-full border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue dark:bg-black"
             style={{ borderColor: errorNumber === 1 ? "#D25050" : "" }}
             value={name}
             onBlur={() => setUserNameOnFocus(true)}
@@ -146,7 +146,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
             type="email"
             placeholder="メールアドレス"
             id="email"
-            className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue dark:bg-black"
             style={{ borderColor: errorNumber === 2 ? "#D25050" : "" }}
             value={email}
             onBlur={() => checkEmailDuplicated()}
@@ -154,7 +154,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
           ></input>
           <div
             className={`text-xs h-4  mb-2 ${
-              emailDuplicated ? "text-red-600" : "text-green-400"
+              emailDuplicated ? "text-red-600 dark:text-[#FC5327]" : "text-green-500 dark:text-green-300"
             }`}
           >
             {isCheckingEmail ? (
@@ -168,7 +168,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
             type="password"
             placeholder="パスワード"
             id="password"
-            className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-8  w-full  border-2 border-zinc-300 text-center space-x-1 border-solid rounded  text-sky-500 font-semibold focus:border_blue dark:bg-black"
             style={{ borderColor: errorNumber === 3 ? "#D25050" : "" }}
             value={password}
             onBlur={() => setPasswordOnFocus(true)}
@@ -180,7 +180,7 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
             placeholder="パスワード確認"
             type="password"
             id="password_confirm"
-            className="h-8 w-full border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue"
+            className="h-8 w-full border-2 border-zinc-300 text-center  border-solid rounded  text-sky-500 font-semibold focus:border_blue dark:bg-black"
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
           ></input>
@@ -189,12 +189,12 @@ const SingUpForm = ({ display, setShowLogin }: ISingUpForm) => {
           disabled={!validation}
           type="submit"
           className={`inline-block h-11 w-10/12 mt-4 button_orange focus:bg-blue-700 ${
-            !validation && "bg-zinc-600 opacity-50 cursor-pointer"
+            !validation && "bg-zinc-600 opacity-50 cursor-not-allowed dark:bg-zinc-600"
           }`}
         >
           アカウントを作成
         </button>
-        <p className="text-red-600 text-xs leading-4 text-center p-5 absolute bottom-0">
+        <p className="text-red-600 text-xs leading-4 text-center p-5 absolute bottom-0 dark:text-[#FC5327]">
           {validationMessage}
         </p>
       </form>

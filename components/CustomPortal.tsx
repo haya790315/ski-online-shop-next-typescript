@@ -1,6 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import ReactDOM from "react-dom";
-
+import DarkModeSwitcher from "./DarkModeSwitcher";
 
 interface ICustomPortal {
   children: React.ReactNode;
@@ -44,18 +48,23 @@ interface ICustomPortalProvider extends ICustomPortal {
   setShowPortal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CustomPortalProvider = ({
-  children,
-  showPortal,
-  setShowPortal,
-}: ICustomPortalProvider) => {
+const CustomPortalProvider = ({ children, showPortal, setShowPortal}:ICustomPortalProvider) => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const childrenWithProps = React.Children.map(
+    children,
+    (child) => {
+      return React.cloneElement(child as React.ReactElement, {darkMode})
+    })
+
   return (
     <CustomPortal showPortal={showPortal}>
+      <DarkModeSwitcher darkMode={darkMode} setDarkMode={setDarkMode} />
       <div
         onClick={() => setShowPortal(false)}
-        className="absolute h-screen w-screen opacity-90 bg-zinc-200"
+        className={`absolute h-screen w-screen opacity-90 bg-zinc-200 transition duration-500 ${darkMode&&"bg-zinc-900"}`}
       ></div>
-      {children}
+      {childrenWithProps}
     </CustomPortal>
   );
 };

@@ -5,7 +5,7 @@
 
 @layer components {
   .button_orange {
-    @apply text-center bg-orange-500  text-lg text-white font-semibold tracking-widest rounded;
+    @apply text-center bg-orange-500  text-lg text-white font-semibold tracking-widest rounded dark:bg-[#84248B];
   }
 
   .border_blue {

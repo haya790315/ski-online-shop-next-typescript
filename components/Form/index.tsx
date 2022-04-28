@@ -1,5 +1,5 @@
 import CustomPortalProvider from "components/CustomPortal";
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import FormComp from "./FormComp";
 import LoginForm from "./LoginForm/LoginForm";
 import SingUpForm from "./SingUpForm/SingUpForm";
@@ -11,9 +11,10 @@ interface IFormPortal {
 
 const FormPortal = ({ showLogin, setShowLogin }: IFormPortal) => {
   const [loginFormActive, setLoginFormActive] = useState(true);
+
   return (
     <CustomPortalProvider showPortal={showLogin} setShowPortal={setShowLogin}>
-      <FormComp setLoginFormActive={setLoginFormActive} loginFormActive={loginFormActive}>
+      <FormComp setLoginFormActive={setLoginFormActive} loginFormActive={loginFormActive} darkMode>
         <LoginForm display={loginFormActive} setShowLogin={setShowLogin} />
         <SingUpForm display={!loginFormActive} setShowLogin={setShowLogin} />
       </FormComp>
